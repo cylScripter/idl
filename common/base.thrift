@@ -9,7 +9,6 @@ struct ListOption {
   3: i32 limit(go.tag='json:"limit"');
   4: i32 offset(go.tag='json:"offset"');
   5: string offset_token(go.tag='json:"offset_token"');
-
 }
 struct Paginate{
   1: i32 total(go.tag='json:"total"'); // 总数
@@ -19,6 +18,4 @@ struct Paginate{
   5: bool has_more(go.tag='json:"has_more"');
 }
 
-service BaseService {
-
-}
+service BaseService {}

@@ -8,7 +8,6 @@ struct ConsumeReq {
    4: string msg_id
 }
 
-
 struct ConsumeResp {
    1: bool retry
    2: double cpu_percent
@@ -20,13 +19,11 @@ struct PubReq {
     2 : i32 group
     3 : string router_key
     4 : string req_id
-
 }
 
 struct PubResp {
    1 : string msg_id
 }
-
 
 service rabbitmq {
 }

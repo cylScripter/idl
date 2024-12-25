@@ -16,5 +16,5 @@ service helloservice{
 }
 
 
-// kitex -module github.com/cylScripter/openapiserver/helloserver  -template-dir /Users/cyl/project/kitex/server/standard2 -use github.com/cylScripter/openapi   -I ~/project/idl hello.thrift
- //kitex -module github.com/cylScripter/openapi -template-dir /Users/cyl/project/kitex/client/standard2 -gen-path ./ -I ~/project/idl hello.thrift
+// kitex -module github.com/cylScripter/openapiserver/systemserver  -template-dir /Users/cyl/project/kitex/server/standard2 -use github.com/cylScripter/openapi   -I ~/project/idl system.thrift
+ //kitex -module github.com/cylScripter/openapi -template-dir /Users/cyl/project/kitex/client/standard2 -gen-path ./ -I ~/project/idl system.thrift
