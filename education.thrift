@@ -49,10 +49,10 @@ struct ModelMenu {
   4: i32 deleted_at;
   5: string component(go.tag='json:"component" gorm:"column:component;default:BasicLayout"');
   6: Meta mete(go.tag='json:"mate" gorm:"column:meta;embedded"');
-  7: string name (go.tag='json:"name" gorm:"column:name');
-  8: string path (go.tag='json:"path" gorm:"column:path');
-  9: string redirect (go.tag='json:"redirect" gorm:"column:redirect');
-  10: i32 parent_id (go.tag='json:"parent_id" gorm:"column:parent_id');
+  7: string name (go.tag='json:"name" gorm:"column:name"');
+  8: string path (go.tag='json:"path" gorm:"column:path"');
+  9: string redirect (go.tag='json:"redirect" gorm:"column:redirect"');
+  10: i32 parent_id (go.tag='json:"parent_id" gorm:"column:parent_id"');
   11: list<ModelMenu> children (go.tag='json:"children" gorm:"-"');
 }
 
