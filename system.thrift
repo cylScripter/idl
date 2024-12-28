@@ -234,8 +234,8 @@ enum ErrorCode {
 
 // 用户登录
 struct LoginReq {
-  1:required string user_id(go.tag='json:"user_id,required" binding:"required"');
-  2:required string password(go.tag='json:"password,required" binding:"required"');
+  1:required string user_id(go.tag='json:"user_id" binding:"required"');
+  2:required string password(go.tag='json:"password" binding:"required"');
 
 }
 
