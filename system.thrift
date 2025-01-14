@@ -188,7 +188,7 @@ service systemservice {
     )
     //
     GetAuthCodeResp GetAuthCode(1:GetAuthCodeReq req)(
-       api.get = '/system/GetAuthCode'
+       api.post = '/system/GetAuthCode'
        api.serializer = 'json'
     )
     // 获取菜单列表
