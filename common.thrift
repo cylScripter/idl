@@ -82,7 +82,7 @@ struct ModelFile {
   6: i32 file_type(go.tag='gorm:"column:file_type" json:"file_type;default:3"');
   7: i32 status(go.tag='gorm:"column:status" json:"status"');
   8: string upload_id(go.tag='gorm:"column:upload_id" json:"upload_id"');
-  9: string json_meta (go.tag='gorm:"column:meta;type:json;default:"{}";" json:"meta"');
+  9: string json_meta (go.tag='gorm:"column:meta;type:json;default:{};" json:"meta"');
   10: string suffix (go.tag='gorm:"column:suffix" json:"suffix"');
   11: string str_file_id (go.tag='gorm:"column:str_file_id" json:"str_file_id"');
   12: string bucket_name (go.tag='gorm:"column:bucket_name" json:"bucket_name"');
