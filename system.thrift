@@ -1,7 +1,7 @@
 namespace go system
 
 include "common/base.thrift"
-
+include "education.thrift"
 
 // Api管理表
 struct ModelApi{
@@ -220,6 +220,11 @@ service systemservice {
        api.serializer = 'json'
     )
 
+    GetAppListResp GetAppList(1:GetAppListReq req)(
+       api.post = '/system/GetAppList'
+       api.serializer = 'json'
+    )
+
 }
 
 enum ErrorCode {
@@ -231,6 +236,24 @@ enum ErrorCode {
   RoleExist = 10006, // 角色已存在
   PermissionNotExist = 10007,// 权限不存在
 }
+
+struct GetAppListReq {
+   1: base.ListOption list_option;
+}
+
+enum GetAppListResOption {
+    id = 1,
+    school_name = 2,
+    created_at = 3,
+    college_name = 4,
+}
+
+
+struct GetAppListResp {
+   1: base.Paginate paginate;
+   2: list<education.ModelApp> list;
+}
+
 
 // 用户登录
 struct LoginReq {

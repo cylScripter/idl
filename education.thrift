@@ -306,6 +306,7 @@ struct ModelApp {
   8: string app_key(go.tag='gorm:"column:app_key" json:"app_key"'); // 应用key
   9: string app_secret(go.tag='gorm:"column:app_secret" json:"app_secret"'); // 应用密钥
   10: i32 school_code(go.tag='gorm:"column:school_code" json:"school_code"'); // 学校代码
+  11: bool status(go.tag='gorm:"column:status;default:1" json:"status"'); // 状态
 }
 // 用户表
 struct ModelUser {
