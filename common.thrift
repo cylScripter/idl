@@ -1,22 +1,28 @@
 namespace go common
-
+include "common/base.thrift"
 /**
 * 公共服务
 **/
 
 service commonservice {
 
-
+    // 获取文件
 	GetFileResp GetFile (1:GetFileReq req)(
 		api.get = '/common/GetFile'
 		api.serializer = 'json'
 	)
 
+	// 获取文件列表
+	GetFileListResp GetFileList(1:GetFileListReq req)(
+		api.post = '/common/GetFileList'
+		api.serializer = 'json'
+	)
 	// 上传小文件
 	UploadFileResp UploadFile(1:UploadFileReq req)(
 		api.post = '/common/UploadFile'
         api.serializer = 'json'
 	)
+
 
 	// CompleteFile  完成上传，获取文件地址
 	CompleteFileResp CompleteFile(1:CompleteFileReq req)(
@@ -71,43 +77,26 @@ service commonservice {
 
 const string DefaultBucketName = "open";
 
-// ---------- Model -----------
 
-struct ModelFile {
-  1: i32 id (go.tag='gorm:"column:id;" json:"id"');
-  2: i32 created_at(go.tag='gorm:"column:created_a;indext" json:"created_at"');
-  3: i32 updated_at;
-  4: string file_name(go.tag='gorm:"column:file_name" json:"file_name"');
-  5: string file_path(go.tag='gorm:"column:file_path" json:"file_path"');
-  6: i32 file_type(go.tag='gorm:"column:file_type" json:"file_type;default:3"');
-  7: i32 status(go.tag='gorm:"column:status" json:"status"');
-  8: string upload_id(go.tag='gorm:"column:upload_id" json:"upload_id"');
-  9: string json_meta (go.tag='gorm:"column:meta;type:json;default:{};" json:"meta"');
-  10: string suffix (go.tag='gorm:"column:suffix" json:"suffix"');
-  11: string str_file_id (go.tag='gorm:"column:str_file_id" json:"str_file_id"');
-  12: string bucket_name (go.tag='gorm:"column:bucket_name" json:"bucket_name"');
-  13: i32 deleted_at;
-  14: ModelFile_Meta meta (go.tag='gorm:"-" json:"-"');
+struct GetFileListReq {
+   1 : base.ListOption list_option (go.tag='json:"list_option" binding:"required"');
 }
 
-struct ModelFile_Meta {}
-
-enum FileType {
-    Unknown = 0
-	System = 1 // 系统文件
-	Tmp = 2 // 临时文件
-	Business = 3// 业务文件
+enum GetFileListReqOption {
+	id = 1 ;
+	file_name =2;
+	file_path = 3
+	file_type = 4
+	status = 5
+	upload_id = 6
+	suffix = 7
+	str_file_id = 8
+	bucket_name =9
 }
 
-enum FileStatus {
-	Unknown = 0 // 未知
-	Init = 1 // 初始化
-	Uploading = 2 // 上传中
-	Uploaded = 3 // 上传完成
-	Failed = 4   // 上传失败
-	Deleted = 5  // 删除
-	Expired = 6  // 过期
-	Aborted = 7 // 中断
+struct GetFileListResp {
+  1: list<ModelFile> list(go.tag='json:"list"');
+  2: base.Paginate paginate(go.tag='json:"paginate"');
 }
 
 struct UploadFileReq {
@@ -173,9 +162,7 @@ struct AbortMultipartReq {
 struct AbortMultipartResp {}
 
 struct GetObjectReq {
-	1: string str_file_id;
-	2: string bucket_name;
-	3: string object_path;
+	1: string upload_id;
 }
 
 struct GetObjectResp {
@@ -184,9 +171,7 @@ struct GetObjectResp {
 }
 
 struct DeleteObjectReq {
-	1: string str_file_id;
-	2: string bucket_name;
-	3: string object_path;
+	1: string upload_id;
 }
 
 struct DeleteObjectResp {}
@@ -254,4 +239,46 @@ struct GetFileResp {
 
 struct GetFileReq {
 	1: string upload_id(go.tag='json:"upload_id" binding:"required"');
+}
+
+
+
+
+// ---------- Model -----------
+
+struct ModelFile {
+  1: i32 id (go.tag='gorm:"column:id;" json:"id"');
+  2: i32 created_at(go.tag='gorm:"column:created_at;index" json:"created_at"');
+  3: i32 updated_at;
+  4: string file_name(go.tag='gorm:"column:file_name" json:"file_name"');
+  5: string file_path(go.tag='gorm:"column:file_path" json:"file_path"');
+  6: i32 file_type(go.tag='gorm:"column:file_type;default:3" json:"file_type"');
+  7: i32 status(go.tag='gorm:"column:status" json:"status"');
+  8: string upload_id(go.tag='gorm:"column:upload_id;index" json:"upload_id"');
+  9: string json_meta (go.tag='gorm:"column:meta;type:json;default:"{}";" json:"meta"');
+  10: string suffix (go.tag='gorm:"column:suffix" json:"suffix"');
+  11: string str_file_id (go.tag='gorm:"column:str_file_id" json:"str_file_id"');
+  12: string bucket_name (go.tag='gorm:"column:bucket_name" json:"bucket_name"');
+  13: i32 deleted_at;
+  14: ModelFile_Meta meta (go.tag='gorm:"-" json:"-"');
+}
+
+struct ModelFile_Meta {}
+
+enum FileType {
+    Unknown = 0
+	System = 1 // 系统文件
+	Tmp = 2 // 临时文件
+	Business = 3// 业务文件
+}
+
+enum FileStatus {
+	Unknown = 0 // 未知
+	Init = 1 // 初始化
+	Uploading = 2 // 上传中
+	Uploaded = 3 // 上传完成
+	Failed = 4   // 上传失败
+	Deleted = 5  // 删除
+	Expired = 6  // 过期
+	Aborted = 7 // 中断
 }

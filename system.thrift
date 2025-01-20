@@ -2,6 +2,7 @@ namespace go system
 
 include "common/base.thrift"
 include "education.thrift"
+include "common.thrift"
 
 // Api管理表
 struct ModelApi{
@@ -220,9 +221,142 @@ service systemservice {
        api.serializer = 'json'
     )
 
+
+
+    // 获取应用列表
     GetAppListResp GetAppList(1:GetAppListReq req)(
        api.post = '/system/GetAppList'
        api.serializer = 'json'
+    )
+
+    // 创建应用
+    CreateAppResp CreateApp(1:CreateAppReq req)(
+       api.post = '/system/CreateApp'
+       api.serializer = 'json'
+    )
+
+    // 获取应用详情
+    GetAppResp GetApp(1:GetAppReq req)(
+       api.post = '/system/GetApp'
+       api.serializer = 'json'
+    )
+    // 创建edu用户
+    CreateEduUserResp CreateEduUser(1:CreateEduUserReq req)(
+       api.post = '/system/CreateEduUser'
+       api.serializer = 'json'
+    )
+
+    // 获取edu用户列表
+    GetEduUserListResp GetEduUserList(1:GetEduUserListReq req)(
+       api.post = '/system/GetEduUserList'
+       api.serializer = 'json'
+    )
+
+     // 获取密码
+     GetPasswordResp GetPassword(1:GetPasswordReq req)(
+       api.post = '/system/GetPassword'
+       api.serializer = 'json'
+     )
+
+     // 设置应用角色菜单权限
+     SetAppRoleMenuResp SetAppRoleMenu(1:SetAppRoleMenuReq req)(
+       api.post = '/system/SetAppRoleMenu'
+       api.serializer = 'json'
+     )
+
+
+     // 获取菜单列表
+     GetEduMenuListResp GetEduMenuList(1:GetEduMenuListReq req)(
+       api.post = '/system/GetEduMenuList'
+       api.serializer = 'json'
+     )
+
+     // 创建应用菜单
+     CreateEduMenuResp CreateEduMenu(1:CreateEduMenuReq req)(
+       api.post = '/system/CreateEduMenu'
+       api.serializer = 'json'
+     )
+
+     // 更新菜单
+     UpdateEduMenuResp UpdateEduMenu(1:UpdateEduMenuReq req)(
+       api.post = '/system/UpdateEduMenu'
+       api.serializer = 'json'
+     )
+
+     // 删除菜单
+     DeleteEduMenuResp DeleteEduMenu(1:DeleteEduMenuReq req)(
+       api.post = '/system/DeleteEduMenu'
+       api.serializer = 'json'
+     )
+
+     // 删除app
+     DeleteAppResp DeleteApp(1:DeleteAppReq req)(
+       api.post = '/system/DeleteApp'
+       api.serializer = 'json'
+     )
+
+
+     // 设置app状态
+     SetAppStatusResp  SetAppStatus(1:SetAppStatusReq req)(
+       api.post = '/system/SetAppStatus'
+       api.serializer = 'json'
+     )
+
+     // 设置菜单状态
+     SetEduMenuStatusResp SetEduMenuStatus(1:SetEduMenuStatusReq req)(
+       api.post = '/system/SetEduMenuStatus'
+       api.serializer = 'json'
+     )
+
+     // GetOperationLogs
+     GetOperationLogsListResp GetOperationLogsList(1:GetOperationLogsListReq req)(
+       api.post = '/system/GetOperationLogsList'
+       api.serializer = 'json'
+     )
+
+     // 获取edu角色列表
+     GetEduRoleListResp GetEduRoleList(1:GetEduRoleListReq req)(
+       api.post = '/system/GetEduRoleList'
+       api.serializer = 'json'
+     )
+
+     // 获取edu角色详情
+     GetEduRoleMenuResp GetEduRoleMenu(1:GetEduRoleMenuReq req)(
+       api.post = '/system/GetEduRoleMenu'
+       api.serializer = 'json'
+     )
+     // 设置edu用户角色
+     SetEduUserRoleResp SetEduUserRole(1:SetEduUserRoleReq req)(
+       api.post = '/system/SetEduUserRole'
+       api.serializer = 'json'
+     )
+
+     // 获取edu用户token
+     GetEduUserTokenResp GetEduUserToken(1:GetEduUserTokenReq req)(
+       api.post = '/system/GetEduUserToken'
+       api.serializer = 'json'
+     )
+
+     ResetEduUserPasswordResp ResetEduUserPassword(1:ResetEduUserPasswordReq req)(
+       api.post = '/system/ResetEduUserPassword'
+       api.serializer = 'json'
+     )
+
+     // 获取文件列表
+    GetFileListResp GetFileList(1:GetFileListReq req)(
+        api.post = '/system/GetFileList'
+        api.serializer = 'json'
+    )
+
+    // 获取文件
+    GetObjectResp GetObject(1:GetObjectReq req)(
+        api.post = '/system/GetObject'
+        api.serializer = 'json'
+    )
+    // 删除文件
+    DeleteObjectResp DeleteObject(1:DeleteObjectReq req)(
+        api.post = '/system/DeleteObject'
+        api.serializer = 'json'
     )
 
 }
@@ -237,11 +371,237 @@ enum ErrorCode {
   PermissionNotExist = 10007,// 权限不存在
 }
 
+struct GetObjectReq {
+	1: string upload_id;
+}
+
+struct GetObjectResp {
+  1 :string url;
+  3: string file_name;
+}
+
+
+
+struct DeleteObjectReq {
+	1: string upload_id;
+}
+
+struct DeleteObjectResp {}
+
+
+
+struct GetFileListReq {
+   1 : base.ListOption list_option (go.tag='json:"list_option" binding:"required"');
+}
+
+
+struct GetFileListResp {
+  1: list<common.ModelFile> list(go.tag='json:"list"');
+  2: base.Paginate paginate(go.tag='json:"paginate"');
+}
+
+struct ResetEduUserPasswordReq {
+  1: i32 user_id(go.tag='json:"user_id" binding:"required"');
+  2: i32 app_id(go.tag='json:"app_id" binding:"required"');
+}
+
+struct ResetEduUserPasswordResp {}
+
+struct GetEduUserTokenReq {
+  1: i32 user_id(go.tag='json:"user_id" binding:"required"');
+  2: i32 app_id(go.tag='json:"app_id" binding:"required"');
+}
+struct GetEduUserTokenResp {
+  1: string token(go.tag='json:"token"');
+}
+
+struct SetEduUserRoleReq {
+  1: i32 user_id(go.tag='json:"user_id" binding:"required"');
+  2: list<i32> role_ids(go.tag='json:"role_ids" binding:"required"');
+  3: i32 app_id(go.tag='json:"app_id" binding:"required"');
+}
+
+struct SetEduUserRoleResp {}
+
+struct GetEduRoleMenuReq {
+  1: i32 role_id(go.tag='json:"role_id" binding:"required"');
+  2: i32 app_id(go.tag='json:"app_id" binding:"required"');
+}
+
+struct GetEduRoleMenuResp {
+  1: list<i32> list(go.tag='json:"list"');
+}
+
+struct GetEduRoleListReq {
+  1: base.ListOption list_option(go.tag='json:"list_option"');
+  2: i32 app_id(go.tag='json:"app_id" binding:"required"');
+}
+struct GetEduRoleListResp {
+  1: list<education.ModelRole> list(go.tag='json:"list"');
+  2: base.Paginate paginate(go.tag='json:"paginate"');
+}
+
+struct GetOperationLogsListReq {
+  1: base.ListOption list_option(go.tag='json:"list_option"');
+}
+
+enum GetOperationLogsListReqOption {
+   id = 1;
+   created_at = 2;
+  user_name = 3;
+  operation = 4;
+  object_type = 5;
+  object_id = 6;
+  details = 7;
+  ip_address = 8;
+  app_id = 9;
+}
+
+struct GetOperationLogsListResp {
+  1: list<education.ModelOperationLogs> list(go.tag='json:"list"');
+  2: base.Paginate paginate(go.tag='json:"paginate"');
+}
+
+
+struct SetAppStatusReq {
+   1: list<StatusValue> values(go.tag='json:"values" binding:"required"');
+}
+
+struct SetAppStatusResp {}
+
+struct SetEduMenuStatusReq {
+   1: list<StatusValue> values(go.tag='json:"values" binding:"required"');
+}
+
+struct SetEduMenuStatusResp {}
+
+struct StatusValue {
+   1: i32 id(go.tag='json:"id"');
+   2: bool value(go.tag='json:"value"');
+}
+
+
+
+struct DeleteAppReq {
+   1: list<i32> ids(go.tag='json:"ids" binding:"required"');
+}
+struct DeleteAppResp {}
+
+struct DeleteEduMenuReq {
+   1: list<i32> ids(go.tag='json:"ids" binding:"required"');
+}
+
+struct DeleteEduMenuResp {
+
+}
+
+struct UpdateEduMenuReq {
+   1: i32 id(go.tag='json:"id" binding:"required"');
+  2: string name(go.tag='json:"name"');
+  3: string path(go.tag='json:"path"');
+  4: string component(go.tag='json:"component"');
+  5: string redirect(go.tag='json:"redirect"');
+  6: i32 parent_id(go.tag='json:"parent_id"');
+  7: education.Meta meta(go.tag='json:"meta"');
+}
+
+struct UpdateEduMenuResp {
+
+}
+
+struct CreateEduMenuReq {
+    1: string name(go.tag='json:"name" binding:"required"');
+   2: string path(go.tag='json:"path" binding:"required"');
+   3: string component(go.tag='json:"component" binding:"required"');
+   4: string redirect(go.tag='json:"redirect"');
+   5: i32 parent_id(go.tag='json:"parent_id"');
+    6: education.Meta meta(go.tag='json:"meta"');
+}
+
+struct CreateEduMenuResp {}
+
+
+
+
+
+struct GetEduMenuListReq {
+   1: base.ListOption list_option;
+}
+
+struct GetEduMenuListResp {
+   1: list<education.ModelMenu> list;
+   2: base.Paginate paginate;
+}
+
+struct SetAppRoleMenuReq {
+   1: i32 app_id(go.tag='json:"app_id" binding:"required"');
+   2: i32 role_id(go.tag='json:"role_id" binding:"required"');
+   3: list<i32> menu_ids()
+}
+
+struct SetAppRoleMenuResp {}
+
+struct GetPasswordReq {
+   1: string user_id(go.tag='json:"user_id" binding:"required"');
+   2: i32 app_id(go.tag='json:"app_id" binding:"required"')
+}
+
+struct GetPasswordResp {
+   1: string password;
+}
+
+struct GetEduUserListReq {
+   1: base.ListOption list_option;
+   2: i32 app_id(go.tag='json:"app_id" binding:"required"');
+
+}
+
+struct GetEduUserListResp {
+   1: list<education.ModelUser> list;
+   2: base.Paginate paginate;
+   3: map<i32, list<education.ModelRole>> role_map(go.tag='json:"role_map"');
+}
+
+
+struct CreateEduUserReq {
+   1: string user_name(go.tag='json:"username" binding:"required"'); // 用户名
+   2: string password(go.tag='json:"password" binding:"required"');  // 密码
+   3: string nick_name(go.tag='json:"nick_name" binding:"required"'); // 昵称
+   4: string email(go.tag='json:"email"'); // 邮箱
+   5: string mobile(go.tag='json:"mobile"'); // 手机号
+   6: string avatar(go.tag='json:"avatar"'); // 头像
+   7: i32 app_id(go.tag='json:"app_id" binding:"required"'); // 角色id
+}
+
+struct CreateEduUserResp {}
+
+struct GetAppReq{
+   1: i32 id(go.tag='json:"id" binging:"required"');
+}
+
+struct GetAppResp {
+   1: education.ModelApp app;
+   2: education.ModelUser user;
+   3: list<education.ModelRole> roles;
+}
+
+
+struct CreateAppReq {
+  1: string school_name(go.tag='json:"school_name" binding:"required"'); // 学校名称
+  2: string  college_name(go.tag='json:"college_name" binding:"required"');  //学院名称
+}
+
+
+struct CreateAppResp {}
+
+
+
+
 struct GetAppListReq {
    1: base.ListOption list_option;
 }
 
-enum GetAppListResOption {
+enum GetAppListReqOption {
     id = 1,
     school_name = 2,
     created_at = 3,
