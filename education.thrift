@@ -238,26 +238,173 @@ service educationservice {
       api.serializer = 'json'
    )
 
-   // 同步教学人员信息
-   SyncTeacherInfoResp SyncTeacherInfo(1:SyncTeacherInfoReq req)(
-      api.post = '/education/SyncTeacherInfo'
+   // 排序教学人员信息
+   OrderTeacherInfoResp OderTeacherInfo(1:OrderTeacherInfoReq req)(
+      api.post = '/education/OrderTeacherInfo'
       api.serializer = 'json'
    )
 
-    UpdateMenuResp UpdateMenu(1:UpdateMenuReq req)(
-      api.post = '/education/UpdateMenu'
-      api.serializer = 'json'
-    )
+    // 更新菜单
+    UpdateMenuResp UpdateMenu(1:UpdateMenuReq req);
 
-     DeleteMenuResp DeleteMenu(1:DeleteMenuReq req)(
-       api.post = '/education/DeleteMenu'
-       api.serializer = 'json'
-    )
+    // 删除菜单
+    DeleteMenuResp DeleteMenu(1:DeleteMenuReq req);
+
     // 获取token
     GetTokenResp GetToken(1:GetTokenReq req);
+
+    // 修改角色
+    UpdateRoleResp UpdateRole(1:UpdateRoleReq req)(
+        api.post = '/education/UpdateRole'
+        api.serializer = 'json'
+    );
+
+    // 设置角色状态
+    SetRoleStatusResp SetRoleStatus(1:SetRoleStatusReq req)(
+        api.post = '/education/SetRoleStatus'
+        api.serializer = 'json'
+    )
+
+    // 删除角色
+    DeleteRoleResp DeleteRole(1:DeleteRoleReq req)(
+        api.post = '/education/DeleteRole'
+        api.serializer = 'json'
+    )
+
+    // 删除教研室
+    DeleteOfficeResp DeleteOffice(1:DeleteOfficeReq req)(
+        api.post = '/education/DeleteOffice'
+        api.serializer = 'json'
+    )
+    // 更新教研室
+    UpdateOfficeResp UpdateOffice(1:UpdateOfficeReq req)(
+        api.post = '/education/UpdateOffice'
+        api.serializer = 'json'
+    )
+    // 修改用户
+    UpdateUserResp UpdateUser(1:UpdateUserReq req)(
+        api.post = '/education/UpdateUser'
+        api.serializer = 'json'
+    )
+
+    // 重设密码
+    ResetPasswordResp ResetPassword(1:ResetPasswordReq req)(
+        api.post = '/education/ResetPassword'
+        api.serializer = 'json'
+    )
+
+    //  删除教学人员基本信息
+    DeleteTeacherInfoResp DeleteTeacherInfo(1:DeleteTeacherInfoReq req)(
+        api.post = '/education/DeleteTeacherInfo'
+        api.serializer = 'json'
+    )
+
+    // 创建教学人员基本信息
+    CreateTeacherInfoResp CreateTeacherInfo(1:CreateTeacherInfoReq req)(
+        api.post = '/education/CreateTeacherInfo'
+        api.serializer = 'json'
+    )
+
+    // 导出教学人员基本信息
+    ExportTeacherInfoResp ExportTeacherInfo(1:ExportTeacherInfoReq req)(
+        api.post = '/education/ExportTeacherInfo'
+        api.serializer = 'json'
+    )
+
+    //
 }
 
 // =================req\resp===============================
+
+struct ExportTeacherInfoReq {
+   1: list<i32> ids(go.tag='json:"ids"')
+}
+
+struct ExportTeacherInfoResp {
+    1: string task_key(go.tag='json:"task_key"');
+}
+
+
+struct CreateTeacherInfoReq {
+    1: string name(go.tag='json:"name" binding:"required"'); // 姓名
+    2: string department(go.tag='json:"department" binding:"required"'); // 部门
+    3:i32 uid (go.tag='json:"uid" binding:"required"'); // 用户id
+    4:i32 office_id(go.tag='json:"office_id" binding:"required"') // 教研室id
+    5 :string user_name(go.tag='json:"user_name" binding:"required"') // 学号
+    6: string duties(go.tag='json:"duties" '); // 职务
+    7: string appoint_time(go.tag='json:"appoint_time" ') // 任职时间
+    8: string position_level(go.tag='json:"position_level" ') // 岗位等级
+    9: string cposition_time(go.tag='json:"cposition_time" ') // 现聘岗位时间
+    10: i64 remunerate(go.tag='json:"remunerate" ') // 岗位等级课酬标准
+    11: string id_category(go.tag='json:"id_category" ') // 身份类别
+    12: i32 is_external(go.tag='json:"is_external" '); // 是否外聘
+}
+
+struct CreateTeacherInfoResp {
+}
+
+struct DeleteTeacherInfoReq {
+    1: list<i32> ids(go.tag='json:"ids" binding:"required"');
+}
+
+struct DeleteTeacherInfoResp {
+    1: i32 count(go.tag='json:"count"');
+}
+
+struct ResetPasswordReq     {
+    1: i32 id(go.tag='json:"id" binding:"required"');
+}
+
+struct ResetPasswordResp {}
+
+struct UpdateUserReq{
+    1: i32 id(go.tag='json:"id" binding:"required"');
+    2: string user_name(go.tag='json:"user_name" binding:"required"');
+    3: string nick_name(go.tag='json:"nick_name" binding:"required"');
+    4: string email(go.tag='json:"email"');
+    5: string mobile(go.tag='json:"mobile"');
+
+}
+
+struct UpdateUserResp {}
+
+
+
+struct UpdateOfficeReq {
+    1: string name(go.tag='json:"name" binding:"required"');
+    2: string description(go.tag='json:"description"');
+    3: string name2(go.tag='json:"name2"')
+    4: i32 order(go.tag='json:"order"')
+    5: i32 id (go.tag='json:"id" binding:"required"');
+
+}
+struct UpdateOfficeResp {}
+
+struct DeleteOfficeReq {
+    1: list<i32> ids(go.tag='json:"ids" binding:"required"');
+}
+struct DeleteOfficeResp {}
+
+struct DeleteRoleReq {
+    1: list<i32> ids(go.tag='json:"ids" binding:"required"');
+}
+
+struct DeleteRoleResp {}
+
+
+struct SetRoleStatusReq {
+    1: list<base.StatusValue> items(go.tag='json:"items" binding:"required"');
+}
+struct SetRoleStatusResp {}
+
+struct UpdateRoleReq {
+  1: string name(go.tag='json:"name" binding:"required"');
+  2: string description(go.tag='json:"description"');
+  3: i32 id(go.tag='json:"id" binding:"required"');
+}
+
+struct UpdateRoleResp {}
+
 
 
 struct GetTokenReq {
@@ -271,6 +418,7 @@ struct GetTokenResp {
 
 struct GetTeacherInfoListReq {
    1: base.ListOption list_option(go.tag='json:"list_option"');
+
 }
 
 enum GetTeacherInfoListReqOption {
@@ -327,14 +475,14 @@ struct SetTeacherInfoStatusReq_Value {
    2: i32 value(go.tag='json:"value"');
 }
 
-struct SyncTeacherInfoReq {
+struct OrderTeacherInfoReq {
 
 }
 
 
 struct SetTeacherInfoStatusResp {}
 
-struct SyncTeacherInfoResp {
+struct OrderTeacherInfoResp {
   1: string task_key(go.tag='json:"task_key"');
 }
 
@@ -1003,24 +1151,19 @@ struct ModelTeacherOffice{
   2: i32 created_at(go.tag='gorm:"column:created_at;index" json:"created_at"');
   3: i32 updated_at(go.tag='gorm:"column:updated_at" json:"updated_at"');
   4: i32 deleted_at(go.tag='gorm:"column:deleted_at" json:"deleted_at"');
-  5: string name(go.tag='json:"name" gorm:"column:name"');
-  6: string description(go.tag='json:"description" gorm:"column:description"');
-  7: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id"' );
-  8: string name2(go.tag='json:"name2" gorm:"column:name2"');
-  9: i32 order(go.tag='json:"order" gorm:"column:order"');
-  10: i32 category(go.tag='json:"category" gorm:"column:category"');
+  5: string name(go.tag='json:"name" gorm:"column:name"'); // 名称
+  6: string description(go.tag='json:"description" gorm:"column:description"'); // 描述
+  7: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id"' );  // 应用id
+  8: string name2(go.tag='json:"name2" gorm:"column:name2"'); //  教研室名称（现在不使用）
+  9: i32 order(go.tag='json:"order" gorm:"column:order"'); // 排序
+  10: i32 category(go.tag='json:"category" gorm:"column:category"'); // 用于导出课程资源汇总表使用
 }
 
 enum ModelTeacherOffice_Category {
-  Unknown = 0,
-  CourseApply = 1,
-  TeacherInfo = 2
+  Unknown = 0, // 未知
+  CourseApply = 1, // 可以导出汇总表的类别
+  TeacherInfo = 2 // 不同不可导出
 }
-
-
-
-
-
 
 
 enum BooleanType {

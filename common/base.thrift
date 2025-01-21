@@ -19,3 +19,10 @@ struct Paginate{
 }
 
 service BaseService {}
+
+
+
+struct StatusValue {
+   1: i32 id(go.tag='json:"id"');
+   2: bool value(go.tag='json:"value"');
+}
