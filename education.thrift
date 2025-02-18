@@ -311,10 +311,828 @@ service educationservice {
         api.serializer = 'json'
     )
 
-    //
+    // 获取课程列表
+    GetCourseListResp GetCourseList(1:GetCourseListReq req)(
+        api.post = '/education/GetCourseList'
+        api.serializer = 'json'
+    )
+
+    // 删除课程
+    DeleteCourseResp DeleteCourse(1:DeleteCourseReq req)(
+        api.post = '/education/DeleteCourse'
+        api.serializer = 'json'
+    )
+
+    // 导入课程
+    ImportCourseResp ImportCourse(1:ImportCourseReq req)(
+        api.post = '/education/ImportCourse'
+        api.serializer = 'json'
+    )
+
+    // 更新课程
+    UpdateCourseResp UpdateCourse(1:UpdateCourseReq req)(
+        api.post = '/education/UpdateCourse'
+        api.serializer = 'json'
+    )
+
+    // 获取自己课程列表
+    GetSelfCourseListResp GetSelfCourseList(1:GetSelfCourseListReq req)(
+        api.post = '/education/GetSelfCourseList'
+        api.serializer = 'json'
+    )
+
+   // 获取课程申请列表
+   GetCourseApplicationListResp GetCourseApplicationList(1:GetCourseApplicationListReq req)(
+        api.post = '/education/GetCourseApplicationList'
+        api.serializer = 'json'
+   )
+   // DeleteCourseApplication 删除调课申请
+   DeleteCourseApplicationResp DeleteCourseApplication(1:DeleteCourseApplicationReq req)(
+        api.post = '/education/DeleteCourseApplication'
+        api.serializer = 'json'
+   )
+    // 获取自己调课申请列表
+     GetSelfCourseApplicationListResp GetSelfCourseApplicationList(1:GetSelfCourseApplicationListReq req)(
+           api.post = '/education/GetSelfCourseApplicationList'
+           api.serializer = 'json'
+      )
+
+    // 调课
+    AdjustCourseApplicationResp AdjustCourseApplication(1:AdjustCourseApplicationReq req)(
+        api.post = '/education/AdjustCourseApplication'
+        api.serializer = 'json'
+    )
+
+    // 获取holiday列表
+    GetHolidayListResp GetHolidayList(1:GetHolidayListReq req)(
+        api.post = '/education/GetHolidayList'
+        api.serializer = 'json'
+    )
+    // 删除holiday
+    DeleteHolidayResp DeleteHoliday(1:DeleteHolidayReq req)(
+        api.post = '/education/DeleteHoliday'
+        api.serializer = 'json'
+    )
+    // 创建holiday
+    CreateHolidayResp CreateHoliday(1:CreateHolidayReq req)(
+        api.post = '/education/CreateHoliday'
+        api.serializer = 'json'
+    )
+    // 更新holiday
+    UpdateHolidayResp UpdateHoliday(1:UpdateHolidayReq req)(
+        api.post = '/education/UpdateHoliday'
+        api.serializer = 'json'
+    )
+
+    // 获取实习课
+    GetInternshipListResp GetInternshipList(1:GetInternshipListReq req)(
+        api.post = '/education/GetInternshipList'
+        api.serializer = 'json'
+    )
+    // 删除实习课
+    DeleteInternshipResp DeleteInternship(1:DeleteInternshipReq req)(
+        api.post = '/education/DeleteInternship'
+        api.serializer = 'json'
+    )
+    // 更新实习课
+    UpdateInternshipResp UpdateInternship(1:UpdateInternshipReq req)(
+        api.post = '/education/UpdateInternship'
+        api.serializer = 'json'
+    )
+    // 创建实习课
+    CreateInternshipResp CreateInternship(1:CreateInternshipReq req)(
+        api.post = '/education/CreateInternship'
+        api.serializer = 'json'
+    )
+    // 导入实习课
+    ImportInternshipResp ImportInternship(1:ImportInternshipReq req)(
+        api.post = '/education/ImportInternship'
+        api.serializer = 'json'
+    )
+
+    // 获取实训课
+    GetTrainingCourseListResp GetTrainingCourseList(1:GetTrainingCourseListReq req)(
+        api.post = '/education/GetTrainingCourseList'
+        api.serializer = 'json'
+    )
+    // 创建实训课
+    CreateTrainingCourseResp CreateTrainingCourse(1:CreateTrainingCourseReq req)(
+        api.post = '/education/CreateTrainingCourse'
+        api.serializer = 'json'
+    )
+
+    // 删除实训课
+    DeleteTrainingCourseResp DeleteTrainingCourse(1:DeleteTrainingCourseReq req)(
+        api.post = '/education/DeleteTrainingCourse'
+        api.serializer = 'json'
+    )
+
+    // 更新实训课
+    UpdateTrainingCourseResp UpdateTrainingCourse(1:UpdateTrainingCourseReq req)(
+        api.post = '/education/UpdateTrainingCourse'
+        api.serializer = 'json'
+    )
+
+    // 更新实训课教师
+    UpdateTrainingCourseTeacherResp UpdateTrainingCourseTeacher(1:UpdateTrainingCourseTeacherReq req)(
+        api.post = '/education/UpdateTrainingCourseTeacher'
+        api.serializer = 'json'
+    )
+
+    // 导入实训课
+    ImportTrainingCourseResp ImportTrainingCourse(1:ImportTrainingCourseReq req)(
+        api.post = '/education/ImportTrainingCourse'
+        api.serializer = 'json'
+    )
+
+    // 获取自己实训课
+    GetSelfTrainingCourseListResp GetSelfTrainingCourseList(1:GetSelfTrainingCourseListReq req)(
+        api.post = '/education/GetSelfTrainingCourseList'
+        api.serializer = 'json'
+    )
+
+    // 同步期末考试信息
+    SyncFinalExamResp SyncFinalExam(1:SyncFinalExamReq req)(
+        api.post = '/education/SyncFinalExam'
+        api.serializer = 'json'
+    )
+
+    // 获取期末考试列表
+    GetFinalExamListResp GetFinalExamList(1:GetFinalExamListReq req)(
+        api.post = '/education/GetFinalExamList'
+        api.serializer = 'json'
+    )
+
+    // 获取期末考试科目列表
+    GetFinalExamSubjectListResp GetFinalExamSubjectList(1:GetFinalExamSubjectListReq req)(
+        api.post = '/education/GetFinalExamSubjectList'
+        api.serializer = 'json'
+    )
+
+    // 更新期末考试
+    UpdateFinalExamResp UpdateFinalExam(1:UpdateFinalExamReq req)(
+        api.post = '/education/UpdateFinalExam'
+        api.serializer = 'json'
+    )
+
+    // 导出期末考试
+    ExportFinalExamResp ExportFinalExam(1:ExportFinalExamReq req)(
+        api.post = '/education/ExportFinalExam'
+        api.serializer = 'json'
+    )
+
+    // 计算期末考试工作量
+    CalculateFinalExamWorkloadResp CalculateFinalExamWorkload(1:CalculateFinalExamWorkloadReq req)(
+        api.post = '/education/CalculateFinalExamWorkload'
+        api.serializer = 'json'
+    )
+
+    // 删除期末考试数据
+    DeleteFinalExamResp DeleteFinalExam(1:DeleteFinalExamReq req)(
+        api.post = '/education/DeleteFinalExam'
+        api.serializer = 'json'
+    )
+
+    //填写期末考试出卷
+    FillFinalExamPaperResp FillFinalExamPaper(1:FillFinalExamPaperReq req)(
+        api.post = '/education/FillFinalExamPaper'
+        api.serializer = 'json'
+    )
+
+    // 获取期末考试填写记录列表
+    GetFinalExamRecordListResp GetFinalExamFillRecordList(1:GetFinalExamRecordListReq req)(
+        api.post = '/education/GetFinalExamRecordList'
+        api.serializer = 'json'
+    )
+
+    // 删除期末考试填写记录
+    DeleteFinalExamRecordResp DeleteFinalExamRecord(1:DeleteFinalExamRecordReq req)(
+        api.post = '/education/DeleteFinalExamRecord'
+        api.serializer = 'json'
+    )
+
+    // 更新期末考试填写记录
+    UpdateFinalExamRecordResp UpdateFinalExamRecord(1:UpdateFinalExamRecordReq req)(
+        api.post = '/education/UpdateFinalExamRecord'
+        api.serializer = 'json'
+    )
+
+    // 获取考试科目班级
+    GetFinalExamClassListResp GetFinalExamClassList(1:GetFinalExamClassListReq req)(
+        api.post = '/education/GetFinalExamClassList'
+        api.serializer = 'json'
+    )
+
+    // 获取期初补考数据列表
+    GetBeginExamListResp  GetBeginExamList(1:GetBeginExamListReq req) (
+        api.post = '/education/GetBeginExamList'
+        api.serializer = 'json'
+    )
+
+    // 更新期初补考数据
+    UpdateBeginExamResp UpdateBeginExam(1:UpdateBeginExamReq req)(
+        api.post = '/education/UpdateBeginExam'
+        api.serializer = 'json'
+    )
+
+    // 创建期初补考数据
+    CreateBeginExamResp CreateBeginExam(1:CreateBeginExamReq req)(
+        api.post = '/education/CreateBeginExam'
+        api.serializer = 'json'
+    )
+
+    // 更新期初补考数据
+    DeleteBeginExamResp DeleteBeginExam(1:DeleteBeginExamReq req)(
+        api.post = '/education/DeleteBeginExam'
+        api.serializer = 'json'
+    )
+
+
+    // 导入期初补考数据
+    ImportBeginExamResp ImportBeginExam(1:ImportBeginExamReq req)(
+        api.post = '/education/ImportBeginExam'
+        api.serializer = 'json'
+    )
+
+
 }
 
 // =================req\resp===============================
+
+struct ImportBeginExamReq{
+    1: string upload_id (go.tag='json:"upload_id" binding:"required"');
+}
+
+struct ImportBeginExamResp{
+    1: string task_key(go.tag='json:"task_key"');
+}
+
+
+struct DeleteBeginExamReq{
+    1: i32 ids (go.tag='json:"ids" binding:"required"');
+}
+
+struct DeleteBeginExamResp{}
+
+
+
+struct CreateBeginExamReq {
+    1: string academic_year (go.tag='json:"academic_year" binding:"required"');
+    2: string semester (go.tag='json:"semester" binding:"required"');
+    3: string course_name (go.tag='json:"course_name" binding:"required"');
+    4: i32 expected_num (go.tag='json:"expected_num" binding:"required"'); // 应考人数
+    5: i32 actual_num (go.tag='json:"actual_num" binding:"required"'); // 实际人数
+    6: string assessment_method (go.tag='json:"assessment_method" binding:"required"'); // 考核方式
+    7: string exam_setter (go.tag='json:"exam_setter"'); // 出卷人
+    8: string examiner (go.tag='json:"examiner"'); // 阅卷人
+    9: string invigilator (go.tag='json:"invigilator"'); // 监考人
+    10: string exam_time (go.tag='json:"exam_time"'); // 考试时间
+    11: string exam_location (go.tag='json:"exam_location"'); // 考试地点
+    12: string teacher_name (go.tag='json:"teacher_name" binding:"required"'); // 教师姓名
+    13: string teacher_id (go.tag='json:"teacher_id" binding:"required"'); // 老师id
+}
+
+struct CreateBeginExamResp {}
+
+struct UpdateBeginExamReq {
+    1: string course_name (go.tag='json:"course_name" binding:"required"');
+    2: i32 expected_num (go.tag='json:"expected_num" binding:"required"'); // 应考人数
+    3: i32 actual_num (go.tag='json:"actual_num" binding:"required"'); // 实际人数
+    4: string assessment_method (go.tag='json:"assessment_method" binding:"required"'); // 考核方式
+    5: string exam_setter (go.tag='json:"exam_setter"'); // 出卷人
+    7: string examiner (go.tag='json:"examiner"'); // 阅卷人
+    8: string invigilator (go.tag='json:"invigilator"'); // 监考人
+    9: string exam_time (go.tag='json:"exam_time"'); // 考试时间
+    10: string exam_location (go.tag='json:"exam_location"'); // 考试地点
+}
+struct UpdateBeginExamResp{}
+
+
+struct GetBeginExamListReq {
+   1: base.ListOption list_option(go.tag='json:"list_option" binding:"required"');
+}
+
+enum GetBeginExamListReqOption {
+    academic_year = 1; // 学年
+    semester = 2; // 学期
+    course_name = 3; // 名称
+    teacher_name = 4;
+    teacher_id = 5;
+}
+
+struct GetBeginExamListResp {
+  1: list<ModelBeginExam> list(go.tag='json:"list"');
+  2: base.Paginate paginate(go.tag='json:"paginate"');
+}
+
+struct GetFinalExamClassListReq{
+   1: base.ListOption list_option(go.tag='json:"list_option" binding:"required"');
+}
+
+
+enum GetFinalExamClassListReqOption {
+    academic_year = 1; // 学年
+    semester = 2; // 学期
+    class_name = 3; // 班级
+    course_name = 4; // 名称
+}
+
+struct FinalExamUserClassList {
+     1: string class_name(go.tag='json:"class_name"');
+}
+
+struct GetFinalExamClassListResp {
+  1: list<FinalExamUserClassList> list(go.tag='json:"list"');
+  2: base.Paginate paginate(go.tag='json:"paginate"');
+}
+
+struct UpdateFinalExamRecordReq {
+   1: i32 id(go.tag='json:"id" binding:"required"');
+   2: string class_name (go.tag='json:"class_name" binding:"required"');
+   3: string a_proposer (go.tag='json:"a_proposer" binding:"required"');  // A卷命题人
+   4: string b_proposer (go.tag='json:"b_proposer"'); //B卷命题人
+   5: string c_proposer (go.tag='json:"c_proposer"');  //C卷命题人
+}
+
+struct  UpdateFinalExamRecordResp {}
+
+struct DeleteFinalExamRecordReq{
+    1: i32 id(go.tag='json:"id" binding:"required"');
+}
+
+
+struct DeleteFinalExamRecordResp{}
+
+struct GetFinalExamRecordListReq{
+  1: base.ListOption list_option(go.tag='json:"list_option" binding:"required"');
+}
+
+enum GetFinalExamRecordListReqOption {
+    academic_year = 1; // 学年
+    semester = 2; // 学期
+    class_name = 3; // 班级
+    course_name = 4; // 名称
+}
+
+
+struct GetFinalExamRecordListResp {
+  1: list<ModelFinalExamRecord> list(go.tag='json:"list"');
+  2: base.Paginate paginate(go.tag='json:"paginate"');
+}
+
+
+struct FillFinalExamPaperReq{
+1: string academic_year(go.tag='json:"academic_year" binding:"required"');
+   2: string semester(go.tag='json:"semester" binding:"required"');
+   3: string exam_subject (go.tag='json:"exam_subject" binding:"required"');
+   4: string class_name (go.tag='json:"class_name" binding:"required"');
+   5: string a_proposer (go.tag='json:"a_proposer" binding:"required"');  // A卷命题人
+   6: string b_proposer (go.tag='json:"b_proposer"'); //B卷命题人
+   7: string c_proposer (go.tag='json:"c_proposer"');  //C卷命题人
+   8: string assessment_method (go.tag='json:"assessment_method" binding:"required" '); // 考核方式
+}
+
+struct FillFinalExamPaperResp{
+
+}
+
+
+
+
+struct DeleteFinalExamReq{
+  1: list<i32> ids(go.tag='json:"ids" binding:"required"');
+}
+
+struct DeleteFinalExamResp {
+}
+
+struct CalculateFinalExamWorkloadReq {
+  1: string academic_year(go.tag='json:"academic_year" binding:"required"');
+  2: string semester(go.tag='json:"semester" binding:"required"');
+}
+
+
+struct CalculateFinalExamWorkloadResp {
+    1: string task_key(go.tag='json:"task_key"');
+}
+
+struct ExportFinalExamReq {
+    1: string academic_year(go.tag='json:"academic_year" binding:"required"');
+    2: string semester(go.tag='json:"semester" binding:"required"');
+}
+
+
+struct ExportFinalExamResp {
+   1: string task_key(go.tag='json:"task_key"');
+}
+
+
+struct UpdateFinalExamReq {
+    1: i32 id(go.tag='json:"id" binding:"required"');
+    2: string exam_subject (go.tag='json:"exam_subject" binding:"required"'); // 考核方式
+    3: string class_name (go.tag='json:"class_name" binding:"required"'); // 班级
+    4: i32 exam_workload(go.tag='json:"exam_workload" binding:"required"') // 出卷工作量
+    5: i32 scoring_workload (go.tag='json:"scoring_workload" binding:"required"'); // 阅卷量
+    6: string scoring_teacher(go.tag='json:"scoring_teacher" binding:"required"') // 阅卷教师
+}
+
+struct UpdateFinalExamResp {
+}
+
+struct GetFinalExamSubjectListReq {
+  1: base.ListOption list_option(go.tag='json:"list_option" binding:"required"');
+}
+
+enum GetFinalExamSubjectListReqOption {
+    academic_year = 2; // 学年
+    semester = 3; // 学期
+    class_name = 5; // 班级
+    course_name = 6; // 名称
+}
+
+struct FinalExamSubject{
+    1: string course_name(go.tag='json:"course_name"');
+    2: i32 count(go.tag='json:"count"');
+}
+
+struct GetFinalExamSubjectListResp{
+   1: list<FinalExamSubject> list(go.tag='json:"list"');
+   2: base.Paginate paginate(go.tag='json:"paginate"');
+}
+
+struct GetFinalExamListReq {
+  1: base.ListOption list_option(go.tag='json:"list_option" binding:"required"');
+}
+
+
+enum GetFinalExamListReqOption {
+    id = 1;
+    academic_year = 2; // 学年
+    semester = 3; // 学期
+    class_name = 4; // 班级
+    course_name = 5; // 名称
+}
+
+
+struct GetFinalExamListResp{
+  1: list<ModelFinalExam> list(go.tag='json:"list"');
+  2: base.Paginate paginate(go.tag='json:"paginate"');
+}
+
+struct SyncFinalExamReq {
+  1: string academic_year(go.tag='json:"academic_year" binding:"required" ');
+  2: string semester(go.tag='json:"semester"binding:"required" ');
+
+}
+
+struct SyncFinalExamResp{
+1: string task_key(go.tag='json:"task_key"');
+}
+
+struct GetSelfTrainingCourseListReq {
+  1: base.ListOption list_option(go.tag='json:"list_option" binding:"required"');
+}
+
+enum GetSelfTrainingCourseListReqOption {
+    id = 1;
+    academic_year = 2; // 学年
+    semester = 3; // 学期
+    major = 4; // 专业
+    class_name = 5; // 班级
+    course_name = 6; // 名称
+}
+
+struct GetSelfTrainingCourseListResp {
+  1: list<ModelTrainingCourse> list(go.tag='json:"list"');
+  2: base.Paginate paginate(go.tag='json:"paginate"');
+  3: map<i32,list<ModelTrainingCourseTeacher>> teacher_map(go.tag='json:"teacher_map"');
+}
+
+
+struct ImportTrainingCourseReq {
+  1: string academic_year(go.tag='json:"academic_year" binding:"required" '); // 学年
+  2: string semester(go.tag='json:"semester"binding:"required" '); // 学期
+  3: string upload_id(go.tag='json:"upload_id" binding:"required"'); // 文件上传id
+
+}
+struct ImportTrainingCourseResp {
+    1 :string task_key (go.tag='json:"task_key"');
+}
+
+
+struct UpdateTrainingCourseTeacherReqItem{
+    1: string teacher_id(go.tag='json:"teacher_id"');
+    2: string week (go.tag='json:"week"');
+}
+
+struct UpdateTrainingCourseTeacherReq {
+  1: i32 training_course_id(go.tag='json:"training_course_id" binding:"required"');
+  2: list<UpdateTrainingCourseTeacherReqItem> items(go.tag='json:"items" binding:"required"');
+}
+
+struct UpdateTrainingCourseTeacherResp {
+
+}
+
+
+struct UpdateTrainingCourseReq {
+  1: i32 id(go.tag='json:"id" binding:"required"');
+  2: string major(go.tag='json:"major" binding:"required"');
+  3: string class_name(go.tag='json:"class_name" binding:"required"');
+  4: i32 student_number(go.tag='json:"student_number" binding:"required"');
+  5: string course_name(go.tag='json:"course_name" binding:"required"');
+  6: string location(go.tag='json:"location" binding:"required"');
+  7: string cooperation_enterprise(go.tag='json:"cooperation_enterprise"');
+  8: i32 training_week(go.tag='json:"training_week" binding:"required"');
+  9: string enterprise_teacher_name(go.tag='json:"enterprise_teacher_name" ');
+}
+
+struct UpdateTrainingCourseResp {
+
+}
+
+struct DeleteTrainingCourseReq {
+  1: list<i32> ids(go.tag='json:"ids" binding:"required"');
+}
+
+struct DeleteTrainingCourseResp {}
+
+struct CreateTrainingCourseReq {
+  10: string academic_year(go.tag='json:"academic_year" binding:"required" '); // 学年
+  1: string semester(go.tag='json:"semester" binding:"required" '); // 学期
+  2: string major(go.tag='json:"major" binding:"required"');
+  3: string class_name(go.tag='json:"class_name" binding:"required"');
+  4: i32 student_number(go.tag='json:"student_number" binding:"required"');
+  5: string course_name(go.tag='json:"course_name" binding:"required"');
+  6: string location(go.tag='json:"location" binding:"required"');
+  7: string cooperation_enterprise(go.tag='json:"cooperation_enterprise"');
+  8: i32 training_week(go.tag='json:"training_week" binding:"required"');
+  9: string enterprise_teacher_name(go.tag='json:"enterprise_teacher_name" ');
+}
+
+struct CreateTrainingCourseResp {
+
+}
+
+struct GetTrainingCourseListReq {
+  1: base.ListOption list_option(go.tag='json:"list_option" binding:"required"');
+}
+
+
+enum GetTrainingCourseListReqOption {
+    id = 1;
+    academic_year = 2; // 学年
+    semester = 3; // 学期
+    major = 4; // 专业
+    class_name = 5; // 班级
+    course_name = 6; // 名称
+}
+
+struct GetTrainingCourseListResp {
+  1: list<ModelTrainingCourse> list(go.tag='json:"list"');
+  2: base.Paginate paginate(go.tag='json:"paginate"');
+ 3: map<i32,list<ModelTrainingCourseTeacher>> teacher_map(go.tag='json:"teacher_map"');
+}
+
+
+struct ImportInternshipReq {
+  1: string academic_year(go.tag='json:"academic_year" binding:"required"');
+  2: string semester(go.tag='json:"semester" binding:"required"');
+  3: string upload_id(go.tag='json:"upload_id" binding:"required"');
+}
+
+struct ImportInternshipResp {
+  1: string task_key(go.tag='json:"task_key"');
+}
+
+
+struct CreateInternshipReq {
+  1: string academic_year(go.tag='json:"academic_year" binding:"required"');
+  2: string semester(go.tag='json:"semester" binding:"required"');
+  3: string teacher_id(go.tag='json:"teacher_id" binding:"required"');
+  4: string teacher_name(go.tag='binding:"required" json:"teacher_name"');
+  5: string teach_class(go.tag='binding:"required" json:"teach_class"');
+  6: string class_name(go.tag='binding:"required" json:"class_name"');
+  7: i32 category(go.tag='binding:"required" json:"category"');
+  8: i32 start_week(go.tag='binding:"required" json:"start_week"');
+  9: i32 end_week(go.tag='binding:"required" json:"end_week"');
+  10: string assessment_method(go.tag=' json:"assessment_method"');
+  11: i32 student_number(go.tag='binding:"required" json:"student_number"');
+  12: double week_hour(go.tag='json:"week_hour"');
+}
+
+struct CreateInternshipResp {}
+
+struct UpdateInternshipReq {
+  1: i32 id(go.tag='json:"id" binding:"required"');
+  2: string teacher_id(go.tag='json:"teacher_id" binding:"required"');
+  3: string teacher_name(go.tag='binding:"required" json:"teacher_name"');
+  4: string teach_class(go.tag='binding:"required" json:"teach_class"');
+  5: string class_name(go.tag='binding:"required" json:"class_name"'); // 教学班组成
+  6: i32 category(go.tag='binding:"required" json:"category"');
+  7: i32 start_week(go.tag='binding:"required" json:"start_week"');
+  8: i32 end_week(go.tag='binding:"required" json:"end_week"');
+  9: string assessment_method(go.tag=' json:"assessment_method"'); // 考核方式
+  10: i32 student_number(go.tag='binding:"required" json:"student_number"'); // 学生人数
+  11: double week_hour(go.tag='json:"week_hour"'); // 周学时
+}
+
+struct UpdateInternshipResp {}
+
+struct DeleteInternshipReq{
+   1: list<i32> ids(go.tag='json:"ids" binding:"required"');
+}
+
+struct DeleteInternshipResp {}
+
+
+struct GetInternshipListReq{
+   1: base.ListOption list_option(go.tag='json:"list_option"');
+}
+
+enum GetInternshipListReqOption {
+    id = 1
+    academic_year = 2
+    semester = 3
+    teacher_id = 4
+    teacher_name = 5
+    teach_class = 6
+    class_name = 7
+    category = 8
+}
+
+struct GetInternshipListResp {
+  1: list<ModelInternship> list(go.tag='json:"list"');
+  2: base.Paginate paginate(go.tag='json:"paginate"');
+}
+
+
+struct UpdateHolidayReq {
+  1: i32 id(go.tag='json:"id" binding:"required"');
+  3: string name(go.tag='json:"name" binding:"required"'); // 名称
+  4: string bigin_date(go.tag='json:"bigin_date" binding:"required"'); // 开始时间
+  5: string end_date(go.tag='json:"end_date" binding:"required"'); // 结束时间
+  6: string remark(go.tag='json:"remark"'); // 备注
+}
+
+
+struct UpdateHolidayResp {}
+
+struct CreateHolidayReq {
+   1: string academic_year(go.tag='json:"academic_year" binding:"required" ');
+   2: string semester(go.tag='json:"semester" binding:"required"');
+   3: string name(go.tag='json:"name" binding:"required"'); // 名称
+   4: string begin_date(go.tag='json:"begin_date" binding:"required"'); // 开始时间
+   5: string end_date(go.tag='json:"end_date" binding:"required"'); // 结束时间
+   6: string remark(go.tag='json:"remark"'); // 备注
+}
+struct CreateHolidayResp {}
+
+struct DeleteHolidayReq {
+   1: list<i32> ids(go.tag='json:"ids" binding:"required"');
+}
+struct DeleteHolidayResp {}
+
+struct GetHolidayListReq{
+   1: base.ListOption list_option(go.tag='json:"list_option"');
+}
+
+enum GetHolidayListReqOption{
+    id =1;
+    academic_year = 2;
+    semester = 3;
+    name = 4;
+}
+
+struct GetHolidayListResp {
+  1: list<ModelHoliday> list(go.tag='json:"list"');
+   2: base.Paginate paginate(go.tag='json:"paginate"');
+}
+
+struct AdjustCourseApplicationReq {
+  1: string academic_year(go.tag='json:"academic_year" binding:"required" '); // 学年
+  2: string semester(go.tag='json:"semester" binding:"required"'); // 学期
+  3: string teacher_id(go.tag='json:"teacher_id" binding:"required" '); // 教师ID
+  4: string teacher_name(go.tag='json:"teacher_name" binding:"required" '); // 授课教师
+  5: string new_teacher_id(go.tag=' json:"new_teacher_id"'); // 变更后教师ID
+  6: string new_teacher_name(go.tag=' json:"new_teacher_name"'); // 变更后授课教师
+  7: i32 application_type(go.tag='json:"application_type"'); // 申请项目 (调课、停课、代课等)
+  8: string course_name(go.tag='json:"course_name"'); // 课程名称
+  9: string teach_class(go.tag='json:"teach_class"'); // 教学班级
+  10: i32 course_id(go.tag='json:"course_id"'); // 课程id
+  11: string schedule_time(go.tag=' json:"schedule_time"'); // 授课时间
+  12: string new_schedule_time(go.tag='json:"new_schedule_time"');// 变更后授课时间
+  13: string location(go.tag=' json:"location"'); // 授课地点
+  14: string new_location(go.tag='json:"new_location"'); // 变更后授课地点
+  15: string reason(go.tag='json:"reason"'); // 申请原因
+  16: i32 adjust_course_id(go.tag='json:"adjust_course_id"'); // 调课后对应的课程ID
+}
+
+struct AdjustCourseApplicationResp {}
+
+struct GetSelfCourseApplicationListReq {
+    1: base.ListOption list_option(go.tag='json:"list_option"');
+}
+
+enum GetSelfCourseApplicationListReqOption {
+    id = 1; // id
+    academic_year = 2;
+    semester = 3;
+    course_name = 4;
+}
+
+struct GetSelfCourseApplicationListResp {
+    1: list<ModelCourseApplication> list(go.tag='json:"list"');
+    2: base.Paginate paginate(go.tag='json:"paginate"');
+}
+
+struct DeleteCourseApplicationReq {
+    1: i32 id(go.tag='json:"id" binding:"required"');
+}
+struct DeleteCourseApplicationResp {}
+
+struct GetCourseApplicationListReq {
+    1: base.ListOption list_option(go.tag='json:"list_option"');
+}
+
+enum GetCourseApplicationListReqOption {
+    id = 1; // id
+    academic_year = 2;
+    semester = 3;
+    course_name = 4;
+}
+
+struct GetCourseApplicationListResp {
+    1: list<ModelCourseApplication> list(go.tag='json:"list"');
+    2: base.Paginate paginate(go.tag='json:"paginate"');
+}
+
+struct GetSelfCourseListReq{
+    1: base.ListOption list_option(go.tag='json:"list_option"');
+}
+
+enum GetSelfCourseListReqOption {
+    id = 1; // id
+    academic_year = 2; // 学年
+    semester = 3; // 学期
+    course_type = 6; // 开课类型
+    course_category = 7; // 课程类别
+    assessment_method = 8; // 考核方式
+    course_name = 9; // 课程名称
+    teach_class = 10; // 教学班
+    class_name = 11;  // 教学班组成
+    is_collaborative_course = 12; // 是否共建课程
+}
+
+struct GetSelfCourseListResp {
+    1: list<ModelCourse> list(go.tag='json:"list"');
+    2: base.Paginate paginate(go.tag='json:"paginate"');
+}
+
+struct  UpdateCourseReq {
+    1: i32 id(go.tag='json:"id" binding:"required"');
+    2: ModelCourse course(go.tag='json:"course" binding:"required"');
+}
+struct UpdateCourseResp {}
+
+struct   ImportCourseReq{
+    1: string upload_id(go.tag='json:"upload_id"')
+}
+
+struct   ImportCourseResp{
+    1: string task_key(go.tag='json:"task_key"')
+}
+
+struct   DeleteCourseReq{
+    1: list<i32> ids(go.tag='json:"ids"')
+}
+
+struct DeleteCourseResp {}
+
+struct GetCourseListResp {
+    1: list<ModelCourse> list(go.tag='json:"list"');
+    2: base.Paginate paginate(go.tag='json:"paginate"');
+}
+
+struct GetCourseListReq {
+   1: base.ListOption list_option(go.tag='json:"list_option"')
+}
+
+
+enum GetCourseListReqOption {
+    id = 1; // id
+    academic_year = 2; // 学年
+    semester = 3; // 学期
+    teacher_id = 4; // 教师id
+    teacher_name = 5; // 教师姓名
+    course_type = 6; // 开课类型
+    course_category = 7; // 课程类别
+    assessment_method = 8; // 考核方式
+    course_name = 9; // 课程名称
+    teach_class = 10; // 教学班
+    class_name = 11;  // 教学班组成
+    is_collaborative_course = 12; // 是否共建课程
+}
 
 struct ExportTeacherInfoReq {
    1: list<i32> ids(go.tag='json:"ids"')
@@ -438,7 +1256,7 @@ struct GetTeacherInfoListResp {
 
 
 struct ImportTeacherInfoReq {
-  1: string file_path(go.tag='json:"file_path" binding:"required"');
+  1: string file_upload_id(go.tag='json:"file_upload_id" binding:"required"');
 }
 
 struct ImportTeacherInfoResp {
@@ -964,8 +1782,6 @@ struct UpdateMenuResp {}
 
 
 
-
-
 const map<i32, string> CourseApplyFieldMap = {
      1: "开课部门",
      2: "课程所属教研室"
@@ -1017,6 +1833,72 @@ enum CourseApplyField {
 
 
 // =================Model========================
+
+const map<string, i32> InternshipCategoryMap = {
+    "岗位实习（毕业作品）": 1,
+    "毕业设计":       2,
+}
+
+enum InternshipCategory {
+    PostInternship = 1 // 岗位实习
+    GraduateDesign = 2 // 毕业设计
+}
+
+// 实习表
+struct ModelInternship {
+  1: i32 id(go.tag='gorm:"column:id" json:"id"');
+  2: i32 created_at(go.tag='gorm:"column:created_at;index" json:"created_at"');
+  3: i32 updated_at(go.tag='gorm:"column:updated_at" json:"updated_at"');
+  4: i32 deleted_at(go.tag='gorm:"column:deleted_at" json:"deleted_at"');
+  5: string academic_year(go.tag='gorm:"column:academic_year" json:"academic_year"');
+  6: string semester(go.tag='gorm:"column:semester" json:"semester"');
+  7: string teacher_id(go.tag='gorm:"column:teacher_id" json:"teacher_id"');
+  8: string teacher_name(go.tag='gorm:"column:teacher_name" json:"teacher_name"');
+  9: string teach_class(go.tag='gorm:"column:teach_class" json:"teach_class"');
+  10: string class_name(go.tag='gorm:"column:class_name" json:"class_name"'); // 教学班组成
+  11: i32 category(go.tag='gorm:"column:category" json:"category"');
+  12: i32 start_week(go.tag='gorm:"column:start_week" json:"start_week"');
+  13: i32 end_week(go.tag='gorm:"column:end_week" json:"end_week"');
+  14: string assessment_method(go.tag='gorm:"column:assessment_method" json:"assessment_method"'); // 考核方式
+  15: i32 student_number(go.tag='gorm:"column:student_number" json:"student_number"'); // 学生人数
+  16: double week_hour(go.tag='gorm:"column:week_hour" json:"week_hour"'); // 周学时
+  17: i32 app_id(go.tag='gorm:"column:app_id" json:"app_id"');
+}
+
+
+
+enum ApplicationType {
+    Unkknown = 0; // 未知
+    CourseChange = 1; // 调课
+    CourseStop = 2; // 停课
+    CourseReplace = 3; //代课
+    CourseSwap = 4; // 对调
+}
+
+struct ModelCourseApplication {
+  1: i32 id(go.tag='gorm:"column:id" json:"id"');
+  2: i32 created_at(go.tag='gorm:"column:created_at;index" json:"created_at"');
+  3: i32 updated_at(go.tag='gorm:"column:updated_at" json:"updated_at"');
+  4: i32 deleted_at(go.tag='gorm:"column:deleted_at" json:"deleted_at"');
+  5: string academic_year(go.tag='gorm:"column:academic_year" json:"academic_year"'); // 学年
+  6: string semester(go.tag='gorm:"column:semester" json:"semester"'); // 学期
+  7: string teacher_id(go.tag='gorm:"column:teacher_id" json:"teacher_id"'); // 教师ID
+  8: string teacher_name(go.tag='gorm:"column:teacher_name" json:"teacher_name"'); // 授课教师
+  9: string new_teacher_id(go.tag='gorm:"column:new_teacher_id" json:"new_teacher_id"'); // 变更后教师ID
+  10: string new_teacher_name(go.tag='gorm:"column:new_teacher_name" json:"new_teacher_name"'); // 变更后授课教师
+  11: i32 app_id (go.tag='gorm:"column:app_id" json:"app_id"'); // 应用Id
+  12:i32 application_type(go.tag='gorm:"column:application_type" json:"application_type"'); // 申请项目 (调课、停课、代课等)
+  13: string course_name(go.tag='gorm:"column:course_name" json:"course_name"'); // 课程名称
+  14: string teach_class(go.tag='gorm:"column:teach_class" json:"teach_class"'); // 教学班级
+  15: i32 course_id(go.tag='gorm:"column:course_id" json:"course_id"'); // 课程id
+  16: string schedule_time(go.tag='gorm:"column:schedule_time" json:"schedule_time"'); // 授课时间
+  17: string new_schedule_time(go.tag='gorm:"column:new_schedule_time" json:"new_schedule_time"');// 变更后授课时间
+  18: string location(go.tag='gorm:"column:location" json:"location"'); // 授课地点
+  19: string new_location(go.tag='gorm:"column:new_location" json:"new_location"'); // 变更后授课地点
+  20: string reason(go.tag='gorm:"column:reason" json:"reason"'); // 申请原因
+  21: i32 adjust_course_id(go.tag='gorm:"column:adjust_course_id" json:"adjust_course_id"'); // 调课后对应的课程ID
+  22: string user_id(go.tag='gorm:"column:user_id" json:"-"'); // 用户id
+}
 
 // 应用表
 struct ModelApp {
@@ -1208,6 +2090,8 @@ struct ModelCategory {
     7: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id"' );
 }
 
+
+
 // 课程表
 struct ModelCourse{
     1: i32 id (go.tag='gorm:"column:id" json:"id"');
@@ -1215,7 +2099,40 @@ struct ModelCourse{
     3: i32 updated_at(go.tag='gorm:"column:updated_at" json:"updated_at"');
     4: i32 deleted_at(go.tag='gorm:"column:deleted_at" json:"deleted_at"');
     5: string academic_year(go.tag='json:"academic_year" gorm:"column:academic_year"'); // 学年
-    6: string term(go.tag='json:"term" gorm:"column:term"'); // 学期
+    6: string semester(go.tag='json:"semester" gorm:"column:semester"'); // 学期
+    7: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id"'); // app_id
+    8: string teacher_id(go.tag='json:"teacher_id" gorm:"column:teacher_id"'); // 教师id
+    9: string teacher_name(go.tag='json:"teacher_name" gorm:"column:teacher_name"'); // 教师姓名
+    10: string course_type(go.tag='json:"course_type" gorm:"column:course_type"'); // 开课类型
+    11: string course_code(go.tag='json:"course_code" gorm:"column:course_code"'); // 课程号
+    12: string course_name(go.tag='json:"course_name" gorm:"column:course_name"'); // 课程名称
+    13: string college(go.tag='json:"college" gorm:"column:college"'); // 开课学院
+    14: i32 is_core_course(go.tag='json:"is_core_course" gorm:"column:is_core_course"'); // 是否是核心课程
+    15: double credit(go.tag='json:"credit" gorm:"column:credit"'); // 学分
+    16: string teach_class(go.tag='json:"teach_class" gorm:"column:teach_class"'); // 教学班
+    17: string class_name(go.tag='json:"class_name" gorm:"column:class_name"'); // 教学班组成
+    18: i32 week_hour(go.tag='json:"week_hour" gorm:"column:week_hour"'); // 周学时
+    19: i32 start_week(go.tag='json:"start_week" gorm:"column:start_week"'); // 起始周
+    20: i32 end_week(go.tag='json:"end_week" gorm:"column:end_week"'); // 结束周
+    21: string sae_week(go.tag='json:"sae_week" gorm:"column:sae_week"');  // 排课起始结束周
+    22: string class_hour_type(go.tag='json:"class_hour_type" gorm:"column:class_hour_type"');//学时类型
+    23: i32 task_hours(go.tag='json:"task_hours" gorm:"column:task_hours"'); // 任务总学时
+    24: i32 atask_hours(go.tag='json:"atask_hours" gorm:"column:atask_hours"'); // 已排课学时
+    25: string course_category(go.tag='json:"course_category" gorm:"column:course_category"'); // 课程类别
+    26: string course_nature(go.tag='json:"course_nature" gorm:"column:course_nature"'); // 课程性质
+    27: string grade_entry_teacher(go.tag='json:"grade_entry_teacher" gorm:"column:grade_entry_teacher"'); // 成绩录入老师
+    28: string class_time(go.tag='json:"class_time" gorm:"column:class_time"'); // 上课时间
+    29: string teach_location(go.tag='json:"teach_location" gorm:"column:teach_location"'); // 教学地点
+    30: string direction(go.tag='json:"direction" gorm:"column:direction"'); // 专业方向
+    31: string assessment_method(go.tag='json:"assessment_method" gorm:"column:assessment_method"'); // 考核方式
+    32: string grade(go.tag='json:"grade" gorm:"column:grade"'); //  年级
+    33: string object(go.tag='json:"object" gorm:"column:object"'); // 面向对象
+    34: string speciality(go.tag='json:"speciality" gorm:"column:speciality"'); // 专业组成
+    35: i32 student_number(go.tag='json:"student_number" gorm:"column:student_number"'); // 学生人数
+    36: i32 rebuild_number(go.tag='json:"rebuild_number" gorm:"column:rebuild_number"'); // 重修人数
+    37: bool is_adjust(go.tag='json:"is_adjust" gorm:"column:is_adjust"'); // 是否是代课课程
+    38: bool is_collaborative_course(go.tag='json:"is_collaborative_course" gorm:"column:is_collaborative_course"'); // 是否是共建课程
+    39: string str_course_id(go.tag='json:"str_course_id" gorm:"column:str_course_id"'); // 课程id
 }
 
 // 班级表
@@ -1320,4 +2237,179 @@ struct ModelTeacherInfo {
   17 :i32 is_external(go.tag='json:"is_external" gorm:"column:is_external;default:2"') // 是否外聘
   18 :i32 order(go.tag='json:"order" gorm:"column:order;default:1"')  // 排序
   19 :string user_name(go.tag='json:"user_name" gorm:"column:user_name"') // 学号
+}
+
+struct ModelHoliday {
+  1: i32 id (go.tag='gorm:"column:id" json:"id"');
+  2: i32 created_at(go.tag='gorm:"column:created_at;index" json:"created_at"');
+  3: i32 updated_at(go.tag='gorm:"column:updated_at" json:"updated_at"');
+  4: i32 deleted_at(go.tag='gorm:"column:deleted_at" json:"deleted_at"');
+  5: string name(go.tag='json:"name" gorm:"column:name"'); // 名称
+  6: string begin_date(go.tag='json:"begin_date" gorm:"column:begin_date"'); // 开始时间
+  7: string end_date(go.tag='json:"end_date" gorm:"column:end_date"'); // 结束时间
+  8: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id"' );
+  9: string remark(go.tag='json:"remark" gorm:"column:remark"'); // 备注
+  10: string academic_year(go.tag='json:"academic_year" gorm:"column:academic_year"'); // 学年
+  11: string semester(go.tag='json:"semester" gorm:"column:semester"'); // 学期
+}
+
+
+
+// 实训
+struct ModelTrainingCourse {
+  1: i32 id (go.tag='gorm:"column:id" json:"id"');
+  2: i32 created_at(go.tag='gorm:"column:created_at;index" json:"created_at"');
+  3: i32 updated_at(go.tag='gorm:"column:updated_at" json:"updated_at"');
+  4: i32 deleted_at(go.tag='gorm:"column:deleted_at" json:"deleted_at"');
+  5: string major(go.tag='json:"major" gorm:"column:major"'); // 专业
+  6: string class_name(go.tag='json:"class_name" gorm:"column:class_name"'); // 班级
+  7: i32 student_number(go.tag='json:"student_number" gorm:"column:student_number"'); //  学生人数
+  8: string course_name(go.tag='json:"course_name" gorm:"column:course_name"'); // 课程名称
+  9: string location(go.tag='json:"location" gorm:"column:location"'); // 地点
+  10: string cooperation_enterprise(go.tag='json:"cooperation_enterprise" gorm:"column:cooperation_enterprise"'); // 合作企业全称
+  11: i32 training_week(go.tag='json:"training_week" gorm:"column:training_week"'); // 实训周次
+  12: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id"');
+  13: string enterprise_teacher_name(go.tag='json:"enterprise_teacher_name" gorm:"column:enterprise_teacher_name"'); // 企业老师
+  14: string academic_year(go.tag='json:"academic_year" gorm:"column:academic_year"'); // 学年
+  15: string semester(go.tag='json:"semester" gorm:"column:semester"'); // 学期
+}
+
+
+// 实训课老师
+struct ModelTrainingCourseTeacher {
+  1: i32 id (go.tag='gorm:"column:id" json:"id"');
+  2: i32 created_at(go.tag='gorm:"column:created_at;index" json:"created_at"');
+  3: i32 updated_at(go.tag='gorm:"column:updated_at" json:"updated_at"');
+  4: i32 deleted_at(go.tag='gorm:"column:deleted_at" json:"deleted_at"');
+  5: i32 training_course_id(go.tag='json:"training_course_id" gorm:"column:training_course_id"');  // 实训id
+  6: string teacher_id(go.tag='json:"teacher_id" gorm:"column:teacher_id"');  // 老师id
+  7: string teacher_name(go.tag='json:"teacher_name" gorm:"column:teacher_name"'); // 老师姓名
+  8: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id"' );
+  9: string week(go.tag='json:"week" gorm:"column:week"'); // 星期
+}
+
+// 期末考试
+struct ModelFinalExam {
+  1: i32 id (go.tag='gorm:"column:id" json:"id"');
+  2: i32 created_at(go.tag='gorm:"column:created_at;index" json:"created_at"');
+  3: i32 updated_at(go.tag='gorm:"column:updated_at" json:"updated_at"');
+  4: i32 deleted_at(go.tag='gorm:"column:deleted_at" json:"deleted_at"');
+  5: string academic_year (go.tag='json:"academic_year" gorm:"column:academic_year"');
+  6: string semester (go.tag='json:"semester" gorm:"column:semester"');
+  7: string assessment_method (go.tag='json:"assessment_method" gorm:"column:assessment_method"'); // 考核方式
+  8: string exam_subject (go.tag='json:"exam_subject" gorm:"column:exam_subject"');  //考试科目
+  9: string class_name (go.tag='json:"class_name" gorm:"column:class_name"');//使用班级
+  10: string a_proposer (go.tag='json:"a_proposer" gorm:"column:a_proposer"');  // A卷命题人
+  11: string b_proposer (go.tag='json:"b_proposer" gorm:"column:b_proposer"'); //B卷命题人
+  12: string c_proposer (go.tag='json:"c_proposer" gorm:"column:c_proposer"');  //C卷命题人
+  13: bool a_is_shared (go.tag='json:"a_is_shared" gorm:"column:a_is_shared"');
+  14: bool b_is_shared (go.tag='json:"b_is_shared" gorm:"column:b_is_shared"');
+  15: bool c_is_shared (go.tag='json:"c_is_shared" gorm:"column:c_is_shared"');
+  16: bool is_scoring (go.tag='json:"is_scoring" gorm:"column:is_scoring"');
+  17: i32 exam_workload (go.tag='json:"exam_workload" gorm:"column:exam_workload"'); // 出卷工作量
+  18: i32 scoring_workload (go.tag='json:"scoring_workload" gorm:"column:scoring_workload"'); // 阅卷工作量
+  19: string scoring_teacher (go.tag='json:"scoring_teacher" gorm:"column:scoring_teacher"'); // 阅卷老师
+  20: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id"' );
+  21: i32 course_id (go.tag='json:"course_id" gorm:"column:course_id"');
+}
+// 期末考试填写记录
+struct ModelFinalExamRecord {
+  1: i32 id (go.tag='gorm:"column:id" json:"id"');
+  2: i32 created_at(go.tag='gorm:"column:created_at;index" json:"created_at"');
+  3: i32 updated_at(go.tag='gorm:"column:updated_at" json:"updated_at"');
+  4: i32 deleted_at(go.tag='gorm:"column:deleted_at" json:"deleted_at"');
+  5: string exam_subject (go.tag='json:"exam_subject" gorm:"column:exam_subject"');
+  6: string class_name_list (go.tag='json:"class_name_list" gorm:"column:class_name_list"');
+  7: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id"' );
+  8: string academic_year (go.tag='json:"academic_year" gorm:"column:academic_year"');
+  9: string semester (go.tag='json:"semester" gorm:"column:semester"');
+  10: string a_proposer (go.tag='json:"a_proposer" gorm:"column:a_proposer"');  // A卷命题人
+  11: string b_proposer (go.tag='json:"b_proposer" gorm:"column:b_proposer"'); //B卷命题人
+  12: string c_proposer (go.tag='json:"c_proposer" gorm:"column:c_proposer"');  //C卷命题人
+  13: string user_name (go.tag='json:"user_name" gorm:"column:user_name"');
+  14: string assessment_method (go.tag='json:"assessment_method" gorm:"column:assessment_method"'); // 考核方式
+}
+
+// 期初考试
+struct ModelBeginExam {
+  1: i32 id (go.tag='gorm:"column:id" json:"id"');
+  2: i32 created_at(go.tag='gorm:"column:created_at;index" json:"created_at"');
+  3: i32 updated_at(go.tag='gorm:"column:updated_at" json:"updated_at"');
+  4: i32 deleted_at(go.tag='gorm:"column:deleted_at" json:"deleted_at"');
+  5: string academic_year (go.tag='json:"academic_year" gorm:"column:academic_year"');
+  6: string semester (go.tag='json:"semester" gorm:"column:semester"');
+  7: string course_name (go.tag='json:"course_name" gorm:"column:course_name"');
+  8: i32 expected_num (go.tag='json:"expected_num" gorm:"column:expected_num"'); // 应考人数
+  9: i32 actual_num (go.tag='json:"actual_num" gorm:"column:actual_num"'); // 实际人数
+  10: string assessment_method (go.tag='json:"assessment_method" gorm:"column:assessment_method"'); // 考核方式
+  11: string exam_setter (go.tag='json:"exam_setter" gorm:"column:exam_setter"'); // 出卷人
+  12: string examiner (go.tag='json:"examiner" gorm:"column:examiner"'); // 阅卷人
+  13: string invigilator (go.tag='json:"invigilator" gorm:"column:invigilator"'); // 监考人
+  14: string exam_time (go.tag='json:"exam_time" gorm:"column:exam_time"'); // 考试时间
+  15: string exam_location (go.tag='json:"exam_location" gorm:"column:exam_location"'); // 考试地点
+  16: string teacher_name (go.tag='json:"teacher_name" gorm:"column:teacher_name"'); // 教师姓名
+  17: string teacher_id (go.tag='json:"teacher_id" gorm:"column:teacher_id"'); // 老师id
+  18: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id"' );
+  }
+
+  // 工作量统计表
+struct ModelWorkloadStatistics {
+    1: i32 id (go.tag='gorm:"column:id" json:"id"');
+    2: i32 created_at(go.tag='gorm:"column:created_at;index" json:"created_at"');
+    3: i32 updated_at(go.tag='gorm:"column:updated_at" json:"updated_at"');
+    4: i32 deleted_at(go.tag='gorm:"column:deleted_at" json:"deleted_at"');
+    5: string academic_year (go.tag='json:"academic_year" gorm:"column:academic_year"');
+    6: string semester (go.tag='json:"semester" gorm:"column:semester"');
+    //app_id
+    7: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id;index"' );
+    8: string teacher_name (go.tag='json:"teacher_name" gorm:"column:teacher_name"');
+    9: string teacher_id (go.tag='json:"teacher_id" gorm:"column:teacher_id"');
+
+    // 课程信息
+    10: string teach_class (go.tag='json:"teach_class" gorm:"column:teach_class"'); // 教学班
+    11: string class_name (go.tag='json:"class_name" gorm:"column:class_name"'); // 教学班组成
+    12: string assessment_method (go.tag='json:"assessment_method" gorm:"column:assessment_method"'); // 考核方式
+    13: string sae_week (go.tag='json:"sae_week" gorm:"column:sae_week"'); // 教学起始周
+    14: string not_class_time (go.tag='json:"not_class_time" gorm:"column:not_class_time"'); // 非上班时间上课节次
+    15: i32 student_number (go.tag='json:"student_number" gorm:"column:student_number"'); // 学生总人数
+    16: double number_factor (go.tag='json:"number_factor" gorm:"column:number_factor"'); // 人数系数
+    17: i32 week_hour (go.tag='json:"week_hour" gorm:"column:week_hour"'); // 每周学时
+
+    //当月教学周数
+    18: i32 theory_wn (go.tag='json:"theory_wn" gorm:"column:theory_wn"'); // 理论课
+    19: i32 training_wn (go.tag='json:"training_wn" gorm:"column:training_wn"'); // 实训课
+
+    // 当月教学工作量统计
+    20: double theory_class_hours (go.tag='json:"theory_class_hours" gorm:"column:theory_class_hours"');
+    21: i32 training_class_hours(go.tag='json:"training_class_hours" gorm:"column:training_class_hours"');
+    22: i32 training_manage (go.tag='json:"training_manage" gorm:"column:training_manage"');
+    23: i32 review_week (go.tag='json:"review_week" gorm:"column:review_week"');
+    24: i32 giving_paper (go.tag='json:"giving_paper" gorm:"column:giving_paper"');
+    25: double grading_paper (go.tag='json:"grading_paper" gorm:"column:grading_paper"');
+    26: string other (go.tag='json:"other" gorm:"column:other"');
+    27: string material1 (go.tag='json:"material1" gorm:"column:material1"');
+    28: string material2 (go.tag='json:"material2" gorm:"column:material2"');
+
+    // 当月教学津贴统计
+    29: i32 duties_subsidy (go.tag='json:"duties_subsidy" gorm:"column:duties_subsidy"');
+    30: i32 invigilation_tour (go.tag='json:"invigilation_tour" gorm:"column:invigilation_tour"');
+    31: i32 traffic_subsidy (go.tag='json:"traffic_subsidy" gorm:"column:traffic_subsidy"');
+    32: i32 work_overtime (go.tag='json:"work_overtime" gorm:"column:work_overtime"');
+    33: i32 discount (go.tag='json:"discount" gorm:"column:discount"');
+    34: i32 category (go.tag='json:"category" gorm:"column:category"');
+
+    // ModelWorkloadStatisticsRecord id
+    35: i32 record__id (go.tag='json:"record_id" gorm:"column:record_id"');
+  }
+
+// 工作量统计记录
+struct ModelWorkloadStatisticsRecord {
+  1: i32 id (go.tag='gorm:"column:id" json:"id"');
+  2: i32 created_at(go.tag='gorm:"column:created_at;index" json:"created_at"');
+  3: i32 updated_at(go.tag='gorm:"column:updated_at" json:"updated_at"');
+  4: i32 deleted_at(go.tag='gorm:"column:deleted_at" json:"deleted_at"');
+  5: string academic_year (go.tag='json:"academic_year" gorm:"column:academic_year"');
+  6: string semester (go.tag='json:"semester" gorm:"column:semester"');
+  7: string user_name (go.tag='json:"teacher_name" gorm:"column:teacher_name"');
+  8: string c_month (go.tag='json:"c_month" gorm:"column:c_month"');
 }
