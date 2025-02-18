@@ -42,7 +42,7 @@ struct ModelMenu {
 
 struct MenuItem {
     1: string component(go.tag='json:"component"');
-    2: Meta meta(go.tag='json:"meta"');
+    2: Meta meta(go.tag='json:"meta" gorm:"column:meta;embedded"');
     3: string name (go.tag='json:"name"');
     4: string path (go.tag='json:"path"');
     5: string redirect (go.tag='json:"redirect"');
