@@ -32,7 +32,7 @@ struct ModelMenu {
   3: i32 updated_at;
   4: i32 deleted_at;
   5: string component(go.tag='json:"component" gorm:"column:component;default:BasicLayout"');
-  6: Meta mete(go.tag='json:"meta" gorm:"column:meta;embedded"');
+  6: Meta meta(go.tag='json:"meta" gorm:"column:meta;embedded"');
   7: string name (go.tag='json:"name"');
   8: string path (go.tag='json:"path"');
   9: string redirect (go.tag='json:"redirect"');
@@ -42,7 +42,7 @@ struct ModelMenu {
 
 struct MenuItem {
     1: string component(go.tag='json:"component"');
-    2: Meta meta(go.tag='json:"meta" gorm:"column:meta;embedded"');
+    2: Meta meta(go.tag='json:"meta"');
     3: string name (go.tag='json:"name"');
     4: string path (go.tag='json:"path"');
     5: string redirect (go.tag='json:"redirect"');
