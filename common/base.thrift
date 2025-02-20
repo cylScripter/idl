@@ -6,9 +6,9 @@ struct Option {
 }
 struct ListOption {
   1: list<Option> options(go.tag='json:"options"');
-  3: i32 limit(go.tag='json:"limit"');
-  4: i32 offset(go.tag='json:"offset"');
-  5: string offset_token(go.tag='json:"offset_token"');
+  3: i32 limit(go.tag='json:"limit"'); // 数据条
+  4: i32 offset(go.tag='json:"offset"'); // 偏移
+  5: string offset_token(go.tag='json:"offset_token"'); //
 }
 struct Paginate{
   1: i32 total(go.tag='json:"total"'); // 总数

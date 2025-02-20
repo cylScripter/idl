@@ -878,7 +878,6 @@ struct GetTrainingCourseListReq {
   1: base.ListOption list_option(go.tag='json:"list_option" binding:"required"');
 }
 
-
 enum GetTrainingCourseListReqOption {
     id = 1;
     academic_year = 2; // 学年
@@ -1181,7 +1180,6 @@ struct UpdateUserReq{
     3: string nick_name(go.tag='json:"nick_name" binding:"required"');
     4: string email(go.tag='json:"email"');
     5: string mobile(go.tag='json:"mobile"');
-
 }
 
 struct UpdateUserResp {}
@@ -1346,6 +1344,7 @@ struct GetUserListResp {
   2: base.Paginate paginate(go.tag='json:"paginate"');
   3: map<i32, list<ModelRole>> role_map(go.tag='json:"role_map"');
 }
+
 
 
 struct GetRoleListReq {
