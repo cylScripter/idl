@@ -569,7 +569,7 @@ struct ImportBeginExamResp{
 
 
 struct DeleteBeginExamReq{
-    1: i32 ids (go.tag='json:"ids" binding:"required"');
+    1: list<i32> ids (go.tag='json:"ids" binding:"required"');
 }
 
 struct DeleteBeginExamResp{}
@@ -604,6 +604,7 @@ struct UpdateBeginExamReq {
     8: string invigilator (go.tag='json:"invigilator"'); // 监考人
     9: string exam_time (go.tag='json:"exam_time"'); // 考试时间
     10: string exam_location (go.tag='json:"exam_location"'); // 考试地点
+    11: i32 id (go.tag='json:"id" binding:"required"');
 }
 struct UpdateBeginExamResp{}
 
@@ -616,8 +617,8 @@ enum GetBeginExamListReqOption {
     academic_year = 1; // 学年
     semester = 2; // 学期
     course_name = 3; // 名称
-    teacher_name = 4;
-    teacher_id = 5;
+    teacher_name = 4; // 教师姓名
+    teacher_id = 5; // 教师id
 }
 
 struct GetBeginExamListResp {
@@ -2197,6 +2198,15 @@ struct ModelCourseApply {
     36: bool is_fill(go.tag='json:"is_fill" gorm:"column:is_fill;default:false"')  // 是否填写
 }
 
+enum ExaminationType {
+    Unknown = 0; // 未审核
+    // 符合要求
+    Pass = 1;
+    // 不符合要求
+    NotPass = 2;
+}
+
+
 
 //  课程性质
 struct ModelCourseNature {
@@ -2422,4 +2432,5 @@ struct ModelWorkloadStatisticsRecord {
   6: string semester (go.tag='json:"semester" gorm:"column:semester"');
   7: string user_name (go.tag='json:"teacher_name" gorm:"column:teacher_name"');
   8: string c_month (go.tag='json:"c_month" gorm:"column:c_month"');
+  9: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id;index"' );
 }
