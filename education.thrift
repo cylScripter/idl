@@ -555,9 +555,26 @@ service educationservice {
     )
 
 
+    // 获取角色菜单
+    GetRoleMenuResp GetRoleMenu(1:GetRoleMenuReq req)(
+        api.post = '/education/GetRoleMenu'
+        api.serializer = 'json'
+    )
+
+
 }
 
 // =================req\resp===============================
+
+
+struct GetRoleMenuReq{
+    1: i32 role_id (go.tag='json:"role_id" binding:"required"');
+}
+
+
+struct GetRoleMenuResp{
+    1: list<i32> role_menu_list (go.tag='json:"role_menu_list"');
+}
 
 struct ImportBeginExamReq{
     1: string upload_id (go.tag='json:"upload_id" binding:"required"');
@@ -1276,6 +1293,7 @@ struct  UpdateTeacherInfoReq   {
   9: i32 is_external(go.tag='json:"is_external" binding:"required"'); // 是否外聘
   10: i32 order(go.tag='json:"order"');
   11: string department(go.tag='json:"department"'); // 教师所属部门
+  12: i32 id(go.tag='json:"id" binding:"required"');
 }
 
 
@@ -2162,12 +2180,12 @@ struct ModelClass {
 struct ModelCourseApply {
     1: i32 id (go.tag='gorm:"column:id" json:"id"');
     2: i32 created_at(go.tag='gorm:"column:created_at;index" json:"created_at"');
-    3: i32 updated_at(go.tag='gorm:"column:updated_at" json:"updated_at"');
+    3: i32 updated_at(go.tag='gorm:"column:updated_at;index" json:"updated_at"');
     4: i32 deleted_at(go.tag='gorm:"column:deleted_at" json:"deleted_at"');
     5: string department(go.tag='json:"department" gorm:"column:department"'); // 开课部门
-    6: string academic_year(go.tag='json:"academic_year" gorm:"column:academic_year"'); // 学年
-    7: string semester(go.tag='json:"semester" gorm:"column:semester"'); // 学期
-    8: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id"' ); // 学院id
+    6: string academic_year(go.tag='json:"academic_year" gorm:"column:academic_year;index"'); // 学年
+    7: string semester(go.tag='json:"semester" gorm:"column:semester;index"'); // 学期
+    8: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id";index' ); // 学院id
     9: i32 office_id(go.tag='json:"office_id" gorm:"column:office_id"'); // 教研室id
     10: string course_name(go.tag='json:"course_name" gorm:"column:course_name"'); // 课程名称
     11: i32 class_id(go.tag='json:"class_id" gorm:"column:class_id"'); // 班级id
