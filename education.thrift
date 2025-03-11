@@ -561,10 +561,64 @@ service educationservice {
         api.serializer = 'json'
     )
 
+    // 上传签名
+    UploadSignResp UploadSign(1:UploadSignReq req)(
+        api.post = '/education/UploadSign'
+        api.serializer = 'json'
+    )
+
+
+   // 获取部门课程资源
+   GetDepartmentCourseApplyListResp GetDepartmentCourseApplyList(1:GetDepartmentCourseApplyListReq req)(
+       api.post = '/education/GetDepartmentCourseApplyList'
+       api.serializer = 'json'
+   )
+
+   // 修改密码
+   UpdatePasswordResp UpdatePassword(1:UpdatePasswordReq req)(
+       api.post = '/education/UpdatePassword'
+       api.serializer = 'json'
+   )
+
 
 }
 
 // =================req\resp===============================
+
+
+struct UpdatePasswordReq{
+   1: string old_password (go.tag='json:"old_password" binding:"required"');
+   2: string new_password (go.tag='json:"new_password" binding:"required"');
+}
+
+
+struct UpdatePasswordResp{
+}
+
+struct GetDepartmentCourseApplyListReq{
+   1: base.ListOption list_option(go.tag='json:"list_option"');
+}
+
+enum GetDepartmentCourseApplyListReqOption{
+   id = 1;
+   course_name = 2; // 课程名称
+   academic_year = 3; // 学年
+   semester = 4; // 学期
+   course_nature = 9; // 课程性质
+}
+
+struct GetDepartmentCourseApplyListResp{
+  1: list<ModelCourseApply> list(go.tag='json:"list"');
+  2: base.Paginate paginate(go.tag='json:"paginate"');
+}
+
+struct UploadSignReq {
+    1: string upload_id (go.tag='json:"upload_id" binding:"required"');
+}
+
+struct UploadSignResp{
+
+}
 
 
 struct GetRoleMenuReq{
