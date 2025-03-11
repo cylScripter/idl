@@ -605,11 +605,14 @@ enum GetDepartmentCourseApplyListReqOption{
    academic_year = 3; // 学年
    semester = 4; // 学期
    course_nature = 9; // 课程性质
+   is_fill = 5; // 是否已填写
 }
 
 struct GetDepartmentCourseApplyListResp{
   1: list<ModelCourseApply> list(go.tag='json:"list"');
   2: base.Paginate paginate(go.tag='json:"paginate"');
+  3: map<i32, ModelTeacherOffice> office_map(go.tag='json:"office_map"');
+  4: map<i32, ModelClass> class_map(go.tag='json:"class_map"');
 }
 
 struct UploadSignReq {
@@ -1634,6 +1637,8 @@ enum GetCourseApplyListOption{
 struct GetCourseApplyListResp{
    1: list<ModelCourseApply> list(go.tag='json:"list"');
    2: base.Paginate paginate(go.tag='json:"paginate"');
+   3: map<i32, ModelTeacherOffice> office_map(go.tag='json:"office_map"');
+   4: map<i32, ModelClass> class_map(go.tag='json:"class_map"');
 }
 
 struct GetSelfCourseApplyListReq{
@@ -1651,6 +1656,8 @@ enum GetSelfCourseApplyListOption{
 struct GetSelfCourseApplyListResp{
   1: list<ModelCourseApply> list(go.tag='json:"list"');
   2: base.Paginate paginate(go.tag='json:"paginate"');
+  3: map<i32, ModelTeacherOffice> office_map(go.tag='json:"office_map"');
+  4: map<i32, ModelClass>class_map(go.tag='json:"class_map"');
 }
 
 struct DeleteCourseApplyReq{
@@ -2240,7 +2247,7 @@ struct ModelCourseApply {
     6: string academic_year(go.tag='json:"academic_year" gorm:"column:academic_year;index"'); // 学年
     7: string semester(go.tag='json:"semester" gorm:"column:semester;index"'); // 学期
     8: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id";index' ); // 学院id
-    9: i32 office_id(go.tag='json:"office_id" gorm:"column:office_id"'); // 教研室id
+    9: i32 office_id(go.tag='json:"office_id" gorm:"column:office_id;;index"'); // 教研室id
     10: string course_name(go.tag='json:"course_name" gorm:"column:course_name"'); // 课程名称
     11: i32 class_id(go.tag='json:"class_id" gorm:"column:class_id"'); // 班级id
     12:string teach_class_name(go.tag='json:"teach_class_name" gorm:"column:teach_class_name"'); // 教学班名称
@@ -2505,4 +2512,14 @@ struct ModelWorkloadStatisticsRecord {
   7: string user_name (go.tag='json:"teacher_name" gorm:"column:teacher_name"');
   8: string c_month (go.tag='json:"c_month" gorm:"column:c_month"');
   9: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id;index"' );
+}
+
+struct ModelUserSign {
+ 1: i32 id (go.tag='gorm:"column:id" json:"id"');
+  2: i32 created_at(go.tag='gorm:"column:created_at;index" json:"created_at"');
+  3: i32 updated_at(go.tag='gorm:"column:updated_at" json:"updated_at"');
+  4: i32 deleted_at(go.tag='gorm:"column:deleted_at" json:"deleted_at"');
+  5: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id;index"' );
+  6: i32 uid (go.tag='json:"uid" gorm:"column:uid"');
+  7: string sign_id (go.tag='json:"sign_id" gorm:"column:sign_id"');
 }
