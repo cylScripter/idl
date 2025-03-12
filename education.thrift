@@ -579,12 +579,26 @@ service educationservice {
        api.post = '/education/UpdatePassword'
        api.serializer = 'json'
    )
+   // GetUserSign
+   GetUserSignResp GetUserSign(1:GetUserSignReq req)(
+       api.post = '/education/GetUserSign'
+       api.serializer = 'json'
+   )
+
 
 
 }
 
 // =================req\resp===============================
 
+struct GetUserSignReq{}
+
+
+struct GetUserSignResp{
+   1: string sign_url(go.tag='json:"sign_url"');
+   // 二维码地址
+   2: string qr_code_url(go.tag='json:"qr_code_url"');
+}
 
 struct UpdatePasswordReq{
    1: string old_password (go.tag='json:"old_password" binding:"required"');
@@ -1815,7 +1829,7 @@ struct GetClassListResp{
 
 struct GetSelectDataReq{}
 
-const list<string> online_platform = ["学堂云网络教学平台","职教云平台","","Blackboard 网络教学平台","专业教学资源库","慕课","其他","无"];
+const list<string> online_platform = ["学堂云网络教学平台","职教云平台","智慧树在线教育平台","Blackboard 网络教学平台","专业教学资源库","慕课","其他","无"];
 const list<string> order_online_platform = ["精品（在线）开放课程","微课","私播课"];
 
 
