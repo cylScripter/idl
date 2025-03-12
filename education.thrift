@@ -1696,8 +1696,8 @@ struct FillCourseApplyReq{
   9: string resource_build_partner (go.tag='json:"resource_build_partner"') // 资源共建分工情况
   10: string  remark (go.tag='json:"remark"') // 备注
   11:string url (go.tag='json:"url"'); // 教学资源url
-  12:string isnot_account (go.tag='json:"isnot_account"'); // 非三大平台须填写登录账户
-  13:string isnot_password(go.tag='json:"isnot_password"') // 非三大平台须填写登录密码
+  12:string isnot_account (go.tag='json:"isnot_account" binding:"required"'); // 非三大平台须填写登录账户
+  13:string isnot_password(go.tag='json:"isnot_password" binding:"required"') // 非三大平台须填写登录密码
   14:i32 is_use_other_resource(go.tag='json:"is_use_other_resource"'); // 是否使用其他信息化教学资源
   15:string other_resource_name(go.tag='json:"other_resource_name"'); // 其他教学资源名称
 }
