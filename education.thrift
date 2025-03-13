@@ -585,11 +585,30 @@ service educationservice {
        api.serializer = 'json'
    )
 
+   // ExportAllResponsibility
+   ExportAllResponsibilityResp ExportAllResponsibility(1:ExportAllResponsibilityReq req)(
+       api.post = '/education/ExportAllResponsibility'
+       api.serializer = 'json'
+   )
 
 
 }
 
 // =================req\resp===============================
+
+
+struct ExportAllResponsibilityReq {
+   //  学期
+   1: string academic_year(go.tag='json:"academic_year" binding:"required"');
+   //  学期
+   2: string semester(go.tag='json:"semester" binding:"required"');
+
+}
+
+
+struct ExportAllResponsibilityResp{
+   1: string task_key(go.tag='json:"task_key"');
+}
 
 struct GetUserSignReq{}
 
