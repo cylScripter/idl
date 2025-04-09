@@ -541,7 +541,7 @@ service educationservice {
         api.serializer = 'json'
     )
 
-    // 更新期初补考数据
+    // 删除期初补考数据
     DeleteBeginExamResp DeleteBeginExam(1:DeleteBeginExamReq req)(
         api.post = '/education/DeleteBeginExam'
         api.serializer = 'json'
@@ -668,6 +668,8 @@ struct GetRoleMenuResp{
 
 struct ImportBeginExamReq{
     1: string upload_id (go.tag='json:"upload_id" binding:"required"');
+    2: string academic_year (go.tag='json:"academic_year" binding:"required"');
+    3: string semester (go.tag='json:"semester" binding:"required"');
 }
 
 struct ImportBeginExamResp{
@@ -1077,7 +1079,7 @@ struct GetInternshipListResp {
 struct UpdateHolidayReq {
   1: i32 id(go.tag='json:"id" binding:"required"');
   3: string name(go.tag='json:"name" binding:"required"'); // 名称
-  4: string bigin_date(go.tag='json:"bigin_date" binding:"required"'); // 开始时间
+  4: string begin_date(go.tag='json:"begin_date" bending:"required"'); // 开始时间
   5: string end_date(go.tag='json:"end_date" binding:"required"'); // 结束时间
   6: string remark(go.tag='json:"remark"'); // 备注
 }
@@ -1622,6 +1624,7 @@ enum GetMenuListOption {
    parent_id = 6,
    title = 7,
    created_at = 8,
+   status = 9,
 }
 
 
@@ -1729,8 +1732,8 @@ struct FillCourseApplyReq{
   9: string resource_build_partner (go.tag='json:"resource_build_partner"') // 资源共建分工情况
   10: string  remark (go.tag='json:"remark"') // 备注
   11:string url (go.tag='json:"url"'); // 教学资源url
-  12:string isnot_account (go.tag='json:"isnot_account" binding:"required"'); // 非三大平台须填写登录账户
-  13:string isnot_password(go.tag='json:"isnot_password" binding:"required"') // 非三大平台须填写登录密码
+  12:string isnot_account (go.tag='json:"isnot_account" '); // 非三大平台须填写登录账户
+  13:string isnot_password(go.tag='json:"isnot_password"') // 非三大平台须填写登录密码
   14:i32 is_use_other_resource(go.tag='json:"is_use_other_resource"'); // 是否使用其他信息化教学资源
   15:string other_resource_name(go.tag='json:"other_resource_name"'); // 其他教学资源名称
 }
@@ -1852,6 +1855,11 @@ const list<string> online_platform = ["学堂云网络教学平台","职教云�
 const list<string> order_online_platform = ["精品（在线）开放课程","微课","私播课"];
 
 
+const list<string> assessment_method = ["集中","过程","考查","考试"];
+const list<string> open_course_type = ["专业拓展课","专业拓展课","通识选修课"];
+const list<string> course_category = ["专业课","专业课","无"];
+
+
 struct GetSelectDataResp{
     1: list<string>  online_platform(go.tag='json:"online_platform"'); // 线上授课平台名称
     2: list<string>  order_online_platform(go.tag='json:"order_online_platform"');//  其他授课平台名称
@@ -1861,6 +1869,10 @@ struct GetSelectDataResp{
     6: map<i32,string>   field_type(go.tag='json:"field_type"'); // 课程申请表导出字段
     7: string  current_academic_year(go.tag='json:"current_academic_year"'); // 当前学年
     8: string  current_semester(go.tag='json:"current_semester"'); // 当前学期
+
+    9: list<string>  assessment_method(go.tag='json:"assessment_method"');  // 考核方式
+    10: list<string>  open_course_type(go.tag='json:"open_type"');  // 开课类型
+    11: list<string>  course_category(go.tag='json:"course_category"'); // 课程类别
 }
 
 
@@ -2445,13 +2457,14 @@ struct ModelFinalExam {
   21: i32 course_id (go.tag='json:"course_id" gorm:"column:course_id"');
 }
 // 期末考试填写记录
+
 struct ModelFinalExamRecord {
   1: i32 id (go.tag='gorm:"column:id" json:"id"');
   2: i32 created_at(go.tag='gorm:"column:created_at;index" json:"created_at"');
   3: i32 updated_at(go.tag='gorm:"column:updated_at" json:"updated_at"');
   4: i32 deleted_at(go.tag='gorm:"column:deleted_at" json:"deleted_at"');
-  5: string exam_subject (go.tag='json:"exam_subject" gorm:"column:exam_subject"');
-  6: string class_name_list (go.tag='json:"class_name_list" gorm:"column:class_name_list"');
+  5: string exam_subject (go.tag='json:"exam_subject" gorm:"column:exam_subject"');  // 考试科目
+  6: string class_name_list (go.tag='json:"class_name_list" gorm:"column:class_name_list"'); // 使用班级
   7: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id"' );
   8: string academic_year (go.tag='json:"academic_year" gorm:"column:academic_year"');
   9: string semester (go.tag='json:"semester" gorm:"column:semester"');
@@ -2484,14 +2497,25 @@ struct ModelBeginExam {
   18: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id"' );
   }
 
+
+enum ModelWorkloadStatisticsCategory {
+   Unknown = 0; // 未知
+   // 理论课
+   Theory = 1;
+   // 实训课
+   TrainingCourse = 2;
+   // 实习
+   Internship = 3;
+}
+
   // 工作量统计表
 struct ModelWorkloadStatistics {
     1: i32 id (go.tag='gorm:"column:id" json:"id"');
     2: i32 created_at(go.tag='gorm:"column:created_at;index" json:"created_at"');
     3: i32 updated_at(go.tag='gorm:"column:updated_at" json:"updated_at"');
     4: i32 deleted_at(go.tag='gorm:"column:deleted_at" json:"deleted_at"');
-    5: string academic_year (go.tag='json:"academic_year" gorm:"column:academic_year"');
-    6: string semester (go.tag='json:"semester" gorm:"column:semester"');
+    5: string academic_year (go.tag='json:"academic_year" gorm:"column:academic_year;index"');
+    6: string semester (go.tag='json:"semester" gorm:"column:semester;index"');
     //app_id
     7: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id;index"' );
     8: string teacher_name (go.tag='json:"teacher_name" gorm:"column:teacher_name"');
@@ -2528,10 +2552,10 @@ struct ModelWorkloadStatistics {
     31: i32 traffic_subsidy (go.tag='json:"traffic_subsidy" gorm:"column:traffic_subsidy"');
     32: i32 work_overtime (go.tag='json:"work_overtime" gorm:"column:work_overtime"');
     33: i32 discount (go.tag='json:"discount" gorm:"column:discount"');
-    34: i32 category (go.tag='json:"category" gorm:"column:category"');
-
+    34: i32 category (go.tag='json:"category" gorm:"column:category;index"');
     // ModelWorkloadStatisticsRecord id
-    35: i32 record__id (go.tag='json:"record_id" gorm:"column:record_id"');
+    35: i32 record_id (go.tag='json:"record_id" gorm:"column:record_id;index"');
+
   }
 
 // 工作量统计记录
@@ -2547,6 +2571,7 @@ struct ModelWorkloadStatisticsRecord {
   9: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id;index"' );
 }
 
+// 用户签名
 struct ModelUserSign {
  1: i32 id (go.tag='gorm:"column:id" json:"id"');
   2: i32 created_at(go.tag='gorm:"column:created_at;index" json:"created_at"');
