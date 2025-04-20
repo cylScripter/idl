@@ -3,6 +3,23 @@ namespace go system
 include "common/base.thrift"
 include "education.thrift"
 include "common.thrift"
+include "harbor.thrift"
+
+
+// 版本发布管理
+struct ModelRelease {
+  1: i32 id (go.tag='gorm:"column:id" json:"id"');
+  2: i32 created_at;
+  3: i32 updated_at;
+  4: i32 deleted_at;
+  5: string repository_name (go.tag='json:"repository_name"');
+  6: string description (go.tag='json:"description"');
+  7: string tag (go.tag='json:"tag"');
+  // 发布环境
+  8: string environment (go.tag='json:"environment"');
+}
+
+
 
 // Api管理表
 struct ModelApi{
@@ -359,7 +376,135 @@ service systemservice {
         api.serializer = 'json'
     )
 
+
+    // 获取镜像列表
+    GetImageListResp GetImageList(1:GetImageListReq req)(
+        api.post = '/system/GetImageList'
+        api.serializer = 'json'
+   )
+
+   // 获取项目
+   GetProjectListResp GetProjectList(1:GetProjectListReq req)(
+       api.post = '/system/GetProjectList'
+       api.serializer = 'json'
+   )
+
+   // 获取仓库
+   GetRepositoryListResp GetRepositoryList(1:GetRepositoryListReq req)(
+       api.post = '/system/GetRepositoryList'
+       api.serializer = 'json'
+   )
+
+   // 删除镜像
+   DeleteImageResp DeleteImage(1:DeleteImageReq req)(
+       api.post = '/system/DeleteImage'
+       api.serializer = 'json'
+   )
+
+
+   // patch statefulset image
+   PatchStatefulSetImageResp PatchStatefulSetImage(1:PatchStatefulSetImageReq req)(
+       api.post = '/system/PatchStatefulSetImage'
+       api.serializer = 'json'
+   )
+
+   // GetServiceStatus
+   GetServiceStatusResp GetServiceStatus(1:GetServiceStatusReq req)(
+       api.post = '/system/GetServiceStatus'
+       api.serializer = 'json'
+   )
+
+
+
 }
+
+
+
+
+
+struct GetServiceStatusReq {
+    1: string environment(go.tag='json:"environment"  binding:"required"')
+    2: string repository_name(go.tag='json:"repository_name"  binding:"required"')
+}
+
+struct GetServiceStatusResp {
+    1: list<harbor.Container> list(go.tag='json:"list"');
+}
+
+
+
+struct PatchStatefulSetImageReq {
+    1: string repository (go.tag='json:"repository" binding:"required"');
+    2: string tag(go.tag='json:"tag" binding:"required"');
+    3: string description (go.tag='json:"description"');
+    4: string environment(go.tag='json:"environment"  binding:"required"')
+}
+
+
+struct PatchStatefulSetImageResp {}
+
+struct DeleteImageReq {
+    1: string digest(go.tag='json:"digest" binding:"required"');
+    2: string project_name(go.tag='json:"project_name"  binding:"required"')
+    3: string repository_name(go.tag='json:"repository_name"  binding:"required"')
+}
+
+struct DeleteImageResp {
+}
+
+
+struct GetProjectListReq {
+    1: base.ListOption list_option(go.tag='json:"list_option" binding:"required"');
+}
+
+
+enum GetProjectListReqOption{
+     q = 1,
+}
+
+
+
+struct GetProjectListResp {
+    1: list<harbor.Project> list(go.tag='json:"list"');
+    2: base.Paginate paginate(go.tag='json:"paginate"');
+}
+
+
+
+
+
+struct GetRepositoryListReq {
+    1: base.ListOption list_option(go.tag='json:"list_option" binding:"required"');
+}
+
+enum GetRepositoryListReqOption {
+    q = 1
+    project = 2
+}
+
+struct GetRepositoryListResp {
+    1: list<harbor.Repository> list(go.tag='json:"list"');
+    2: base.Paginate paginate(go.tag='json:"paginate"');
+}
+
+
+struct GetImageListReq {
+    1: base.ListOption list_option(go.tag='json:"list_option" binding:"required"');
+}
+
+enum GetImageListReqOption {
+    name = 1,
+    project = 2,
+    repository = 3,
+}
+
+struct GetImageListResp {
+  1: list<harbor.Artifact> list(go.tag='json:"list"');
+  2: base.Paginate paginate(go.tag='json:"paginate"');
+  3: map<string,list<ModelRelease>> release_map(go.tag='json:"release_map"');
+}
+
+
 
 enum ErrorCode {
   LoginFailed = 10001 ,// 登录失败

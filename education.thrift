@@ -585,17 +585,422 @@ service educationservice {
        api.serializer = 'json'
    )
 
-   // ExportAllResponsibility
+   // 到出所有责任书
    ExportAllResponsibilityResp ExportAllResponsibility(1:ExportAllResponsibilityReq req)(
        api.post = '/education/ExportAllResponsibility'
        api.serializer = 'json'
    )
 
+   // ==============================================================================================================
+
+
+   // 获取工作量记录
+   GetWorkloadStatisticsRecordListResp GetWorkloadStatisticsRecordList(1:GetWorkloadStatisticsRecordListReq req)(
+       api.post = '/education/GetWorkloadStatisticsRecordList'
+       api.serializer = 'json'
+   )
+
+   // 删除工作量记录
+   DeleteWorkloadStatisticsRecordResp DeleteWorkloadStatisticsRecord(1:DeleteWorkloadStatisticsRecordReq req)(
+       api.post = '/education/DeleteWorkloadStatisticsRecord'
+       api.serializer = 'json'
+   )
+   // 修改工作量记录备注
+   UpdateWorkloadStatisticsRecordResp UpdateWorkloadStatisticsRecord(1:UpdateWorkloadStatisticsRecordReq req)(
+       api.post = '/education/UpdateWorkloadStatisticsRecord'
+       api.serializer = 'json'
+   )
+
+   // 计算理论课程工作量
+   CalculateTheoreticalCourseWorkloadResp CalculateTheoreticalCourseWorkload(1:CalculateTheoreticalCourseWorkloadReq req)(
+       api.post = '/education/CalculateTheoreticalCourseWorkload'
+       api.serializer = 'json'
+   )
+
+   // 计算实训课程工作量
+   CalculateTrainingCourseWorkloadResp CalculateTrainingCourseWorkload(1:CalculateTrainingCourseWorkloadReq req)(
+       api.post = '/education/CalculateTrainingCourseWorkload'
+       api.serializer = 'json'
+   )
+
+   // 计算实习工作量
+   CalculateInternshipWorkloadResp CalculateInternshipWorkload(1:CalculateInternshipWorkloadReq req)(
+       api.post = '/education/CalculateInternshipWorkload'
+       api.serializer = 'json'
+   )
+
+
+   // 计算期初补考工作量
+   CalculateBeginExamWorkloadResp CalculateBeginExamWorkload(1:CalculateBeginExamWorkloadReq req)(
+       api.post = '/education/CalculateBeginExamWorkload'
+       api.serializer = 'json'
+   )
+
+   // 获取工作量详情列表
+   GetWorkloadStatisticsListResp GetWorkloadStatisticsList(1:GetWorkloadStatisticsListReq req)(
+       api.post = '/education/GetModelWorkloadStatisticsList'
+       api.serializer = 'json'
+   )
+
+   // 删除工作量详情
+   DeleteWorkloadStatisticsResp DeleteWorkloadStatistics(1:DeleteWorkloadStatisticsReq req)(
+       api.post = '/education/DeleteWorkloadStatistics'
+       api.serializer = 'json'
+   )
+
+   // 导出工作量详情
+   ExportWorkloadStatisticsResp ExportWorkloadStatistics(1:ExportWorkloadStatisticsReq req)(
+       api.post = '/education/ExportWorkloadStatistics'
+       api.serializer = 'json'
+   )
+
+   // 修改理论课程工作量
+   UpdateTheoreticalCourseWorkloadResp UpdateTheoreticalCourseWorkload(1:UpdateTheoreticalCourseWorkloadReq req)(
+       api.post = '/education/UpdateTheoreticalCourseWorkload'
+       api.serializer = 'json'
+   )
+   // 修改实训工作量
+   UpdateTrainingCourseWorkloadResp UpdateTrainingCourseWorkload(1:UpdateTrainingCourseWorkloadReq req)(
+       api.post = '/education/UpdateTrainingCourseWorkload'
+       api.serializer = 'json'
+   )
+
+   // 修改实习工作量
+   UpdateInternshipWorkloadResp UpdateInternshipWorkload(1:UpdateInternshipWorkloadReq req)(
+       api.post = '/education/UpdateInternshipWorkload'
+       api.serializer = 'json'
+   )
+   // 修改期初补考工作量
+   UpdateBeginExamWorkloadResp UpdateBeginExamWorkload(1:UpdateBeginExamWorkloadReq req)(
+       api.post = '/education/UpdateBeginExamWorkload'
+       api.serializer = 'json'
+   )
+
+   // 导出起初考试
+   ExportBeginExamWorkloadResp ExportBeginExamWorkload(1:ExportBeginExamWorkloadReq req)(
+       api.post = '/education/ExportBeginExamWorkload'
+       api.serializer = 'json'
+   )
+
+   // 创建教师工作量详情
+   CreateWorkloadStatisticsResp CreateWorkloadStatistics(1:CreateWorkloadStatisticsReq req)(
+       api.post = '/education/CreateWorkloadStatistics'
+       api.serializer = 'json'
+   )
 
 }
 
 // =================req\resp===============================
 
+
+
+struct CreateWorkloadStatisticsReq {
+
+    1: i32 record_id (go.tag='json:"record_id" ');
+    2 : string c_month (go.tag='json:"c_month" '); // 月份
+
+
+    5: string academic_year (go.tag='json:"academic_year" ');
+    6: string semester (go.tag='json:"semester" ');
+    8: string teacher_name (go.tag='json:"teacher_name" ');
+    9: string teacher_id (go.tag='json:"teacher_id" ');
+    // 课程信息
+    10: string teach_class (go.tag='json:"teach_class" '); // 教学班
+    11: string class_name (go.tag='json:"class_name" '); // 教学班组成
+    12: string assessment_method (go.tag='json:"assessment_method" '); // 考核方式
+    13: string sae_week (go.tag='json:"sae_week" '); // 教学起始周
+    14: string not_class_time (go.tag='json:"not_class_time"'); // 非上班时间上课节次
+    15: i32 student_number (go.tag='json:"student_number" '); // 学生总人数
+    16: double number_factor (go.tag='json:"number_factor" '); // 人数系数
+    17: i32 week_hour (go.tag='json:"week_hour" '); // 每周学时
+
+    //当月教学周数
+    18: i32 theory_wn (go.tag='json:"theory_wn" '); // 理论课
+    19: i32 training_wn (go.tag='json:"training_wn" '); // 实训课
+
+    // 当月教学工作量统计
+    20: double theory_course_hours (go.tag='json:"theory_course_hours" ');  // 理论课课时
+    21: i32 training_course_hours(go.tag='json:"training_course_hours" '); // 实训课
+    22: i32 internship_hours (go.tag='json:"internship_hours"'); // 实习课时
+    23: i32 review_week (go.tag='json:"review_week" '); // 复习周
+    24: i32 giving_paper (go.tag='json:"giving_paper"'); // 出卷
+    25: double grading_paper (go.tag='json:"grading_paper" '); // 阅卷
+    26: double other (go.tag='json:"other" '); // 其他
+    27: string material1 (go.tag='json:"material1" '); //佐证材料及编号1
+    28: string material2 (go.tag='json:"material2" '); //佐证材料及编号2
+
+    // 当月教学津贴统计
+    29: i32 duties_subsidy (go.tag='json:"duties_subsidy" '); // 职务补贴
+    30: i32 invigilation_tour (go.tag='json:"invigilation_tour" '); // 监考
+    31: i32 traffic_subsidy (go.tag='json:"traffic_subsidy"'); // 交通补贴
+    32: i32 work_overtime (go.tag='json:"work_overtime" '); // 加班费
+    33: i32 discount (go.tag='json:"discount" '); // 折扣
+    34: i32 category (go.tag='json:"category" '); // 分类
+    // ModelWorkloadStatisticsRecord id
+
+
+}
+struct CreateWorkloadStatisticsResp{}
+
+struct ExportBeginExamWorkloadReq {
+    1: string academic_year(go.tag='json:"academic_year" ');
+    2: string semester(go.tag='json:"semester" ');
+    3: string c_month(go.tag='json:"c_month"');
+    // ModelWorkloadStatisticsRecord id
+    4: i32 record_id (go.tag='json:"record_id"');
+
+    // 1,2,3 和 4 两种选择一种
+}
+
+struct ExportBeginExamWorkloadResp{
+    1: string task_key (go.tag='json:"task_key"');
+}
+
+
+
+struct UpdateBeginExamWorkloadReq{
+    1: i32 id (go.tag='json:"id" binding:"required"');
+    // 课程信息
+    2: string teach_class (go.tag='json:"teach_class"'); // 教学班
+    3: string class_name (go.tag='json:"class_name"'); // 教学班组成
+    4: string assessment_method (go.tag='json:"assessment_method"'); // 考核方式
+    5: string sae_week (go.tag='json:"sae_week" '); // 教学起始周
+    6: string not_class_time (go.tag='json:"not_class_time" '); // 非上班时间上课节次
+    7: i32 student_number (go.tag='json:"student_number"'); // 学生总人数
+    8: double number_factor (go.tag='json:"number_factor"'); // 人数系数
+    9: i32 week_hour (go.tag='json:"week_hour" '); // 每周学时
+
+
+    12: i32 review_week (go.tag='json:"review_week" '); // 复习周
+    13: i32 giving_paper (go.tag='json:"giving_paper"'); // 出卷
+    14: double grading_paper (go.tag='json:"grading_paper" '); //阅卷
+    15: double other (go.tag='json:"other" '); // 其他
+    16: string material1 (go.tag='json:"material1" '); // 佐证材料及编号1
+    17: string material2 (go.tag='json:"material2" '); // 佐证材料及编号2
+
+    // 当月教学津贴统计
+    18: i32 duties_subsidy (go.tag='json:"duties_subsidy"');  // 职务补贴
+    19: i32 invigilation_tour (go.tag='json:"invigilation_tour" '); // 监考
+    20: i32 traffic_subsidy (go.tag='json:"traffic_subsidy" '); // 交通补贴
+    21: i32 work_overtime (go.tag='json:"work_overtime" '); // 加班费
+    22: i32 discount (go.tag='json:"discount" '); //兼课折扣
+}
+
+struct UpdateBeginExamWorkloadResp{}
+
+struct UpdateInternshipWorkloadReq {
+     1: i32 id (go.tag='json:"id" binding:"required"');
+    // 课程信息
+    2: string teach_class (go.tag='json:"teach_class"'); // 教学班
+    3: string class_name (go.tag='json:"class_name"'); // 教学班组成
+    4: string assessment_method (go.tag='json:"assessment_method"'); // 考核方式
+    5: string sae_week (go.tag='json:"sae_week" '); // 教学起始周
+    6: i32 student_number (go.tag='json:"student_number"'); // 学生总人数
+    7: i32 week_hour (go.tag='json:"week_hour" '); // 每周学时
+
+    8: i32 training_wn (go.tag='json:"training_wn"'); // 实训课
+    9: i32 internship_hours (go.tag='json:"internship_hours" '); // 实习课时
+
+    10: double  other (go.tag='json:"other" '); // 其他
+    11: string material1 (go.tag='json:"material1" '); // 佐证材料及编号1
+    12: string material2 (go.tag='json:"material2" '); // 佐证材料及编号2
+
+    // 当月教学津贴统计
+    13: i32 duties_subsidy (go.tag='json:"duties_subsidy"');  // 职务补贴
+    14: i32 invigilation_tour (go.tag='json:"invigilation_tour" '); // 监考
+    15: i32 traffic_subsidy (go.tag='json:"traffic_subsidy" '); // 交通补贴
+    16: i32 work_overtime (go.tag='json:"work_overtime" '); // 加班费
+    17: i32 discount (go.tag='json:"discount" '); //兼课折扣
+}
+
+struct UpdateInternshipWorkloadResp{
+
+}
+
+struct UpdateTrainingCourseWorkloadReq{
+    1: i32 id (go.tag='json:"id" binding:"required"');
+    // 课程信息
+    2: string teach_class (go.tag='json:"teach_class"'); // 教学班
+    3: string class_name (go.tag='json:"class_name"'); // 教学班组成
+    4: string assessment_method (go.tag='json:"assessment_method"'); // 考核方式
+    5: string sae_week (go.tag='json:"sae_week" '); // 教学起始周
+    6: i32 student_number (go.tag='json:"student_number"'); // 学生总人数
+    7: i32 week_hour (go.tag='json:"week_hour" '); // 每周学时
+
+    8: i32 training_wn (go.tag='json:"training_wn"'); // 实训课周数
+    9: i32 training_course_hours(go.tag='json:"training_course_hours"'); // 实训课
+
+    10: double other (go.tag='json:"other" '); // 其他
+    11: string material1 (go.tag='json:"material1" '); // 佐证材料及编号1
+    12: string material2 (go.tag='json:"material2" '); // 佐证材料及编号2
+
+    // 当月教学津贴统计
+    13: i32 duties_subsidy (go.tag='json:"duties_subsidy"');  // 职务补贴
+    14: i32 invigilation_tour (go.tag='json:"invigilation_tour" '); // 监考
+    15: i32 traffic_subsidy (go.tag='json:"traffic_subsidy" '); // 交通补贴
+    16: i32 work_overtime (go.tag='json:"work_overtime" '); // 加班费
+    17: i32 discount (go.tag='json:"discount" '); //兼课折扣
+
+}
+
+
+struct UpdateTrainingCourseWorkloadResp{}
+
+struct UpdateTheoreticalCourseWorkloadReq {
+    1: i32 id (go.tag='json:"id" binding:"required"');
+    // 课程信息
+    2: string teach_class (go.tag='json:"teach_class"'); // 教学班
+    3: string class_name (go.tag='json:"class_name"'); // 教学班组成
+    4: string assessment_method (go.tag='json:"assessment_method"'); // 考核方式
+    5: string sae_week (go.tag='json:"sae_week" '); // 教学起始周
+    6: string not_class_time (go.tag='json:"not_class_time" '); // 非上班时间上课节次
+    7: i32 student_number (go.tag='json:"student_number"'); // 学生总人数
+    8: double number_factor (go.tag='json:"number_factor"'); // 人数系数
+    9: i32 week_hour (go.tag='json:"week_hour" '); // 每周学时
+
+    10: i32 theory_wn (go.tag='json:"theory_wn"'); // 理论课
+    11: double theory_course_hours (go.tag='json:"theory_course_hours"'); // 理论课学时
+
+    12: i32 review_week (go.tag='json:"review_week" '); // 复习周
+    13: i32 giving_paper (go.tag='json:"giving_paper"'); // 出卷
+    14: double grading_paper (go.tag='json:"grading_paper" '); //阅卷
+    15: double other (go.tag='json:"other" '); // 其他
+    16: string material1 (go.tag='json:"material1" '); // 佐证材料及编号1
+    17: string material2 (go.tag='json:"material2" '); // 佐证材料及编号2
+
+    // 当月教学津贴统计
+    18: i32 duties_subsidy (go.tag='json:"duties_subsidy"');  // 职务补贴
+    19: i32 invigilation_tour (go.tag='json:"invigilation_tour" '); // 监考
+    20: i32 traffic_subsidy (go.tag='json:"traffic_subsidy" '); // 交通补贴
+    21: i32 work_overtime (go.tag='json:"work_overtime" '); // 加班费
+    22: i32 discount (go.tag='json:"discount" '); //兼课折扣
+}
+
+struct UpdateTheoreticalCourseWorkloadResp{}
+
+struct ExportWorkloadStatisticsReq{
+    // 第一种通过记录i导出
+    1 : i32 record_id (go.tag='json:"record_id"');
+    // 第二种月份和年份导出
+    2 : string academic_year(go.tag='json:"academic_year"');
+    3 : string semester(go.tag='json:"semester" ');
+    4 : string c_month(go.tag='json:"c_month" ');
+    // 两种选择一种
+}
+
+
+struct ExportWorkloadStatisticsResp{
+  1: string task_key (go.tag='json:"task_key"');
+}
+
+
+struct DeleteWorkloadStatisticsReq {
+   1: list<i32> ids(go.tag='json:"ids" binding:"required"')
+}
+
+struct DeleteWorkloadStatisticsResp{
+
+}
+
+struct GetWorkloadStatisticsListReq {
+   1: base.ListOption list_option(go.tag='json:"list_option"');
+}
+
+
+enum GetWorkloadStatisticsListReqOption {
+    academic_year =1  // 学年
+    semester =2 // 学期
+    c_month =3  // 周次区间
+    teacher_id =4  // 教师号
+    teacher_name =5 // 教师姓名
+    category =6 // 类别
+    teach_class =7 // 教学班级
+    record_id = 8 // 记录id
+}
+
+struct GetWorkloadStatisticsListResp {
+    1: base.Paginate paginate(go.tag='json:"paginate"');
+    2: list<ModelWorkloadStatistics> list (go.tag='json:"list"');
+    3: map<string, ModelTeacherInfo> teacher_info_map (go.tag='json:"teacher_info_map"');
+}
+
+
+
+
+struct CalculateBeginExamWorkloadReq{
+   1: string academic_year(go.tag='json:"academic_year" binding:"required"');
+   2: string semester(go.tag='json:"semester" binding:"required"');
+   3: string c_month(go.tag='json:"c_month" binding:"required"');
+}
+
+struct CalculateBeginExamWorkloadResp{
+   1: string task_key (go.tag='json:"task_key"');
+}
+
+struct CalculateInternshipWorkloadReq {
+   1: string academic_year(go.tag='json:"academic_year" binding:"required"');
+   2: string semester(go.tag='json:"semester" binding:"required"');
+   3: string c_month(go.tag='json:"c_month" binding:"required"');
+}
+
+
+struct CalculateInternshipWorkloadResp{
+   1: string task_key (go.tag='json:"task_key"');
+}
+struct CalculateTrainingCourseWorkloadReq{
+   1: string academic_year(go.tag='json:"academic_year" binding:"required"');
+   2: string semester(go.tag='json:"semester" binding:"required"');
+   3: string c_month(go.tag='json:"c_month" binding:"required"');
+}
+struct CalculateTrainingCourseWorkloadResp{
+   1: string task_key (go.tag='json:"task_key"');
+}
+
+
+struct CalculateTheoreticalCourseWorkloadReq{
+   1: string academic_year(go.tag='json:"academic_year" binding:"required"');
+   2: string semester(go.tag='json:"semester" binding:"required"');
+   3: string c_month(go.tag='json:"c_month" binding:"required"');
+}
+
+struct CalculateTheoreticalCourseWorkloadResp{
+   1: string task_key (go.tag='json:"task_key"');
+}
+
+struct UpdateWorkloadStatisticsRecordReq{
+   1: i32 id(go.tag='json:"id" binding:"required"');
+   2: string remark(go.tag='json:"remark" binding:"required"');
+}
+
+struct UpdateWorkloadStatisticsRecordResp{
+}
+
+struct DeleteWorkloadStatisticsRecordReq {
+   1: list<i32> ids(go.tag='json:"ids" binding:"required"');
+}
+
+struct DeleteWorkloadStatisticsRecordResp{
+}
+
+struct GetWorkloadStatisticsRecordListReq {
+   1: base.ListOption list_option(go.tag='json:"list_option"');
+}
+
+
+enum GetWorkloadStatisticsRecordListReqOption {
+  id =1;
+  user_name =2;
+  academic_year = 3;
+  semester = 4;
+  c_month = 5;
+}
+
+
+struct  GetWorkloadStatisticsRecordListResp {
+   1: list<ModelWorkloadStatisticsRecord> list (go.tag='json:"list"');
+   2: base.Paginate paginate(go.tag='json:"paginate"');
+   3: map<string,ModelUser> user_map(go.tag='json:"map_data"');
+}
 
 struct ExportAllResponsibilityReq {
    //  学期
@@ -1373,8 +1778,7 @@ struct ImportTeacherInfoResp {
 
 
 struct  UpdateTeacherInfoReq   {
-
-  1: i32 uid(go.tag='json:"id" binding:"required"');
+  1: i32 uid(go.tag='json:"uid" binding:"required"');
   2: i32  office_id(go.tag='json:"office_id" binding:"required"'); // 教研室id
   3: string duties(go.tag='json:"duties"'); // 职务
   4: string appoint_time(go.tag='json:"appoint_time"'); // 任职时间
@@ -2048,20 +2452,24 @@ struct ModelApp {
   10: i32 school_code(go.tag='gorm:"column:school_code" json:"school_code"'); // 学校代码
   11: bool status(go.tag='gorm:"column:status;default:1" json:"status"'); // 状态
 }
+
+
 // 用户表
 struct ModelUser {
   1: i32 id (go.tag='gorm:"column:id" json:"id"');
   2: i32 created_at(go.tag='gorm:"column:created_at;index" json:"created_at"');
   3: i32 updated_at(go.tag='gorm:"column:updated_at" json:"updated_at"');
   4: i32 deleted_at(go.tag='gorm:"column:deleted_at" json:"deleted_at"');
-  5: string user_name(go.tag='gorm:"column:user_name" json:"user_name"');
-  6: string password(go.tag='gorm:"column:password" json:"-"');
-  7: string nick_name(go.tag='gorm:"column:nick_name" json:"nick_name"');
-  8: string mobile(go.tag='gorm:"column:mobile" json:"mobile"');
-  9: string email(go.tag='gorm:"column:email" json:"email"');
-  10: string avatar(go.tag='gorm:"column:avatar" json:"avatar"');
+  5: string user_name(go.tag='gorm:"column:user_name" json:"user_name"'); // 用户名
+  6: string password(go.tag='gorm:"column:password" json:"-"');           // 密码
+  7: string nick_name(go.tag='gorm:"column:nick_name" json:"nick_name"'); // 昵称
+  8: string mobile(go.tag='gorm:"column:mobile" json:"mobile"');          // 手机号
+  9: string email(go.tag='gorm:"column:email" json:"email"');             // 邮箱
+  10: string avatar(go.tag='gorm:"column:avatar" json:"avatar"');         // 头像
   11: i32 app_id(go.tag='gorm:"column:app_id" json:"app_id"');
 }
+
+
 
 // 角色表
 struct ModelRole {
@@ -2291,7 +2699,7 @@ struct ModelCourseApply {
     5: string department(go.tag='json:"department" gorm:"column:department"'); // 开课部门
     6: string academic_year(go.tag='json:"academic_year" gorm:"column:academic_year;index"'); // 学年
     7: string semester(go.tag='json:"semester" gorm:"column:semester;index"'); // 学期
-    8: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id";index' ); // 学院id
+    8: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id;index"' ); // 学院id
     9: i32 office_id(go.tag='json:"office_id" gorm:"column:office_id;;index"'); // 教研室id
     10: string course_name(go.tag='json:"course_name" gorm:"column:course_name"'); // 课程名称
     11: i32 class_id(go.tag='json:"class_id" gorm:"column:class_id"'); // 班级id
@@ -2430,6 +2838,9 @@ struct ModelTrainingCourseTeacher {
   7: string teacher_name(go.tag='json:"teacher_name" gorm:"column:teacher_name"'); // 老师姓名
   8: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id"' );
   9: string week(go.tag='json:"week" gorm:"column:week"'); // 星期
+  // 学期
+  10: string academic_year(go.tag='json:"academic_year" gorm:"column:academic_year"');
+  11: string semester(go.tag='json:"semester" gorm:"column:semester"');
 }
 
 // 期末考试
@@ -2457,7 +2868,6 @@ struct ModelFinalExam {
   21: i32 course_id (go.tag='json:"course_id" gorm:"column:course_id"');
 }
 // 期末考试填写记录
-
 struct ModelFinalExamRecord {
   1: i32 id (go.tag='gorm:"column:id" json:"id"');
   2: i32 created_at(go.tag='gorm:"column:created_at;index" json:"created_at"');
@@ -2506,6 +2916,10 @@ enum ModelWorkloadStatisticsCategory {
    TrainingCourse = 2;
    // 实习
    Internship = 3;
+   // 期初补考
+   BeginExam = 4;
+   // 其他
+   Other = 5;
 }
 
   // 工作量统计表
@@ -2536,26 +2950,29 @@ struct ModelWorkloadStatistics {
     19: i32 training_wn (go.tag='json:"training_wn" gorm:"column:training_wn"'); // 实训课
 
     // 当月教学工作量统计
-    20: double theory_class_hours (go.tag='json:"theory_class_hours" gorm:"column:theory_class_hours"');
-    21: i32 training_class_hours(go.tag='json:"training_class_hours" gorm:"column:training_class_hours"');
-    22: i32 training_manage (go.tag='json:"training_manage" gorm:"column:training_manage"');
-    23: i32 review_week (go.tag='json:"review_week" gorm:"column:review_week"');
-    24: i32 giving_paper (go.tag='json:"giving_paper" gorm:"column:giving_paper"');
-    25: double grading_paper (go.tag='json:"grading_paper" gorm:"column:grading_paper"');
-    26: string other (go.tag='json:"other" gorm:"column:other"');
-    27: string material1 (go.tag='json:"material1" gorm:"column:material1"');
-    28: string material2 (go.tag='json:"material2" gorm:"column:material2"');
+    20: double theory_course_hours (go.tag='json:"theory_course_hours" gorm:"column:theory_course_hours"');  // 理论课课时
+    21: i32 training_course_hours(go.tag='json:"training_course_hours" gorm:"column:training_course_hours"'); // 实训课
+    22: i32 internship_hours (go.tag='json:"internship_hours" gorm:"column:internship_hours"'); // 实习课时
+    23: i32 review_week (go.tag='json:"review_week" gorm:"column:review_week"'); // 复习周
+    24: i32 giving_paper (go.tag='json:"giving_paper" gorm:"column:giving_paper"'); // 出卷
+    25: double grading_paper (go.tag='json:"grading_paper" gorm:"column:grading_paper"'); // 阅卷
+    26: double other (go.tag='json:"other" gorm:"column:other"'); // 其他
+    27: string material1 (go.tag='json:"material1" gorm:"column:material1"'); //佐证材料及编号1
+    28: string material2 (go.tag='json:"material2" gorm:"column:material2"'); //佐证材料及编号2
 
     // 当月教学津贴统计
-    29: i32 duties_subsidy (go.tag='json:"duties_subsidy" gorm:"column:duties_subsidy"');
-    30: i32 invigilation_tour (go.tag='json:"invigilation_tour" gorm:"column:invigilation_tour"');
-    31: i32 traffic_subsidy (go.tag='json:"traffic_subsidy" gorm:"column:traffic_subsidy"');
-    32: i32 work_overtime (go.tag='json:"work_overtime" gorm:"column:work_overtime"');
-    33: i32 discount (go.tag='json:"discount" gorm:"column:discount"');
-    34: i32 category (go.tag='json:"category" gorm:"column:category;index"');
+    29: i32 duties_subsidy (go.tag='json:"duties_subsidy" gorm:"column:duties_subsidy"'); // 职务补贴
+    30: i32 invigilation_tour (go.tag='json:"invigilation_tour" gorm:"column:invigilation_tour"'); // 监考
+    31: i32 traffic_subsidy (go.tag='json:"traffic_subsidy" gorm:"column:traffic_subsidy"'); // 交通补贴
+    32: i32 work_overtime (go.tag='json:"work_overtime" gorm:"column:work_overtime"'); // 加班费
+    33: i32 discount (go.tag='json:"discount" gorm:"column:discount"'); // 折扣
+    34: i32 category (go.tag='json:"category" gorm:"column:category;index"'); // 分类
     // ModelWorkloadStatisticsRecord id
     35: i32 record_id (go.tag='json:"record_id" gorm:"column:record_id;index"');
+    36: string c_month (go.tag='json:"c_month" gorm:"column:c_month"'); // 月份
 
+    // 课酬
+    37: double course_wage (go.tag='json:"course_wage" gorm:"column:course_wage"'); // 课酬
   }
 
 // 工作量统计记录
@@ -2566,9 +2983,19 @@ struct ModelWorkloadStatisticsRecord {
   4: i32 deleted_at(go.tag='gorm:"column:deleted_at" json:"deleted_at"');
   5: string academic_year (go.tag='json:"academic_year" gorm:"column:academic_year"');
   6: string semester (go.tag='json:"semester" gorm:"column:semester"');
-  7: string user_name (go.tag='json:"teacher_name" gorm:"column:teacher_name"');
+  7: string user_name (go.tag='json:"user_name" gorm:"column:user_name"');
   8: string c_month (go.tag='json:"c_month" gorm:"column:c_month"');
   9: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id;index"' );
+  // 备注
+  10: string remark (go.tag='json:"remark" gorm:"column:remark"'); // 备注
+  // 理论课是否统计
+  11: bool theory_statistics (go.tag='json:"theory_statistics" gorm:"column:theory_statistics"');
+  // 实训课是否统计
+  12: bool training_statistics (go.tag='json:"training_statistics" gorm:"column:training_statistics"');
+  // 实习是否统计
+  13: bool internship_statistics (go.tag='json:"internship_statistics" gorm:"column:internship_statistics"');
+  // 期初补考是否统计
+  14: bool begin_exam_statistics (go.tag='json:"begin_exam_statistics" gorm:"column:begin_exam_statistics"');
 }
 
 // 用户签名

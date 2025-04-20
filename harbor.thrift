@@ -14,7 +14,7 @@ service harborservice {
     DeleteArtifactResp DeleteArtifact(1:DeleteArtifactReq req);
 
     // GetModelHarborConfigList
-    GetHarborConfigListResp GetModelHarborConfigList(1:GetHarborConfigListReq req);
+    GetHarborConfigListResp GetHarborConfigList(1:GetHarborConfigListReq req);
 
     // DeleteHarborConfig
     DeleteHarborConfigResp DeleteHarborConfig(1:DeleteHarborConfigReq req);
@@ -24,7 +24,47 @@ service harborservice {
 
     // UpdateHarborConfig
     UpdateHarborConfigResp UpdateHarborConfig(1:UpdateHarborConfigReq req);
+
+    // // patch statefulset image
+    PatchStatefulSetImageResp PatchStatefulSetImage(1:PatchStatefulSetImageReq req);
+
+    // GetStatefulSetContainer
+    GetStatefulSetContainerResp GetStatefulSetContainer(1:GetStatefulSetContainerReq req);
+
 }
+
+struct GetStatefulSetContainerReq {
+  1: string namespacs(go.tag='json:"namespacs" binding:"required"');
+  2: string label_selector (go.tag='json:"label_selector" binding:"required"');
+}
+
+struct GetStatefulSetContainerResp {
+  1: list<Container> containers (go.tag='json:"containers"');
+}
+
+
+
+
+struct Container {
+  1: string name(go.tag='json:"name"');
+  2: string pod_name(go.tag='json:"pod_name"');
+  3: string image_name(go.tag='json:"image_name"');
+  4: bool ready (go.tag='json:"ready"');
+  5: string status(go.tag='json:"status"');
+  6: string State(go.tag='json:"state"');
+}
+
+
+
+struct PatchStatefulSetImageReq {
+  1: string repository (go.tag='json:"repository"');
+  2: string tag (go.tag='json:"tag" binding:"required" ');
+  3: string namespacs(go.tag='json:"namespacs" binding:"required"');
+  4: string stateful_set_name (go.tag='json:"stateful_set_name" binding:"required"');
+}
+
+struct PatchStatefulSetImageResp{}
+
 
 
 struct UpdateHarborConfigReq {
@@ -77,7 +117,7 @@ enum GetHarborConfigListReqOption {
 
 struct GetHarborConfigListResp {
   1: list<ModelHarborConfig> list (go.tag='json:"list"');
-
+  2: base.Paginate paginate (go.tag='json:"paginate"');
 }
 
 struct DeleteArtifactReq {
@@ -97,12 +137,13 @@ struct GetArtifactListReq {
     3 : i32 page(go.tag='json:"page"')
     4: i32 page_size(go.tag='json:"page_size"')
     5: string sort(go.tag='json:"sort"')
-    6: string project_name(go.tag='json:"project_name"  binding:"required"')
-    7: string repository_name(go.tag='json:"repository_name"  binding:"required"')
+    6: string project_name(go.tag='json:"project_name"')
+    7: string repository_name(go.tag='json:"repository_name"')
 }
 
 struct GetArtifactListResp {
   1: list<Artifact> artifacts (go.tag='json:"artifacts"');
+
 }
 
 
@@ -126,6 +167,7 @@ struct GetRepositoryListReq {
     3 : i32 page(go.tag='json:"page"')
     4: i32 page_size(go.tag='json:"page_size"')
     5: string sort(go.tag='json:"sort"')
+    6: string project_name(go.tag='json:"project_name"')
 }
 
 

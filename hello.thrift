@@ -1,18 +1,25 @@
 namespace go hello
 
+// 接口请求参数
 struct SayHelloReq {
   1: string name;
 }
 
+// 接口返回参数
 struct SayHelloResp {
   1: string message;
 }
 
+// 接口定义
 service helloservice{
+
+  // @api.post("/hello/SayHello")
   SayHelloResp SayHello(1: SayHelloReq req)(
       api.post = '/hello/SayHello',
       api.serializer = 'json'
   );
+
+
 }
 
 
