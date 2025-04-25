@@ -143,7 +143,6 @@ struct GetArtifactListReq {
 
 struct GetArtifactListResp {
   1: list<Artifact> artifacts (go.tag='json:"artifacts"');
-
 }
 
 

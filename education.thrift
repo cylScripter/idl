@@ -687,12 +687,56 @@ service educationservice {
        api.post = '/education/CreateWorkloadStatistics'
        api.serializer = 'json'
    )
-
+    // 更新教师工作量详情
+    UpdateWorkloadStatisticsResp UpdateWorkloadStatistics(1:UpdateWorkloadStatisticsReq req)(
+          api.post = '/education/UpdateWorkloadStatistics'
+          api.serializer = 'json'
+     )
 }
 
 // =================req\resp===============================
 
 
+
+struct UpdateWorkloadStatisticsReq{
+   1: i32 id (go.tag='json:"id" binding:"required"');
+// 课程信息
+    10: string teach_class (go.tag='json:"teach_class" '); // 教学班
+    11: string class_name (go.tag='json:"class_name" '); // 教学班组成
+    12: string assessment_method (go.tag='json:"assessment_method" '); // 考核方式
+    13: string sae_week (go.tag='json:"sae_week" '); // 教学起始周
+    14: string not_class_time (go.tag='json:"not_class_time"'); // 非上班时间上课节次
+    15: i32 student_number (go.tag='json:"student_number" '); // 学生总人数
+    16: double number_factor (go.tag='json:"number_factor" '); // 人数系数
+    17: i32 week_hour (go.tag='json:"week_hour" '); // 每周学时
+
+    //当月教学周数
+    18: i32 theory_wn (go.tag='json:"theory_wn" '); // 理论课
+    19: i32 training_wn (go.tag='json:"training_wn" '); // 实训课
+
+    // 当月教学工作量统计
+    20: double theory_course_hours (go.tag='json:"theory_course_hours" ');  // 理论课课时
+    21: i32 training_course_hours(go.tag='json:"training_course_hours" '); // 实训课
+    22: i32 internship_hours (go.tag='json:"internship_hours"'); // 实习课时
+    23: i32 review_week (go.tag='json:"review_week" '); // 复习周
+    24: i32 giving_paper (go.tag='json:"giving_paper"'); // 出卷
+    25: double grading_paper (go.tag='json:"grading_paper" '); // 阅卷
+    26: double other (go.tag='json:"other" '); // 其他
+    27: string material1 (go.tag='json:"material1" '); //佐证材料及编号1
+    28: string material2 (go.tag='json:"material2" '); //佐证材料及编号2
+
+    // 当月教学津贴统计
+    29: i32 duties_subsidy (go.tag='json:"duties_subsidy" '); // 职务补贴
+    30: i32 invigilation_tour (go.tag='json:"invigilation_tour" '); // 监考
+    31: i32 traffic_subsidy (go.tag='json:"traffic_subsidy"'); // 交通补贴
+    32: i32 work_overtime (go.tag='json:"work_overtime" '); // 加班费
+    33: i32 discount (go.tag='json:"discount" '); // 折扣
+
+}
+
+struct UpdateWorkloadStatisticsResp{
+
+}
 
 struct CreateWorkloadStatisticsReq {
 
@@ -2261,7 +2305,7 @@ const list<string> order_online_platform = ["精品（在线）开放课程","�
 
 const list<string> assessment_method = ["集中","过程","考查","考试"];
 const list<string> open_course_type = ["专业拓展课","专业拓展课","通识选修课"];
-const list<string> course_category = ["专业课","专业课","无"];
+const list<string> course_category = ["专业课","公共课","无"];
 
 
 struct GetSelectDataResp{
