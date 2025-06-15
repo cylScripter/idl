@@ -692,9 +692,25 @@ service educationservice {
           api.post = '/education/UpdateWorkloadStatistics'
           api.serializer = 'json'
      )
+
+
+     // 获取学院
+     GetCollegeListResp GetCollegeList(1:GetCollegeListReq req)(
+         api.post = '/education/GetCollegeList'
+         api.serializer = 'json'
+     )
 }
 
 // =================req\resp===============================
+
+struct GetCollegeListReq{
+  1: i32 college_id (go.tag='json:"college_id" binding:"required"');
+}
+
+struct GetCollegeListResp {
+   1: ModelApp College (go.tag='json:"college"');
+}
+
 
 
 
