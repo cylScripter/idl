@@ -703,6 +703,7 @@ service educationservice {
 
 
 
+
 // =================req\resp===============================
 
 struct GetCollegeListReq{
