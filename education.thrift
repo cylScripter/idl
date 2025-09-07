@@ -2278,6 +2278,7 @@ struct UpdateCourseApplyReq {
   28: i32 online_hours(go.tag='json:"online_hours"')
 }
 
+
 struct UpdateCourseApplyResp {
 
 }
