@@ -1896,6 +1896,7 @@ struct CreateAppResp {
 struct LoginReq {
   1: string user_name(go.tag='json:"username" binding:"required"');
   2: string password(go.tag='json:"password" binding:"required"');
+  3: i32 app_id(go.tag='json:"app_id" binding:"required"');
 }
 
 struct LoginResp {
@@ -2203,6 +2204,11 @@ struct FillCourseApplyReq{
   13:string isnot_password(go.tag='json:"isnot_password"') // 非三大平台须填写登录密码
   14:i32 is_use_other_resource(go.tag='json:"is_use_other_resource"'); // 是否使用其他信息化教学资源
   15:string other_resource_name(go.tag='json:"other_resource_name"'); // 其他教学资源名称
+   // 课堂学时
+   16: i32 teaching_hours(go.tag='json:"teaching_hours"')
+      // 线上学时
+   17: i32 online_hours(go.tag='json:"online_hours"')
+
 }
 
 
@@ -2268,6 +2274,8 @@ struct UpdateCourseApplyReq {
   24:string url (go.tag='json:"url" '); // 教学资源url
   25:string isnot_account (go.tag='json:"isnot_account" '); // 非三大平台须填写登录账户
   26:string isnot_password(go.tag='json:"isnot_password"') // 非三大平台须填写登录密码
+  27: i32 teaching_hours(go.tag='json:"teaching_hours"')
+  28: i32 online_hours(go.tag='json:"online_hours"')
 }
 
 struct UpdateCourseApplyResp {
@@ -2791,6 +2799,10 @@ struct ModelCourseApply {
     34:i32 examination (go.tag='json:"examination" gorm:"column:examination"') // 教研室主任审查
     35:i32 is_active(go.tag='json:"is_active" gorm:"column:is_active;default:1"') // 是否激活
     36: bool is_fill(go.tag='json:"is_fill" gorm:"column:is_fill;default:false"')  // 是否填写
+    // 课堂学时
+    37: i32 teaching_hours(go.tag='json:"teaching_hours" gorm:"column:teaching_hours"')
+    // 线上学时
+    38: i32 online_hours(go.tag='json:"online_hours" gorm:"column:online_hours"')
 }
 
 enum ExaminationType {

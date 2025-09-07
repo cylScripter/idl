@@ -68,11 +68,6 @@ service commonservice {
 		api.serializer = 'json'
 	)
 	UpdateAsyncTaskResp UpdateAsyncTask(1:UpdateAsyncTaskReq req);
-
-
-
-
-
 }
 
 const string DefaultBucketName = "open";
