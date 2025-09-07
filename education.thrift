@@ -2278,7 +2278,7 @@ struct UpdateCourseApplyReq {
   28: i32 online_hours(go.tag='json:"online_hours"')
 }
 
-
+// 更新课程申请
 struct UpdateCourseApplyResp {
 
 }
