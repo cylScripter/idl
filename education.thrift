@@ -1709,6 +1709,7 @@ enum GetCourseListReqOption {
     teach_class = 10; // 教学班
     class_name = 11;  // 教学班组成
     is_collaborative_course = 12; // 是否共建课程
+    type = 13;
 }
 
 struct ExportTeacherInfoReq {
@@ -2705,7 +2706,12 @@ struct ModelCategory {
     7: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id"' );
 }
 
-
+enum ModelCourse_Type {
+  Unknown = 0;
+  Theory = 1;   // 理论课
+  Adjust = 2;   // 调课课程
+  Other = 3; // 其他课程
+}
 
 // 课程表
 struct ModelCourse{
@@ -2748,6 +2754,7 @@ struct ModelCourse{
     37: bool is_adjust(go.tag='json:"is_adjust" gorm:"column:is_adjust"'); // 是否是代课课程
     38: bool is_collaborative_course(go.tag='json:"is_collaborative_course" gorm:"column:is_collaborative_course"'); // 是否是共建课程
     39: string str_course_id(go.tag='json:"str_course_id" gorm:"column:str_course_id"'); // 课程id
+    40: i32 type(go.tag='json:"type" gorm:"column:type"'); // 课程类型
 }
 
 // 班级表
@@ -2863,7 +2870,7 @@ struct ModelTeacherInfo {
   15: string id_category(go.tag='json:"id_category" gorm:"column:id_category"') // 身份类别
   16:i32 is_active(go.tag='json:"is_active" gorm:"column:is_active;default:1"'); // 是否激活
   17 :i32 is_external(go.tag='json:"is_external" gorm:"column:is_external;default:2"') // 是否外聘
-  18 :i32 order(go.tag='json:"order" gorm:"column:order;default:1"')  // 排序
+  18 :i32 orders(go.tag='json:"orders" gorm:"column:orders;default:1"')  // 排序
   19 :string user_name(go.tag='json:"user_name" gorm:"column:user_name"') // 学号
 }
 
