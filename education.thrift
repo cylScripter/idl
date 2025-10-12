@@ -3127,4 +3127,5 @@ struct ModelBeginExamWorkload {
     12: i32 total_count (go.tag='json:"total_count" gorm:"column:total_count"'); // 总计场次
     13: double fee_standard (go.tag='json:"fee_standard" gorm:"column:fee_standard"'); // 费用标准（元/场）
     14: double total_fee (go.tag='json:"total_fee" gorm:"column:total_fee"'); // 费用总计（元）
+    15: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id;index"' );
 }
