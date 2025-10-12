@@ -699,12 +699,27 @@ service educationservice {
          api.post = '/education/GetCollegeList'
          api.serializer = 'json'
      )
+
+
+     // 导入期初补考考务工作量统计表（巡考、监考、考务）
+     ImportBeginExamWorkloadResp ImportBeginExamWorkload(1:ImportBeginExamWorkloadReq req)(
+         api.post = '/education/ImportBeginExamWorkload'
+         api.serializer = 'json'
+     )
 }
 
-// hhhhh
-// jjjjjjj
+
 
 // =================req\resp===============================
+struct ImportBeginExamWorkloadResp{
+1: string task_key (go.tag='json:"task_key"');
+}
+struct ImportBeginExamWorkloadReq{
+    1: string academic_year(go.tag='json:"academic_year" binding:"required" '); // 学年
+     2: string semester(go.tag='json:"semester"binding:"required" '); // 学期
+     3: string upload_id(go.tag='json:"upload_id" binding:"required"'); // 文件上传id
+     4: i64 record_id(go.tag='json:"record_id" binding:"required"');
+}
 
 struct GetCollegeListReq{
   1: i32 college_id (go.tag='json:"college_id" binding:"required"');
@@ -3056,6 +3071,9 @@ struct ModelWorkloadStatistics {
 
     // 课酬
     37: double course_wage (go.tag='json:"course_wage" gorm:"column:course_wage"'); // 课酬
+
+    // 是否是调课课程
+    38: bool is_adjust_course (go.tag='json:"is_adjust_course" gorm:"column:is_adjust_course;default:false"');
   }
 
 // 工作量统计记录
@@ -3090,4 +3108,23 @@ struct ModelUserSign {
   5: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id;index"' );
   6: i32 uid (go.tag='json:"uid" gorm:"column:uid"');
   7: string sign_id (go.tag='json:"sign_id" gorm:"column:sign_id"');
+}
+
+
+// 期初补考考务工作量统计表（巡考、监考、考务）
+struct ModelBeginExamWorkload {
+    1: i32 id (go.tag='gorm:"column:id" json:"id"');
+    2: i32 created_at(go.tag='gorm:"column:created_at;index" json:"created_at"');
+    3: i32 updated_at(go.tag='gorm:"column:updated_at" json:"updated_at"');
+    4: i32 deleted_at(go.tag='gorm:"column:deleted_at" json:"deleted_at"');
+    5: string academic_year (go.tag='json:"academic_year" gorm:"column:academic_year"');
+    6: string semester (go.tag='json:"semester" gorm:"column:semester"');
+    7: string teacher_name (go.tag='json:"teacher_name" gorm:"column:teacher_name"');
+    8: string teacher_id (go.tag='json:"teacher_id" gorm:"column:teacher_id"');
+    9: i32 patrol_count (go.tag='json:"patrol_count" gorm:"column:patrol_count"'); // 巡考场次
+    10: i32 supervision_count (go.tag='json:"supervision_count" gorm:"column:supervision_count"'); // 监考场次
+    11: i32 exam_admin_count (go.tag='json:"exam_admin_count" gorm:"column:exam_admin_count"'); // 考务场次
+    12: i32 total_count (go.tag='json:"total_count" gorm:"column:total_count"'); // 总计场次
+    13: double fee_standard (go.tag='json:"fee_standard" gorm:"column:fee_standard"'); // 费用标准（元/场）
+    14: double total_fee (go.tag='json:"total_fee" gorm:"column:total_fee"'); // 费用总计（元）
 }
