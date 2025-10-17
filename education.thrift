@@ -3094,7 +3094,9 @@ struct ModelWorkloadStatistics {
 
     // 是否是调课课程
     38: bool is_adjust_course (go.tag='json:"is_adjust_course" gorm:"column:is_adjust_course;default:false"');
-    39: i32 education_level(go.tag='json:"education_level" gorm:"column:semester;default:1;not null"'); // 教育层次 1:本科 2:大专
+    39: i32 education_level(go.tag='json:"education_level" gorm:"column:semester;default:1;not null"'); // 教育层次 2:本科 1:大专
+
+    40: double theory_hours (go.tag='json:"theory_course_hours" gorm:"column:theory_course_hours;default:0.0;not null"');
   }
 
 // 工作量统计记录
