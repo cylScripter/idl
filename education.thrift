@@ -2484,9 +2484,9 @@ enum InternshipCategory {
 // 实习表
 struct ModelInternship {
   1: i32 id(go.tag='gorm:"column:id" json:"id"');
-  2: i32 created_at(go.tag='gorm:"column:created_at;index" json:"created_at"');
-  3: i32 updated_at(go.tag='gorm:"column:updated_at" json:"updated_at"');
-  4: i32 deleted_at(go.tag='gorm:"column:deleted_at" json:"deleted_at"');
+  2: i32 created_at(go.tag='gorm:"column:created_at;index;not null" json:"created_at"');
+   3: i32 updated_at(go.tag='gorm:"column:updated_at;not null" json:"updated_at"');
+   4: i32 deleted_at(go.tag='gorm:"column:deleted_at;not null" json:"deleted_at"');
   5: string academic_year(go.tag='gorm:"column:academic_year" json:"academic_year"');
   6: string semester(go.tag='gorm:"column:semester" json:"semester"');
   7: string teacher_id(go.tag='gorm:"column:teacher_id" json:"teacher_id"');
@@ -2514,9 +2514,9 @@ enum ApplicationType {
 
 struct ModelCourseApplication {
   1: i32 id(go.tag='gorm:"column:id" json:"id"');
-  2: i32 created_at(go.tag='gorm:"column:created_at;index" json:"created_at"');
-  3: i32 updated_at(go.tag='gorm:"column:updated_at" json:"updated_at"');
-  4: i32 deleted_at(go.tag='gorm:"column:deleted_at" json:"deleted_at"');
+ 2: i32 created_at(go.tag='gorm:"column:created_at;index;not null" json:"created_at"');
+  3: i32 updated_at(go.tag='gorm:"column:updated_at;not null" json:"updated_at"');
+  4: i32 deleted_at(go.tag='gorm:"column:deleted_at;not null" json:"deleted_at"');
   5: string academic_year(go.tag='gorm:"column:academic_year" json:"academic_year"'); // 学年
   6: string semester(go.tag='gorm:"column:semester" json:"semester"'); // 学期
   7: string teacher_id(go.tag='gorm:"column:teacher_id" json:"teacher_id"'); // 教师ID
@@ -2540,9 +2540,9 @@ struct ModelCourseApplication {
 // 应用表
 struct ModelApp {
   1: i32 id (go.tag='gorm:"column:id" json:"id"');
-  2: i32 created_at(go.tag='gorm:"column:created_at;index" json:"created_at"');
-  3: i32 updated_at(go.tag='gorm:"column:updated_at" json:"updated_at"');
-  4: i32 deleted_at(go.tag='gorm:"column:deleted_at" json:"deleted_at"');
+ 2: i32 created_at(go.tag='gorm:"column:created_at;index;not null" json:"created_at"');
+  3: i32 updated_at(go.tag='gorm:"column:updated_at;not null" json:"updated_at"');
+  4: i32 deleted_at(go.tag='gorm:"column:deleted_at;not null" json:"deleted_at"');
   5: string school_name(go.tag='gorm:"column:school_name" json:"school_name"'); // 学校名称
   6: string  college_name(go.tag='gorm:"column:college_name" json:"college_name"');  //学院名称
   8: string app_key(go.tag='gorm:"column:app_key" json:"app_key"'); // 应用key
@@ -2555,9 +2555,9 @@ struct ModelApp {
 // 用户表
 struct ModelUser {
   1: i32 id (go.tag='gorm:"column:id" json:"id"');
-  2: i32 created_at(go.tag='gorm:"column:created_at;index" json:"created_at"');
-  3: i32 updated_at(go.tag='gorm:"column:updated_at" json:"updated_at"');
-  4: i32 deleted_at(go.tag='gorm:"column:deleted_at" json:"deleted_at"');
+   2: i32 created_at(go.tag='gorm:"column:created_at;index;not null" json:"created_at"');
+    3: i32 updated_at(go.tag='gorm:"column:updated_at;not null" json:"updated_at"');
+    4: i32 deleted_at(go.tag='gorm:"column:deleted_at;not null" json:"deleted_at"');
   5: string user_name(go.tag='gorm:"column:user_name" json:"user_name"'); // 用户名
   6: string password(go.tag='gorm:"column:password" json:"-"');           // 密码
   7: string nick_name(go.tag='gorm:"column:nick_name" json:"nick_name"'); // 昵称
@@ -2572,9 +2572,9 @@ struct ModelUser {
 // 角色表
 struct ModelRole {
   1: i32 id (go.tag='gorm:"column:id" json:"id"');
-  2: i32 created_at(go.tag='gorm:"column:created_at;index" json:"created_at"');
-  3: i32 updated_at(go.tag='gorm:"column:updated_at" json:"updated_at"');
-  4: i32 deleted_at(go.tag='gorm:"column:deleted_at" json:"deleted_at"');
+   2: i32 created_at(go.tag='gorm:"column:created_at;index;not null" json:"created_at"');
+    3: i32 updated_at(go.tag='gorm:"column:updated_at;not null" json:"updated_at"');
+    4: i32 deleted_at(go.tag='gorm:"column:deleted_at;not null" json:"deleted_at"');
   5: string name(go.tag='gorm:"column:name" json:"name"');
   6: string description(go.tag='gorm:"column:description" json:"description"');
   7: bool status(go.tag='gorm:"column:status;default:true" json:"status"');
@@ -2585,9 +2585,9 @@ struct ModelRole {
 // 菜单表
 struct ModelMenu {
   1: i32 id (go.tag='gorm:"column:id" json:"id"');
-  2: i32 created_at;
-  3: i32 updated_at;
-  4: i32 deleted_at;
+ 2: i32 created_at(go.tag='gorm:"column:created_at;index;not null" json:"created_at"');
+  3: i32 updated_at(go.tag='gorm:"column:updated_at;not null" json:"updated_at"');
+  4: i32 deleted_at(go.tag='gorm:"column:deleted_at;not null" json:"deleted_at"');
   5: string component(go.tag='json:"component" gorm:"column:component;default:BasicLayout"'); // 组件
   6: Meta meta(go.tag='json:"meta" gorm:"column:meta;embedded"');
   7: string name (go.tag='json:"name" gorm:"column:name"');
@@ -2625,9 +2625,9 @@ struct Meta {
 // 权限表
 struct ModelPermission{
   1: i32 id (go.tag='gorm:"column:id" json:"id"');
-  2: i32 created_at(go.tag='gorm:"column:created_at;index" json:"created_at"');
-  3: i32 updated_at(go.tag='gorm:"column:updated_at" json:"updated_at"');
-  4: i32 deleted_at(go.tag='gorm:"column:deleted_at" json:"deleted_at"');
+   2: i32 created_at(go.tag='gorm:"column:created_at;index;not null" json:"created_at"');
+    3: i32 updated_at(go.tag='gorm:"column:updated_at;not null" json:"updated_at"');
+    4: i32 deleted_at(go.tag='gorm:"column:deleted_at;not null" json:"deleted_at"');
   5: string name(go.tag='json:"name" gorm:"column:name"');
   6: string description(go.tag='json:"description" gorm:"column:description"');
   7: string str_permission_id(go.tag='json:"str_permission_id" gorm:"column:str_permission_id"');
@@ -2671,9 +2671,9 @@ struct ModelRoleMenu{
 // 教研室表
 struct ModelTeacherOffice{
   1: i32 id (go.tag='gorm:"column:id" json:"id"');
-  2: i32 created_at(go.tag='gorm:"column:created_at;index" json:"created_at"');
-  3: i32 updated_at(go.tag='gorm:"column:updated_at" json:"updated_at"');
-  4: i32 deleted_at(go.tag='gorm:"column:deleted_at" json:"deleted_at"');
+ 2: i32 created_at(go.tag='gorm:"column:created_at;index;not null" json:"created_at"');
+  3: i32 updated_at(go.tag='gorm:"column:updated_at;not null" json:"updated_at"');
+  4: i32 deleted_at(go.tag='gorm:"column:deleted_at;not null" json:"deleted_at"');
   5: string name(go.tag='json:"name" gorm:"column:name"'); // 名称
   6: string description(go.tag='json:"description" gorm:"column:description"'); // 描述
   7: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id"' );  // 应用id
@@ -2711,9 +2711,9 @@ enum IsExternalType{
 // 职务表
 struct ModelDuties{
     1: i32 id (go.tag='gorm:"column:id" json:"id"');
-    2: i32 created_at(go.tag='gorm:"column:created_at;index" json:"created_at"');
-    3: i32 updated_at(go.tag='gorm:"column:updated_at" json:"updated_at"');
-    4: i32 deleted_at(go.tag='gorm:"column:deleted_at" json:"deleted_at"');
+     2: i32 created_at(go.tag='gorm:"column:created_at;index;not null" json:"created_at"');
+      3: i32 updated_at(go.tag='gorm:"column:updated_at;not null" json:"updated_at"');
+      4: i32 deleted_at(go.tag='gorm:"column:deleted_at;not null" json:"deleted_at"');
     5: string name(go.tag='json:"name" gorm:"column:name"');
     6: string description(go.tag='json:"description" gorm:"column:description"');
     7: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id"' );
@@ -2723,9 +2723,9 @@ struct ModelDuties{
 // 身份类别表
 struct ModelCategory {
    1: i32 id (go.tag='gorm:"column:id" json:"id"');
-   2: i32 created_at(go.tag='gorm:"column:created_at;index" json:"created_at"');
-    3: i32 updated_at(go.tag='gorm:"column:updated_at" json:"updated_at"');
-    4: i32 deleted_at(go.tag='gorm:"column:deleted_at" json:"deleted_at"');
+  2: i32 created_at(go.tag='gorm:"column:created_at;index;not null" json:"created_at"');
+   3: i32 updated_at(go.tag='gorm:"column:updated_at;not null" json:"updated_at"');
+   4: i32 deleted_at(go.tag='gorm:"column:deleted_at;not null" json:"deleted_at"');
     5: string name(go.tag='json:"name" gorm:"column:name"');
     6: string description(go.tag='json:"description" gorm:"column:description"');
     7: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id"' );
@@ -2741,9 +2741,9 @@ enum ModelCourse_Type {
 // 课程表
 struct ModelCourse{
     1: i32 id (go.tag='gorm:"column:id" json:"id"');
-    2: i32 created_at(go.tag='gorm:"column:created_at;index" json:"created_at"');
-    3: i32 updated_at(go.tag='gorm:"column:updated_at" json:"updated_at"');
-    4: i32 deleted_at(go.tag='gorm:"column:deleted_at" json:"deleted_at"');
+    2: i32 created_at(go.tag='gorm:"column:created_at;index;not null" json:"created_at"');
+     3: i32 updated_at(go.tag='gorm:"column:updated_at;not null" json:"updated_at"');
+     4: i32 deleted_at(go.tag='gorm:"column:deleted_at;not null" json:"deleted_at"');
     5: string academic_year(go.tag='json:"academic_year" gorm:"column:academic_year"'); // 学年
     6: string semester(go.tag='json:"semester" gorm:"column:semester"'); // 学期
     7: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id"'); // app_id
@@ -2780,7 +2780,7 @@ struct ModelCourse{
     38: bool is_collaborative_course(go.tag='json:"is_collaborative_course" gorm:"column:is_collaborative_course"'); // 是否是共建课程
     39: string str_course_id(go.tag='json:"str_course_id" gorm:"column:str_course_id"'); // 课程id
     40: i32 type(go.tag='json:"type" gorm:"column:type"'); // 课程类型
-    41: i32 education_level(go.tag='json:"education_level" gorm:"column:semester;default:1;not null"'); // 教育层次 1:本科 2:大专
+    41: i32 education_level(go.tag='json:"education_level" gorm:"column:education_level;default:1;not null"'); // 教育层次 1:本科 2:大专
 }
 
 // 班级表
@@ -2798,9 +2798,9 @@ struct ModelClass {
 // 课程申请表
 struct ModelCourseApply {
     1: i32 id (go.tag='gorm:"column:id" json:"id"');
-    2: i32 created_at(go.tag='gorm:"column:created_at;index" json:"created_at"');
-    3: i32 updated_at(go.tag='gorm:"column:updated_at;index" json:"updated_at"');
-    4: i32 deleted_at(go.tag='gorm:"column:deleted_at" json:"deleted_at"');
+     2: i32 created_at(go.tag='gorm:"column:created_at;index;not null" json:"created_at"');
+      3: i32 updated_at(go.tag='gorm:"column:updated_at;not null" json:"updated_at"');
+      4: i32 deleted_at(go.tag='gorm:"column:deleted_at;not null" json:"deleted_at"');
     5: string department(go.tag='json:"department" gorm:"column:department"'); // 开课部门
     6: string academic_year(go.tag='json:"academic_year" gorm:"column:academic_year;index"'); // 学年
     7: string semester(go.tag='json:"semester" gorm:"column:semester;index"'); // 学期
@@ -2852,9 +2852,9 @@ enum ExaminationType {
 //  课程性质
 struct ModelCourseNature {
     1: i32 id (go.tag='gorm:"column:id" json:"id"');
-    2: i32 created_at(go.tag='gorm:"column:created_at;index" json:"created_at"');
-    3: i32 updated_at(go.tag='gorm:"column:updated_at" json:"updated_at"');
-    4: i32 deleted_at(go.tag='gorm:"column:deleted_at" json:"deleted_at"');
+   2: i32 created_at(go.tag='gorm:"column:created_at;index;not null" json:"created_at"');
+    3: i32 updated_at(go.tag='gorm:"column:updated_at;not null" json:"updated_at"');
+    4: i32 deleted_at(go.tag='gorm:"column:deleted_at;not null" json:"deleted_at"');
     5: string name(go.tag='json:"name" gorm:"column:name"');
 }
 
@@ -2863,9 +2863,9 @@ struct ModelCourseNature {
 // 操作日志
 struct ModelOperationLogs {
     1: i32 id (go.tag='gorm:"column:id" json:"id"');
-    2: i32 created_at(go.tag='gorm:"column:created_at;index" json:"created_at"');
-    3: i32 updated_at(go.tag='gorm:"column:updated_at" json:"updated_at"');
-    4: i32 deleted_at(go.tag='gorm:"column:deleted_at" json:"deleted_at"');
+   2: i32 created_at(go.tag='gorm:"column:created_at;index;not null" json:"created_at"');
+    3: i32 updated_at(go.tag='gorm:"column:updated_at;not null" json:"updated_at"');
+    4: i32 deleted_at(go.tag='gorm:"column:deleted_at;not null" json:"deleted_at"');
     5: string user_name(go.tag='json:"user_name" gorm:"column:user_name"');
     6: string operation(go.tag='json:"operation" gorm:"column:operation"'); // 操作
     7: string object_type(go.tag='json:"object_type" gorm:"column:object_type"'); // 对象类型
@@ -2881,9 +2881,9 @@ struct ModelOperationLogs {
 // 教学人员基本信息
 struct ModelTeacherInfo {
   1: i32 id (go.tag='gorm:"column:id" json:"id"');
-  2: i32 created_at(go.tag='gorm:"column:created_at;index" json:"created_at"');
-  3: i32 updated_at(go.tag='gorm:"column:updated_at" json:"updated_at"');
-  4: i32 deleted_at(go.tag='gorm:"column:deleted_at" json:"deleted_at"');
+  2: i32 created_at(go.tag='gorm:"column:created_at;index;not null" json:"created_at"');
+   3: i32 updated_at(go.tag='gorm:"column:updated_at;not null" json:"updated_at"');
+   4: i32 deleted_at(go.tag='gorm:"column:deleted_at;not null" json:"deleted_at"');
   5: string department(go.tag='json:"department" gorm:"column:department"'); // 开课部门
   6: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id"' ); // 学院id
   7: i32 uid (go.tag='json:"uid" gorm:"column:uid"'); // 用户id
@@ -2899,14 +2899,14 @@ struct ModelTeacherInfo {
   17 :i32 is_external(go.tag='json:"is_external" gorm:"column:is_external;default:2"') // 是否外聘
   18 :i32 orders(go.tag='json:"orders" gorm:"column:orders;default:1"')  // 排序
   19 :string user_name(go.tag='json:"user_name" gorm:"column:user_name"') // 学号
-  22: i32 education_level(go.tag='json:"education_level" gorm:"column:semester;default:1;not null"'); // 教育层次 1:本科 2:大专
+  22: i32 education_level(go.tag='json:"education_level" gorm:"column:education_level;default:1;not null"'); // 教育层次 1:本科 2:大专
 }
 
 struct ModelHoliday {
   1: i32 id (go.tag='gorm:"column:id" json:"id"');
-  2: i32 created_at(go.tag='gorm:"column:created_at;index" json:"created_at"');
-  3: i32 updated_at(go.tag='gorm:"column:updated_at" json:"updated_at"');
-  4: i32 deleted_at(go.tag='gorm:"column:deleted_at" json:"deleted_at"');
+ 2: i32 created_at(go.tag='gorm:"column:created_at;index;not null" json:"created_at"');
+  3: i32 updated_at(go.tag='gorm:"column:updated_at;not null" json:"updated_at"');
+  4: i32 deleted_at(go.tag='gorm:"column:deleted_at;not null" json:"deleted_at"');
   5: string name(go.tag='json:"name" gorm:"column:name"'); // 名称
   6: string begin_date(go.tag='json:"begin_date" gorm:"column:begin_date"'); // 开始时间
   7: string end_date(go.tag='json:"end_date" gorm:"column:end_date"'); // 结束时间
@@ -2923,7 +2923,7 @@ struct ModelTrainingCourse {
   1: i32 id (go.tag='gorm:"column:id" json:"id"');
   2: i32 created_at(go.tag='gorm:"column:created_at;index;not null" json:"created_at"');
   3: i32 updated_at(go.tag='gorm:"column:updated_at;not null" json:"updated_at"');
-  4: i32 deleted_at(go.tag='gorm:"column:deleted_at" json:"deleted_at"');
+  4: i32 deleted_at(go.tag='gorm:"column:deleted_at;not null" json:"deleted_at"');
   5: string major(go.tag='json:"major" gorm:"column:major"'); // 专业
   6: string class_name(go.tag='json:"class_name" gorm:"column:class_name"'); // 班级
   7: i32 student_number(go.tag='json:"student_number" gorm:"column:student_number"'); //  学生人数
@@ -2936,7 +2936,7 @@ struct ModelTrainingCourse {
   14: string academic_year(go.tag='json:"academic_year" gorm:"column:academic_year"'); // 学年
   15: string semester(go.tag='json:"semester" gorm:"column:semester"'); // 学期
   // 添加教育层次字段
-  16: i32 education_level(go.tag='json:"education_level" gorm:"column:semester;default:1;not null"'); // 教育层次 1:本科 2:大专
+  16: i32 education_level(go.tag='json:"education_level" gorm:"column:education_level;default:1"'); // 教育层次 1:本科 2:大专
 
 }
 
@@ -2955,7 +2955,7 @@ struct ModelTrainingCourseTeacher {
   // 学期
   10: string academic_year(go.tag='json:"academic_year" gorm:"column:academic_year"');
   11: string semester(go.tag='json:"semester" gorm:"column:semester"');
-  12: i32 education_level(go.tag='json:"education_level" gorm:"column:semester;default:1;not null"'); // 教育层次 1:本科 2:大专
+  12: i32 education_level(go.tag='json:"education_level" gorm:"column:education_level;default:1;not null"'); // 教育层次 1:本科 2:大专
 }
 
 // 期末考试
@@ -2981,7 +2981,7 @@ struct ModelFinalExam {
   19: string scoring_teacher (go.tag='json:"scoring_teacher" gorm:"column:scoring_teacher"'); // 阅卷老师
   20: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id"' );
   21: i32 course_id (go.tag='json:"course_id" gorm:"column:course_id"');
-  22: i32 education_level(go.tag='json:"education_level" gorm:"column:semester;default:1;not null"'); // 教育层次 1:本科 2:大专
+  22: i32 education_level(go.tag='json:"education_level" gorm:"column:education_level;default:1;not null"'); // 教育层次 1:本科 2:大专
 }
 // 期末考试填写记录
 struct ModelFinalExamRecord {
@@ -2999,7 +2999,7 @@ struct ModelFinalExamRecord {
   12: string c_proposer (go.tag='json:"c_proposer" gorm:"column:c_proposer"');  //C卷命题人
   13: string user_name (go.tag='json:"user_name" gorm:"column:user_name"');
   14: string assessment_method (go.tag='json:"assessment_method" gorm:"column:assessment_method"'); // 考核方式
-  22: i32 education_level(go.tag='json:"education_level" gorm:"column:semester;default:1;not null"'); // 教育层次 1:本科 2:大专
+  22: i32 education_level(go.tag='json:"education_level" gorm:"column:education_level;default:1;not null"'); // 教育层次 1:本科 2:大专
 }
 
 // 期初考试
@@ -3022,7 +3022,7 @@ struct ModelBeginExam {
   16: string teacher_name (go.tag='json:"teacher_name" gorm:"column:teacher_name"'); // 教师姓名
   17: string teacher_id (go.tag='json:"teacher_id" gorm:"column:teacher_id"'); // 老师id
   18: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id"' );
-  22: i32 education_level(go.tag='json:"education_level" gorm:"column:semester;default:1;not null"'); // 教育层次 1:本科 2:大专
+  22: i32 education_level(go.tag='json:"education_level" gorm:"column:education_level;default:1;not null"'); // 教育层次 1:本科 2:大专
   }
 
 
@@ -3094,9 +3094,8 @@ struct ModelWorkloadStatistics {
 
     // 是否是调课课程
     38: bool is_adjust_course (go.tag='json:"is_adjust_course" gorm:"column:is_adjust_course;default:false"');
-    39: i32 education_level(go.tag='json:"education_level" gorm:"column:semester;default:1;not null"'); // 教育层次 2:本科 1:大专
-
-    40: double theory_hours (go.tag='json:"theory_course_hours" gorm:"column:theory_course_hours;default:0.0;not null"');
+    39: i32 education_level(go.tag='json:"education_level" gorm:"column:education_level;default:1;not null"'); // 教育层次 2:本科 1:大专
+    40: double theory_hours (go.tag='json:"theory_course_hours" gorm:"column:theory_course_hours;default:0;not null"');
   }
 
 // 工作量统计记录
@@ -3151,5 +3150,5 @@ struct ModelBeginExamWorkload {
     13: double fee_standard (go.tag='json:"fee_standard" gorm:"column:fee_standard"'); // 费用标准（元/场）
     14: double total_fee (go.tag='json:"total_fee" gorm:"column:total_fee"'); // 费用总计（元）
     15: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id;index"' );
-    22: i32 education_level(go.tag='json:"education_level" gorm:"column:semester;default:1;not null"'); // 教育层次 2:本科 1:大专
+    22: i32 education_level(go.tag='json:"education_level" gorm:"column:education_level;default:1"'); // 教育层次 2:本科 1:大专
 }
