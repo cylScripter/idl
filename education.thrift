@@ -363,6 +363,13 @@ service educationservice {
         api.serializer = 'json'
     )
 
+
+    // 获取调课申请列表
+    UpdateAdjustApplicationResp UpdateAdjustApplication(1:UpdateAdjustApplicationReq req)(
+        api.post = '/education/UpdateAdjustApplication'
+        api.serializer = 'json'
+    )
+
     // 获取holiday列表
     GetHolidayListResp GetHolidayList(1:GetHolidayListReq req)(
         api.post = '/education/GetHolidayList'
@@ -1621,9 +1628,33 @@ struct AdjustCourseApplicationReq {
   14: string new_location(go.tag='json:"new_location"'); // 变更后授课地点
   15: string reason(go.tag='json:"reason"'); // 申请原因
   16: i32 adjust_course_id(go.tag='json:"adjust_course_id"'); // 调课后对应的课程ID
+  17: string name(go.tag='json:"name"');
+}
+struct AdjustCourseApplicationResp {}
+
+
+struct UpdateAdjustApplicationReq {
+  1: string academic_year(go.tag='json:"academic_year" binding:"required" '); // 学年
+  2: string semester(go.tag='json:"semester" binding:"required"'); // 学期
+  3: string teacher_id(go.tag='json:"teacher_id" binding:"required" '); // 教师ID
+  4: string teacher_name(go.tag='json:"teacher_name" binding:"required" '); // 授课教师
+  5: string new_teacher_id(go.tag=' json:"new_teacher_id"'); // 变更后教师ID
+  6: string new_teacher_name(go.tag=' json:"new_teacher_name"'); // 变更后授课教师
+  7: i32 application_type(go.tag='json:"application_type"'); // 申请项目 (调课、停课、代课等)
+  8: string course_name(go.tag='json:"course_name"'); // 课程名称
+  9: string teach_class(go.tag='json:"teach_class"'); // 教学班级
+  10: i32 course_id(go.tag='json:"course_id"'); // 课程id
+  11: string schedule_time(go.tag=' json:"schedule_time"'); // 授课时间
+  12: string new_schedule_time(go.tag='json:"new_schedule_time"');// 变更后授课时间
+  13: string location(go.tag=' json:"location"'); // 授课地点
+  14: string new_location(go.tag='json:"new_location"'); // 变更后授课地点
+  15: string reason(go.tag='json:"reason"'); // 申请原因
+  16: i32 adjust_course_id(go.tag='json:"adjust_course_id"'); // 调课后对应的课程ID
+  17: string name(go.tag='json:"name"');
+  18: i32 id(go.tag='json:"id"'); //   id
 }
 
-struct AdjustCourseApplicationResp {}
+struct UpdateAdjustApplicationResp {}
 
 struct GetSelfCourseApplicationListReq {
     1: base.ListOption list_option(go.tag='json:"list_option"');
@@ -2505,7 +2536,7 @@ struct ModelInternship {
 
 
 enum ApplicationType {
-    Unkknown = 0; // 未知
+    Unknown = 0; // 未知
     CourseChange = 1; // 调课
     CourseStop = 2; // 停课
     CourseReplace = 3; //代课
@@ -2514,7 +2545,7 @@ enum ApplicationType {
 
 struct ModelCourseApplication {
   1: i32 id(go.tag='gorm:"column:id" json:"id"');
- 2: i32 created_at(go.tag='gorm:"column:created_at;index;not null" json:"created_at"');
+  2: i32 created_at(go.tag='gorm:"column:created_at;index;not null" json:"created_at"');
   3: i32 updated_at(go.tag='gorm:"column:updated_at;not null" json:"updated_at"');
   4: i32 deleted_at(go.tag='gorm:"column:deleted_at;not null" json:"deleted_at"');
   5: string academic_year(go.tag='gorm:"column:academic_year" json:"academic_year"'); // 学年
@@ -2523,7 +2554,7 @@ struct ModelCourseApplication {
   8: string teacher_name(go.tag='gorm:"column:teacher_name" json:"teacher_name"'); // 授课教师
   9: string new_teacher_id(go.tag='gorm:"column:new_teacher_id" json:"new_teacher_id"'); // 变更后教师ID
   10: string new_teacher_name(go.tag='gorm:"column:new_teacher_name" json:"new_teacher_name"'); // 变更后授课教师
-  11: i32 app_id (go.tag='gorm:"column:app_id" json:"app_id"'); // 应用Id
+  11: i32 app_id (go.tag='gorm:"column:app_id;index" json:"app_id"'); // 应用Id
   12:i32 application_type(go.tag='gorm:"column:application_type" json:"application_type"'); // 申请项目 (调课、停课、代课等)
   13: string course_name(go.tag='gorm:"column:course_name" json:"course_name"'); // 课程名称
   14: string teach_class(go.tag='gorm:"column:teach_class" json:"teach_class"'); // 教学班级
@@ -2535,6 +2566,7 @@ struct ModelCourseApplication {
   20: string reason(go.tag='gorm:"column:reason" json:"reason"'); // 申请原因
   21: i32 adjust_course_id(go.tag='gorm:"column:adjust_course_id" json:"adjust_course_id"'); // 调课后对应的课程ID
   22: string user_id(go.tag='gorm:"column:user_id" json:"-"'); // 用户id
+  23: string name(go.tag='gorm:"column:name;default: ;not null" json:"name"');
 }
 
 // 应用表
@@ -2899,7 +2931,7 @@ struct ModelTeacherInfo {
   17 :i32 is_external(go.tag='json:"is_external" gorm:"column:is_external;default:2"') // 是否外聘
   18 :i32 orders(go.tag='json:"orders" gorm:"column:orders;default:1"')  // 排序
   19 :string user_name(go.tag='json:"user_name" gorm:"column:user_name"') // 学号
-  22: i32 education_level(go.tag='json:"education_level" gorm:"column:education_level;default:1;not null"'); // 教育层次 1:本科 2:大专
+  22: i32 education_level(go.tag='json:"education_level" gorm:"column:education_level;default:1"'); // 教育层次 1:本科 2:大专
 }
 
 struct ModelHoliday {
@@ -2955,7 +2987,7 @@ struct ModelTrainingCourseTeacher {
   // 学期
   10: string academic_year(go.tag='json:"academic_year" gorm:"column:academic_year"');
   11: string semester(go.tag='json:"semester" gorm:"column:semester"');
-  12: i32 education_level(go.tag='json:"education_level" gorm:"column:education_level;default:1;not null"'); // 教育层次 1:本科 2:大专
+  12: i32 education_level(go.tag='json:"education_level" gorm:"column:education_level;default:1"'); // 教育层次 1:本科 2:大专
 }
 
 // 期末考试
@@ -2981,7 +3013,7 @@ struct ModelFinalExam {
   19: string scoring_teacher (go.tag='json:"scoring_teacher" gorm:"column:scoring_teacher"'); // 阅卷老师
   20: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id"' );
   21: i32 course_id (go.tag='json:"course_id" gorm:"column:course_id"');
-  22: i32 education_level(go.tag='json:"education_level" gorm:"column:education_level;default:1;not null"'); // 教育层次 1:本科 2:大专
+  22: i32 education_level(go.tag='json:"education_level" gorm:"column:education_level;default:1"'); // 教育层次 1:本科 2:大专
 }
 // 期末考试填写记录
 struct ModelFinalExamRecord {
@@ -2999,7 +3031,7 @@ struct ModelFinalExamRecord {
   12: string c_proposer (go.tag='json:"c_proposer" gorm:"column:c_proposer"');  //C卷命题人
   13: string user_name (go.tag='json:"user_name" gorm:"column:user_name"');
   14: string assessment_method (go.tag='json:"assessment_method" gorm:"column:assessment_method"'); // 考核方式
-  22: i32 education_level(go.tag='json:"education_level" gorm:"column:education_level;default:1;not null"'); // 教育层次 1:本科 2:大专
+  22: i32 education_level(go.tag='json:"education_level" gorm:"column:education_level;default:1"'); // 教育层次 1:本科 2:大专
 }
 
 // 期初考试
@@ -3022,7 +3054,7 @@ struct ModelBeginExam {
   16: string teacher_name (go.tag='json:"teacher_name" gorm:"column:teacher_name"'); // 教师姓名
   17: string teacher_id (go.tag='json:"teacher_id" gorm:"column:teacher_id"'); // 老师id
   18: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id"' );
-  22: i32 education_level(go.tag='json:"education_level" gorm:"column:education_level;default:1;not null"'); // 教育层次 1:本科 2:大专
+  22: i32 education_level(go.tag='json:"education_level" gorm:"column:education_level;default:1"'); // 教育层次 1:本科 2:大专
   }
 
 
@@ -3094,8 +3126,8 @@ struct ModelWorkloadStatistics {
 
     // 是否是调课课程
     38: bool is_adjust_course (go.tag='json:"is_adjust_course" gorm:"column:is_adjust_course;default:false"');
-    39: i32 education_level(go.tag='json:"education_level" gorm:"column:education_level;default:1;not null"'); // 教育层次 2:本科 1:大专
-    40: double theory_hours (go.tag='json:"theory_course_hours" gorm:"column:theory_course_hours;default:0;not null"');
+    39: i32 education_level(go.tag='json:"education_level" gorm:"column:education_level;default:1"'); // 教育层次 2:本科 1:大专
+    40: double theory_hours (go.tag='json:"theory_hours" gorm:"column:theory_hours;default:0"');
   }
 
 // 工作量统计记录
