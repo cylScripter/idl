@@ -2568,9 +2568,9 @@ struct ModelCourseApplication {
   20: string reason(go.tag='gorm:"column:reason" json:"reason"'); // 申请原因
   21: i32 adjust_course_id(go.tag='gorm:"column:adjust_course_id" json:"adjust_course_id"'); // 调课后对应的课程ID
   22: string user_id(go.tag='gorm:"column:user_id" json:"-"'); // 用户id
-  23: string name(go.tag='gorm:"column:name;default: ;not null" json:"name"');
+  23: string name(go.tag='gorm:"column:name;default:"";not null" json:"name"');
   // 原上课时间
-  25: string original_schedule_time(go.tag='gorm:"column:original_schedule_time;default: ;not null" json:"original_schedule_time"');
+  25: string original_schedule_time(go.tag='gorm:"column:original_schedule_time;default:"";not null" json:"original_schedule_time"');
 }
 
 // 应用表
