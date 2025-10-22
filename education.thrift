@@ -3133,6 +3133,8 @@ struct ModelWorkloadStatistics {
     39: i32 education_level(go.tag='json:"education_level" gorm:"column:education_level;default:1"'); // 教育层次 2:本科 1:大专
     40: double theory_hours (go.tag='json:"theory_hours" gorm:"column:theory_hours;default:0"');
     41: i32  theory_week_number (go.tag='json:"theory_week_number" gorm:"column:theory_week_number;default:0"');
+    // 本科系数
+    42: double college_factor (go.tag='json:"college_factor" gorm:"column:college_factor;default:1"'); // 本科系数
   }
 
 // 工作量统计记录
