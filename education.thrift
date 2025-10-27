@@ -3135,6 +3135,8 @@ struct ModelWorkloadStatistics {
     41: i32  theory_week_number (go.tag='json:"theory_week_number" gorm:"column:theory_week_number;default:0"');
     // 本科系数
     42: double college_factor (go.tag='json:"college_factor" gorm:"column:college_factor;default:1"'); // 本科系数
+    // 是否已经编辑
+    43: bool is_edited (go.tag='json:"is_edited" gorm:"column:is_edited;default:false"');
   }
 
 // 工作量统计记录
