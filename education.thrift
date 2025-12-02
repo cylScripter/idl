@@ -1761,6 +1761,8 @@ enum GetCourseListReqOption {
     class_name = 11;  // 教学班组成
     is_collaborative_course = 12; // 是否共建课程
     type = 13;
+    //
+    level = 14;
 }
 
 struct ExportTeacherInfoReq {
