@@ -9,6 +9,12 @@ service trainingservice {
         api.serializer = 'json'
     )
 
+    // 创建实训课
+    CreateTrainingCourseResp CreateTrainingCourse(1:CreateTrainingCourseReq req)(
+        api.post = '/training/CreateTrainingCourse'
+        api.serializer = 'json'
+    )
+
     // 获取实训课列表
     GetTrainingCourseListResp GetTrainingCourseList(1:GetTrainingCourseListReq req)(
         api.post = '/training/GetTrainingCourseList'
@@ -60,8 +66,67 @@ service trainingservice {
        api.serializer = 'json'
    )
 
+   // 实训教学文件上传
+   UploadTrainingCourseFileResp UploadTrainingCourseFile(1:UploadTrainingCourseFileReq req)(
+       api.post = '/training/UploadTrainingCourseFile'
+       api.serializer = 'json'
+   )
+
+   // 上传实训案例
+   UploadTrainingCourseCaseResp UploadTrainingCourseCase(1:UploadTrainingCourseCaseReq req)(
+       api.post = '/training/UploadTrainingCourseCase'
+       api.serializer = 'json'
+   )
+
+   // 导出实训课计划表
+   ExportTrainingCourseFileResp ExportTrainingCourseFile(1:ExportTrainingCourseFileReq req)(
+       api.post = '/training/ExportTrainingCoursePlan'
+       api.serializer = 'json'
+   )
+   // 导出 实训案例
+   ExportTrainingCourseCaseResp ExportTrainingCourseCase(1:ExportTrainingCourseCaseReq req)(
+       api.post = '/training/ExportTrainingCourseCase'
+        api.serializer = 'json'
+   )
+
 
 }
+
+struct ExportTrainingCourseCaseReq {
+  // 学年
+  1: string academic_year(go.tag='json:"academic_year" binding:"required"');
+  // 学期
+  2: string semester(go.tag='json:"semester" binding:"required"');
+}
+struct ExportTrainingCourseCaseResp {
+    1 :string task_key (go.tag='json:"task_key"');
+}
+
+struct ExportTrainingCourseFileReq {
+  // 学年
+  1: string academic_year(go.tag='json:"academic_year" binding:"required"');
+  // 学期
+  2: string semester(go.tag='json:"semester" binding:"required"');
+}
+struct ExportTrainingCourseFileResp {
+    1 :string task_key (go.tag='json:"task_key"');
+}
+
+struct UploadTrainingCourseCaseReq {
+  1: string upload_id(go.tag='json:"upload_id" binding:"required"');
+  2: i32 training_course_id(go.tag='json:"training_course_id" binding:"required"');
+}
+
+struct UploadTrainingCourseCaseResp {}
+
+struct UploadTrainingCourseFileReq {
+  1: string upload_id(go.tag='json:"upload_id" binding:"required"');
+  2: i32 training_course_id(go.tag='json:"training_course_id" binding:"required"');
+}
+struct UploadTrainingCourseFileResp {}
+
+
+
 
 struct ApproveTrainingCourseDataReq {
   1: i32 training_course_id(go.tag='json:"training_course_id" binding:"required"');
@@ -78,6 +143,7 @@ struct UpdateTrainingCourseTeacherReq {
   1: i32 training_course_id(go.tag='json:"training_course_id" binding:"required"');
   2: i32 training_course_teacher_id (go.tag='json:"training_course_teacher_id" binding:"required"');
   3: list<Teacher> teachers(go.tag='json:"teachers" binding:"required"');
+  4: string date (go.tag='json:"date"');
 }
 
 struct UpdateTrainingCourseTeacherResp  {}
@@ -191,6 +257,26 @@ struct ImportTrainingCourseResp {
     1 :string task_key (go.tag='json:"task_key"');
 }
 
+struct CreateTrainingCourseReq {
+  1: string major(go.tag='json:"major" binding:"required"'); // 专业
+  2: string class_name(go.tag='json:"class_name" binding:"required"'); // 班级
+  3: i32    student_number(go.tag='json:"student_number" binding:"required"'); //  学生人数
+  4: string course_name(go.tag='json:"course_name" binding:"required"'); // 课程名称
+  5: string location(go.tag='json:"location" binding:"required"'); // 地点
+  6: string cooperation_enterprise(go.tag='json:"cooperation_enterprise"'); // 合作企业全称
+  7: i32    training_week(go.tag='json:"training_week" binding:"required"'); // 实训周次
+  8: string teachers(go.tag='json:"teachers"'); // 指导老师
+  9: string academic_year(go.tag='json:"academic_year" binding:"required"'); // 学年
+  10: string semester(go.tag='json:"semester" binding:"required"'); // 学期
+  11: i32    education_level(go.tag='json:"education_level"'); // 教育层次 2:本科 1:大专
+  12: string grade(go.tag='json:"grade"'); // 年级
+  13: string main_teacher(go.tag='json:"main_teacher"'); // 主带教师
+}
+
+struct CreateTrainingCourseResp {
+  1: i32 training_course_id(go.tag='json:"training_course_id"');
+}
+
 
 // 实训
 struct ModelTrainingCourse {
@@ -234,6 +320,7 @@ struct ModelTrainingCourse {
 struct CourseFile {
   1: string upload_id(go.tag='json:"upload_id"');
   2: string url(go.tag='json:"url"');
+  3: string name(go.tag='json:"name"');
 }
 
 
