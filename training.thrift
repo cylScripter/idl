@@ -115,6 +115,8 @@ struct ExportTrainingCourseFileResp {
 struct UploadTrainingCourseCaseReq {
   1: string upload_id(go.tag='json:"upload_id" binding:"required"');
   2: i32 training_course_id(go.tag='json:"training_course_id" binding:"required"');
+// 是否单独上传
+  3: i32 is_alone (go.tag='json:"is_alone" binding:"required"');
 }
 
 struct UploadTrainingCourseCaseResp {}
@@ -122,6 +124,8 @@ struct UploadTrainingCourseCaseResp {}
 struct UploadTrainingCourseFileReq {
   1: string upload_id(go.tag='json:"upload_id" binding:"required"');
   2: i32 training_course_id(go.tag='json:"training_course_id" binding:"required"');
+  // 是否单独上传
+  3: i32 is_alone (go.tag='json:"is_alone" binding:"required"');
 }
 struct UploadTrainingCourseFileResp {}
 
@@ -186,7 +190,7 @@ struct DeleteTrainingCourseResp {}
 struct FillTrainingCourseReq {
   1: i32 training_course_id(go.tag='json:"training_course_id" binding:"required"');
   2: i32 training_course_teacher_id (go.tag='json:"training_course_teacher_id" binding:"required"');
-  3: string content(go.tag='json:"week" binding:"required"'); //  实训内容
+  3: string content(go.tag='json:"content" binding:"required"'); //  实训内容
 }
 
 struct FillTrainingCourseResp {}
@@ -313,7 +317,13 @@ struct ModelTrainingCourse {
   // 实训案例
   22: string training_case_file(go.tag='json:"training_case" gorm:"column:training_case;type:text"');
 
+  // 实训教学文件是否合格
+  23: i32 is_qualified(go.tag='json:"is_qualified" gorm:"column:is_qualified;default:0"');
 
+  // 实训教学文件上传 人
+  24: string training_file_person(go.tag='json:"training_file_person" gorm:"column:training_file_person;type:text"');
+  // 实训案例上传 人
+  25: string training_case_file_person(go.tag='json:"training_case_file_person" gorm:"column:training_case_file_person;type:text"');
 }
 
 
