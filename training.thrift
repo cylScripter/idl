@@ -190,7 +190,7 @@ struct DeleteTrainingCourseResp {}
 struct FillTrainingCourseReq {
   1: i32 training_course_id(go.tag='json:"training_course_id" binding:"required"');
   2: i32 training_course_teacher_id (go.tag='json:"training_course_teacher_id" binding:"required"');
-  3: string content(go.tag='json:"content" binding:"required"'); //  实训内容
+  3: string content(go.tag='json:"content"'); //  实训内容
 }
 
 struct FillTrainingCourseResp {}
