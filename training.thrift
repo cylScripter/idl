@@ -159,8 +159,6 @@ struct ExportTrainingCourseFileResp {
 struct UploadTrainingCourseCaseReq {
   1: string upload_id(go.tag='json:"upload_id" binding:"required"');
   2: i32 training_course_id(go.tag='json:"training_course_id" binding:"required"');
-// 是否单独上传
-  3: i32 is_alone (go.tag='json:"is_alone" binding:"required"');
 }
 
 struct UploadTrainingCourseCaseResp {}
@@ -168,8 +166,6 @@ struct UploadTrainingCourseCaseResp {}
 struct UploadTrainingCourseFileReq {
   1: string upload_id(go.tag='json:"upload_id" binding:"required"');
   2: i32 training_course_id(go.tag='json:"training_course_id" binding:"required"');
-  // 是否单独上传
-  3: i32 is_alone (go.tag='json:"is_alone" binding:"required"');
 }
 struct UploadTrainingCourseFileResp {}
 
