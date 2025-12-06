@@ -42,7 +42,7 @@ service trainingservice {
         api.serializer = 'json'
     )
 
-    //  导出实训课计划表
+    //  导出实训课计划表 ： 批量导出汇总报表（按专业、年级、班级、周次排序）
     ExportTrainingCourseResp ExportTrainingCourse(1:ExportTrainingCourseReq req)(
         api.post = '/training/ExportTrainingCourse'
         api.serializer = 'json'
@@ -89,7 +89,51 @@ service trainingservice {
         api.serializer = 'json'
    )
 
+   // 上传实践项目来源证明
+   UploadTrainingCourseSourceResp UploadTrainingCourseSource(1:UploadTrainingCourseSourceReq req)(
+       api.post = '/training/UploadTrainingCourseSource'
+       api.serializer = 'json'
+   )
 
+   // 导出 实践项目来源证明
+   ExportTrainingCourseSourceResp ExportTrainingCourseSource(1:ExportTrainingCourseSourceReq req)(
+       api.post = '/training/ExportTrainingCourseSource'
+        api.serializer = 'json'
+   )
+
+   // 获取导出结果
+   GetExportResultResp GetExportResult(1:GetExportResultReq req)(
+       api.post = '/training/GetExportResult'
+       api.serializer = 'json'
+   )
+}
+
+
+struct GetExportResultReq {
+  1: i32 training_course_id(go.tag='json:"training_course_id" binding:"required"'); // 实训课id
+}
+struct GetExportResultResp {
+    1 :string task_key (go.tag='json:"task_key"');
+    2 :CourseFile file (go.tag='json:"file"');
+}
+
+struct ExportTrainingCourseSourceReq {
+  // 学年
+  1: string academic_year(go.tag='json:"academic_year" binding:"required"');
+  // 学期
+  2: string semester(go.tag='json:"semester" binding:"required"');
+}
+
+struct ExportTrainingCourseSourceResp {
+    1 :string task_key (go.tag='json:"task_key"');
+}
+
+struct UploadTrainingCourseSourceReq {
+  1: string upload_id(go.tag='json:"upload_id" binding:"required"');
+}
+
+struct UploadTrainingCourseSourceResp {
+    1 :string task_key (go.tag='json:"task_key"');
 }
 
 struct ExportTrainingCourseCaseReq {
@@ -201,6 +245,24 @@ struct GetTrainingCourseReq {
 struct GetTrainingCourseResp {
   1: ModelTrainingCourse training_course(go.tag='json:"training_course"');
   2: list<TrainingCourseTeacherOne> teacher_list(go.tag='json:"teacher_list"');
+
+  //  实训教学文件
+  3: CourseFile course_file(go.tag='json:"course_file"');
+  // 实训案例
+  4: CourseFile course_case_file(go.tag='json:"course_case"');
+  // 实践项目来源证明
+  5: CourseFile project_source_file(go.tag='json:"project_source_file"');
+
+  // 实训教学文件是否上传
+  6: i32 course_file_status(go.tag='json:"course_file_status"');
+  // 实训案例是否上传
+  7: i32 course_case_status(go.tag='json:"course_case_status"');
+  // 实践项目来源证明是否上传
+  8: i32 project_source_status(go.tag='json:"project_source_status"');
+
+  // 学院
+  9: string college(go.tag='json:"college"');
+
 }
 
 struct TrainingCourseTeacherOne {
@@ -255,6 +317,8 @@ struct ImportTrainingCourseReq {
   1: string academic_year(go.tag='json:"academic_year" binding:"required" '); // 学年
   2: string semester(go.tag='json:"semester"binding:"required" '); // 学期
   3: string upload_id(go.tag='json:"upload_id" binding:"required"'); // 文件上传id
+  // 课程类型
+  4: i32 type(go.tag='json:"type" binding:"required"'); // 1 实训课 2 生产性实践教学课
 
 }
 struct ImportTrainingCourseResp {
@@ -324,8 +388,21 @@ struct ModelTrainingCourse {
   24: string training_file_person(go.tag='json:"training_file_person" gorm:"column:training_file_person;type:text"');
   // 实训案例上传 人
   25: string training_case_file_person(go.tag='json:"training_case_file_person" gorm:"column:training_case_file_person;type:text"');
+
+  // 实践项目来源证明
+  26: string project_source_proof(go.tag='json:"project_source_proof" gorm:"column:project_source_proof;type:text"');
+
+  // 课程类型
+  27: i32 course_type(go.tag='json:"course_type" gorm:"column:course_type;default:1"'); // 1 实训课 2 生产性实践教学课
+
+  // 填报人
+  28: string filler(go.tag='json:"filler" gorm:"column:filler"'); // 填报人
 }
 
+enum CourseType {
+  TRAINING = 1; // 实训课
+  PRACTICE = 2; // 生产性实践教学课
+}
 
 struct CourseFile {
   1: string upload_id(go.tag='json:"upload_id"');
