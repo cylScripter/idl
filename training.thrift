@@ -129,7 +129,9 @@ struct ExportTrainingCourseSourceResp {
 }
 
 struct UploadTrainingCourseSourceReq {
+
   1: string upload_id(go.tag='json:"upload_id" binding:"required"');
+  2: i32 training_course_id(go.tag='json:"training_course_id" binding:"required"');
 }
 
 struct UploadTrainingCourseSourceResp {

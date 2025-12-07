@@ -50,6 +50,24 @@ service commonservice {
 		api.post = '/common/AbortMultipart'
 		api.serializer = 'json'
 	)
+
+	// 检查分片上传状态
+	CheckMultipartStatusResp CheckMultipartStatus(1:CheckMultipartStatusReq req)(
+		api.post = '/common/CheckMultipartStatus'
+		api.serializer = 'json'
+	)
+
+	// 重新上传指定分片
+	ResendPartUrlResp ResendPartUrl(1:ResendPartUrlReq req)(
+		api.post = '/common/ResendPartUrl'
+		api.serializer = 'json'
+	)
+
+	// 获取上传进度
+	GetUploadProgressResp GetUploadProgress(1:GetUploadProgressReq req)(
+		api.post = '/common/GetUploadProgress'
+		api.serializer = 'json'
+	)
     // 获取文件
 	GetObjectResp GetObject(1:GetObjectReq req)(
 		api.post = '/common/GetObject'
@@ -71,6 +89,37 @@ service commonservice {
 }
 
 const string DefaultBucketName = "open";
+
+// 分片上传相关常量配置
+const i32 DefaultChunkSize = 5242880; // 5MB
+const i32 MinChunkSize = 1048576; // 1MB
+const i64 MaxChunkSize = 5368709120; // 5GB
+const i32 MaxAllowedParts = 10000; // 最大分片数量
+const i32 DefaultMaxRetries = 3; // 默认重试次数
+const i32 DefaultTimeoutSeconds = 3600; // 默认超时时间（1小时）
+const i32 MaxTimeoutSeconds = 86400; // 最大超时时间（24小时）
+
+// 错误码枚举
+enum UploadErrorCode {
+    Success = 0 // 成功
+    InvalidRequest = 1000 // 请求参数无效
+    FileNotFound = 1001 // 文件不存在
+    UploadIdNotFound = 1002 // 上传ID不存在
+    PartNumberInvalid = 1003 // 分片编号无效
+    PartSizeInvalid = 1004 // 分片大小无效
+    PartETagMismatch = 1005 // 分片ETag不匹配
+    UploadExpired = 1006 // 上传已过期
+    QuotaExceeded = 1007 // 配额超限
+    NetworkError = 1008 // 网络错误
+    StorageError = 1009 // 存储服务错误
+    InternalError = 1010 // 内部错误
+    PartAlreadyExists = 1011 // 分片已存在
+    TooManyParts = 1012 // 分片数量过多
+    EntityTooSmall = 1013 // 文件太小
+    EntityTooLarge = 1014 // 文件太大
+    InvalidPartOrder = 1015 // 分片顺序错误
+    UploadAborted = 1016 // 上传已中断
+}
 
 
 struct GetFileListReq {
@@ -122,10 +171,18 @@ struct UploadNewMultipartReq {
 	3: string str_file_id (go.tag='json:"str_file_id" binding:"required"');
 	4: string bucket_name;
 	5: i32 file_type;
+	6: i64 file_size (go.tag='json:"file_size"'); // 文件总大小（字节）
+	7: i32 chunk_size (go.tag='json:"chunk_size"'); // 分片大小（字节），默认5MB
+	8: i32 max_retries (go.tag='json:"max_retries"'); // 最大重试次数，默认3次
+	9: i32 timeout_seconds (go.tag='json:"timeout_seconds"'); // 超时时间（秒），默认3600秒
 }
 
 struct UploadNewMultipartResp {
 	1: string upload_id;
+	2: i32 recommended_chunk_size (go.tag='json:"recommended_chunk_size"'); // 推荐的分片大小
+	3: i32 max_allowed_parts (go.tag='json:"max_allowed_parts"'); // 最大允许分片数
+	4: i64 min_chunk_size (go.tag='json:"min_chunk_size"'); // 最小分片大小
+	5: i64 max_chunk_size (go.tag='json:"max_chunk_size"'); // 最大分片大小
 }
 
 struct GetPresignedUrlListReq {
@@ -155,6 +212,61 @@ struct AbortMultipartReq {
 }
 
 struct AbortMultipartResp {}
+
+// 检查分片上传状态请求
+struct CheckMultipartStatusReq {
+	1: string upload_id (go.tag='json:"upload_id" binding:"required"');
+	2: string str_file_id (go.tag='json:"str_file_id" binding:"required"');
+}
+
+// 检查分片上传状态响应
+struct CheckMultipartStatusResp {
+	1: i32 status (go.tag='json:"status"');
+	2: list<PartInfo> uploaded_parts (go.tag='json:"uploaded_parts"');
+	3: i32 total_parts (go.tag='json:"total_parts"');
+	4: i64 total_size (go.tag='json:"total_size"');
+	5: string message (go.tag='json:"message"');
+	6: UploadErrorCode error_code (go.tag='json:"error_code"');
+	7: list<i32> missing_parts (go.tag='json:"missing_parts"');
+	8: i64 expires_at (go.tag='json:"expires_at"');
+}
+
+// 分片信息
+struct PartInfo {
+	1: i32 part_number (go.tag='json:"part_number"');
+	2: i64 size (go.tag='json:"size"');
+	3: string etag (go.tag='json:"etag"');
+	4: i64 uploaded_at (go.tag='json:"uploaded_at"');
+}
+
+// 重新上传分片URL请求
+struct ResendPartUrlReq {
+	1: string upload_id (go.tag='json:"upload_id" binding:"required"');
+	2: string str_file_id (go.tag='json:"str_file_id" binding:"required"');
+	3: list<i32> part_numbers (go.tag='json:"part_numbers"');
+}
+
+// 重新上传分片URL响应
+struct ResendPartUrlResp {
+	1: map<string, string> part_urls (go.tag='json:"part_urls"');
+}
+
+// 获取上传进度请求
+struct GetUploadProgressReq {
+	1: string upload_id (go.tag='json:"upload_id" binding:"required"');
+	2: string str_file_id (go.tag='json:"str_file_id" binding:"required"');
+}
+
+// 获取上传进度响应
+struct GetUploadProgressResp {
+	1: i32 total_parts (go.tag='json:"total_parts"');
+	2: i32 completed_parts (go.tag='json:"completed_parts"');
+	3: i64 total_size (go.tag='json:"total_size"');
+	4: i64 uploaded_size (go.tag='json:"uploaded_size"');
+	5: double progress_percentage (go.tag='json:"progress_percentage"');
+	6: i32 upload_speed (go.tag='json:"upload_speed"'); // KB/s
+	7: i64 estimated_time_remaining (go.tag='json:"estimated_time_remaining"'); // seconds
+}
 
 struct GetObjectReq {
 	1: string upload_id;
@@ -277,3 +389,21 @@ enum FileStatus {
 	Expired = 6  // 过期
 	Aborted = 7 // 中断
 }
+
+// 分片上传策略建议
+/**
+ * 分片大小建议：
+ * - 小文件（< 100MB）：5MB 分片，减少网络请求数量
+ * - 中等文件（100MB - 1GB）：10MB 分片，平衡性能和效率
+ * - 大文件（> 1GB）：20MB 分片，提高上传效率
+ *
+ * 网络环境建议：
+ * - 高速网络：可使用较大分片（20-50MB）
+ * - 普通网络：建议使用中等分片（5-10MB）
+ * - 不稳定网络：建议使用小分片（1-5MB），增加重试机制
+ *
+ * 并发建议：
+ * - 一般建议并发数：3-5 个分片同时上传
+ * - 高速网络可适当提高并发数：5-10 个
+ * - 不稳定网络建议降低并发数：1-3 个
+ */
