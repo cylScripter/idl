@@ -293,6 +293,7 @@ struct CreateAsyncTaskReq{
     7: i32 max_retry(go.tag='json:"max_retry"');   // 最大重试次数
     8: bool is_unique(go.tag='json:"is_unique"');  // 是否唯一
     9: i32 delay_time(go.tag='json:"delay_time"'); // 延迟时间
+    10: string queue (go.tag='json:"queue"');
 }
 
 enum TaskType {

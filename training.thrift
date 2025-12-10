@@ -78,7 +78,7 @@ service trainingservice {
        api.serializer = 'json'
    )
 
-   // 导出实训课计划表
+   // 导出实训教学文件
    ExportTrainingCourseFileResp ExportTrainingCourseFile(1:ExportTrainingCourseFileReq req)(
        api.post = '/training/ExportTrainingCoursePlan'
        api.serializer = 'json'
