@@ -377,7 +377,7 @@ struct ModelTrainingCourse {
   // 实训教学文件上传
   21: string training_file(go.tag='json:"training_file" gorm:"column:training_file;type:text"');
   // 实训案例
-  22: string training_case_file(go.tag='json:"training_case" gorm:"column:training_case;type:text"');
+  22: string training_case_file(go.tag='json:"training_case_file" gorm:"column:training_case_file;type:text"');
 
   // 实训教学文件是否合格
   23: i32 is_qualified(go.tag='json:"is_qualified" gorm:"column:is_qualified;default:0"');
@@ -395,6 +395,9 @@ struct ModelTrainingCourse {
 
   // 填报人
   28: string filler(go.tag='json:"filler" gorm:"column:filler"'); // 填报人
+
+  //  实践项目来源证明上报人
+  29: string project_source_proof_person(go.tag='json:"project_source_proof_person" gorm:"column:project_source_proof_person"');
 }
 
 enum CourseType {
