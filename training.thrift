@@ -206,6 +206,7 @@ struct UpdateTrainingCourseReq {
     13: string teachers(go.tag='json:"teachers" gorm:"column:teachers;type:text"'); // 指导老师
     17: string grade(go.tag='json:"grade" gorm:"column:grade"');  // 年级
     18: string main_teacher(go.tag='json:"main_teacher" gorm:"column:main_teacher"');  // 主带教师
+    14: i32 course_type(go.tag='json:"course_type"'); // 课程类型
 }
 
 struct UpdateTrainingCourseResp {
@@ -217,6 +218,8 @@ struct ExportTrainingCourseReq {
   1: string academic_year(go.tag='json:"academic_year" binding:"required"');
   // 学期
   2: string semester(go.tag='json:"semester" binding:"required"');
+
+  3: i32 course_type(go.tag='json:"course_type"'); // 课程类型 1 实训课  2 实践课
 }
 
 struct ExportTrainingCourseResp {
@@ -337,6 +340,7 @@ struct CreateTrainingCourseReq {
   11: i32    education_level(go.tag='json:"education_level"'); // 教育层次 2:本科 1:大专
   12: string grade(go.tag='json:"grade"'); // 年级
   13: string main_teacher(go.tag='json:"main_teacher"'); // 主带教师
+  14: i32 course_type(go.tag='json:"course_type"'); // 课程类型
 }
 
 struct CreateTrainingCourseResp {
