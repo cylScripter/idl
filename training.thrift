@@ -386,10 +386,8 @@ struct ModelTrainingCourse {
   24: string training_file_person(go.tag='json:"training_file_person" gorm:"column:training_file_person;type:text"');
   // 实训案例上传 人
   25: string training_case_file_person(go.tag='json:"training_case_file_person" gorm:"column:training_case_file_person;type:text"');
-
   // 实践项目来源证明
   26: string project_source_proof(go.tag='json:"project_source_proof" gorm:"column:project_source_proof;type:text"');
-
   // 课程类型
   27: i32 course_type(go.tag='json:"course_type" gorm:"column:course_type;default:1"'); // 1 实训课 2 生产性实践教学课
 
