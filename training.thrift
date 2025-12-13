@@ -106,8 +106,71 @@ service trainingservice {
        api.post = '/training/GetExportResult'
        api.serializer = 'json'
    )
+
+   // 专业管理
+   // 获取专业列表
+   GetPastMajorListResp GetPastMajorList(1:GetPastMajorListReq req)(
+   api.post = '/training/GetPastMajorList'
+    api.serializer = 'json'
+   )
+
+   // 删除 专业
+   DeletePastMajorResp DeletePastMajor(1:DeletePastMajorReq req)(
+   api.post = '/training/DeletePastMajor'
+    api.serializer = 'json'
+   )
+
+   // 添加专业
+   AddPastMajorResp AddPastMajor(1:AddPastMajorReq req)(
+   api.post = '/training/AddPastMajor'
+    api.serializer = 'json'
+   )
+
+   // 修改
+   UpdatePastMajorResp UpdatePastMajor(1:UpdatePastMajorReq req)(
+   api.post = '/training/UpdatePastMajor'
+    api.serializer = 'json'
+   )
+
+
+
 }
 
+
+struct  UpdatePastMajorReq {
+  1: i32 id(go.tag='json:"id" binding:"required"');
+  2: string name(go.tag='json:"name" binding:"required"'); // 专业名称
+  3: i32 orders   (go.tag='json:"orders"');
+  4: string research_director_id (go.tag='json:"research_director_id" binding:"required"');
+  5: string research_director (go.tag='json:"research_director" binding:"required"');
+}
+
+struct UpdatePastMajorResp {
+}
+
+struct AddPastMajorReq {
+  1: string name(go.tag='json:"name" binding:"required"'); // 专业名称
+  2: i32 orders   (go.tag='json:"orders"');
+  3: string research_director_id (go.tag='json:"research_director_id" binding:"required"'); // 主任id
+
+}
+
+struct AddPastMajorResp {
+}
+
+struct DeletePastMajorReq {
+  1: i32 id(go.tag='json:"id" binding:"required"');
+}
+struct DeletePastMajorResp {
+}
+
+struct GetPastMajorListReq  {
+  1: base.ListOption list_option(go.tag='json:"list_option" binding:"required"');
+}
+struct GetPastMajorListResp {
+  1: list<ModelMajor> list(go.tag='json:"list"');
+   2: base.Paginate paginate(go.tag='json:"paginate"');
+}
 
 struct GetExportResultReq {
   1: i32 training_course_id(go.tag='json:"training_course_id" binding:"required"'); // 实训课id
