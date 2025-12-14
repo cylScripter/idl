@@ -164,6 +164,12 @@ struct DeletePastMajorReq {
 struct DeletePastMajorResp {
 }
 
+enum GetPastMajorListOption {
+   id = 1;
+   name = 2;
+   research_director_id = 3;
+}
+
 struct GetPastMajorListReq  {
   1: base.ListOption list_option(go.tag='json:"list_option" binding:"required"');
 }
@@ -313,7 +319,7 @@ struct GetTrainingCourseResp {
   //  实训教学文件
   3: CourseFile course_file(go.tag='json:"course_file"');
   // 实训案例
-  4: CourseFile course_case_file(go.tag='json:"course_case"');
+  4: CourseFile course_case_file(go.tag='json:"course_case_file"');
   // 实践项目来源证明
   5: CourseFile project_source_file(go.tag='json:"project_source_file"');
 
@@ -370,6 +376,11 @@ enum TrainingCourseListReqOption {
     course_name = 6; // 名称
     grade = 7; // 年级
     type = 8; // 获取自己的课程使用 类型 1 填报 2 上传文件
+    // 是否已经填报
+    is_fill = 9;  // 是否已经填报 1 填报过 2 没有填
+    is_file_upload = 10; // 是否已经上传文件  1 填报过 2 没有填
+    is_case_file_upload = 11; // 是否已经上传案例文件  1 填报过 2 没有填
+    is_project_source_file_upload = 12; // 是否已经上传项目来源证明文件  1 填报过 2 没有填
 }
 
 struct GetSelfTrainingCourseListResp {
