@@ -132,8 +132,6 @@ service trainingservice {
     api.serializer = 'json'
    )
 
-
-
 }
 
 
