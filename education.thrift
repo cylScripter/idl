@@ -713,11 +713,75 @@ service educationservice {
          api.post = '/education/ImportBeginExamWorkload'
          api.serializer = 'json'
      )
+
+     // 编辑调课单
+     EditAdjustmentFormResp EditAdjustmentForm(1:EditAdjustmentFormReq req)(
+         api.post = '/education/EditAdjustmentForm'
+         api.serializer = 'json'
+     )
+
+     // 获调课单
+     GetAdjustmentFormListResp GetAdjustmentFormList(1:GetAdjustmentFormListReq req)(
+        api.post = '/education/GetAdjustmentFormList'
+        api.serializer = 'json'
+     )
+
+     // 关联调课申请
+     LinkAdjustmentApplyResp LinkAdjustmentApply(1:LinkAdjustmentApplyReq req)(
+        api.post = '/education/LinkAdjustmentApply'
+        api.serializer = 'json'
+     )
+
+
+
+}
+
+// =================req\resp===============================
+
+struct LinkAdjustmentApplyResp {
+
+}
+struct LinkAdjustmentApplyReq {
+    1: i32 adjustment_apply_id (go.tag='json:"adjustment_apply_id" binding:"required"');
+    2: list<i32> adjustment_form_id (go.tag='json:"adjustment_form_id" binding:"required"');
+}
+
+struct GetAdjustmentFormListResp {
+    1: list<ModelAdjustmentForm> list (go.tag='json:"list"');
+    2: base.Paginate paginate(go.tag='json:"paginate"');
+}
+
+enum GetAdjustmentFormListReqOption {
+   academic_year = 1;
+   semester = 2;
+   adjustment_apply_id = 3;
+   name = 4;
+   c_month = 5;
+   id = 6;
+}
+struct GetAdjustmentFormListReq {
+    1: base.ListOption list_option(go.tag='json:"list_option"');
+}
+
+
+struct EditAdjustmentFormResp {
+
+}
+
+struct EditAdjustmentFormReq {
+    1: i32 id (go.tag='json:"id" binding:"required"');
+    2: string academic_year (go.tag='json:"academic_year" binding:"required"');
+    3: string semester (go.tag='json:"semester" binding:"required"');
+    4: string c_month (go.tag='json:"c_month" binding:"required"');
+    5: i32 adjustment_apply_id (go.tag='json:"adjustment_apply_id"');
+    6: string name (go.tag='json:"name" binding:"required"');
+    7: i32 is_delete (go.tag='json:"is_delete"');
+    8: string remark (go.tag='json:"remark"');
 }
 
 
 
-// =================req\resp===============================
+
 struct ImportBeginExamWorkloadResp{
 1: string task_key (go.tag='json:"task_key"');
 }
@@ -3195,3 +3259,18 @@ struct ModelBeginExamWorkload {
     15: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id;index"' );
     22: i32 education_level(go.tag='json:"education_level" gorm:"column:education_level;default:1"'); // 教育层次 2:本科 1:大专
 }
+
+// 佐证材料
+struct ModelAdjustmentForm {
+    1: i32 id (go.tag='gorm:"column:id" json:"id"');
+    2: i32 created_at(go.tag='gorm:"column:created_at;index" json:"created_at"');
+    3: i32 updated_at(go.tag='gorm:"column:updated_at" json:"updated_at"');
+    4: i32 deleted_at(go.tag='gorm:"column:deleted_at" json:"deleted_at"');
+    5: string academic_year (go.tag='json:"academic_year" gorm:"column:academic_year"');
+    6: string semester (go.tag='json:"semester" gorm:"column:semester"');
+    7: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id;index"' );
+    8: i32 adjustment_apply_id (go.tag='json:"adjustment_apply_id" gorm:"column:adjustment_apply_id"'); // 关联的调课申请id
+    9: string c_month (go.tag='json:"c_month" gorm:"column:c_month"'); // 月份
+    10: string name (go.tag='json:"name" gorm:"column:name"');
+    11: string remark (go.tag='json:"remark" gorm:"column:remark"');
+ }
