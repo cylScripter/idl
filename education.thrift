@@ -742,7 +742,7 @@ struct LinkAdjustmentApplyResp {
 
 }
 struct LinkAdjustmentApplyReq {
-    1: i32 adjustment_apply_id (go.tag='json:"adjustment_apply_id" binding:"required"');
+    1: i32 adjustment_apply_id (go.tag='json:"adjustment_apply_id"');
     2: list<i32> adjustment_form_id (go.tag='json:"adjustment_form_id" binding:"required"');
 }
 
