@@ -769,7 +769,7 @@ struct EditAdjustmentFormResp {
 }
 
 struct EditAdjustmentFormReq {
-    1: i32 id (go.tag='json:"id" binding:"required"');
+    1: i32 id (go.tag='json:"id"');
     2: string academic_year (go.tag='json:"academic_year" binding:"required"');
     3: string semester (go.tag='json:"semester" binding:"required"');
     4: string c_month (go.tag='json:"c_month" binding:"required"');
