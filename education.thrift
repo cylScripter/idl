@@ -732,11 +732,24 @@ service educationservice {
         api.serializer = 'json'
      )
 
+     // 自动生成调课单
+      AutoGenerateAdjustmentFormResp AutoGenerateAdjustmentForm(1:AutoGenerateAdjustmentFormReq req)(
+      api.post = '/education/AutoGenerateAdjustmentForm'
+      api.serializer = 'json'
+      )
 
 
 }
 
 // =================req\resp===============================
+
+struct AutoGenerateAdjustmentFormResp {}
+
+struct AutoGenerateAdjustmentFormReq {
+    1: string academic_year (go.tag='json:"academic_year" binding:"required"');
+    2: string semester (go.tag='json:"semester" binding:"required"');
+    3: string c_month (go.tag='json:"c_month" binding:"required"');
+}
 
 struct LinkAdjustmentApplyResp {
 
