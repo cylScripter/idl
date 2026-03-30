@@ -762,7 +762,7 @@ struct LinkAdjustmentApplyReq {
 struct GetAdjustmentFormListResp {
     1: list<ModelAdjustmentForm> list (go.tag='json:"list"');
     2: base.Paginate paginate(go.tag='json:"paginate"');
-    3: map<i32, ModelCourseApplication> AdjustMap (go.tag='json:"adjust_map"');
+    3: map<i32, ModelCourseApplication> adjust_map (go.tag='json:"adjust_map"');
 }
 
 enum GetAdjustmentFormListReqOption {
