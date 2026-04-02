@@ -3185,10 +3185,10 @@ struct ModelWorkloadStatistics {
 
     // 当月教学工作量统计
     20: double theory_course_hours (go.tag='json:"theory_course_hours" gorm:"column:theory_course_hours"');  // 理论课课时
-    21: i32 training_course_hours(go.tag='json:"training_course_hours" gorm:"column:training_course_hours"'); // 实训课
-    22: i32 internship_hours (go.tag='json:"internship_hours" gorm:"column:internship_hours"'); // 实习课时
-    23: i32 review_week (go.tag='json:"review_week" gorm:"column:review_week"'); // 复习周
-    24: i32 giving_paper (go.tag='json:"giving_paper" gorm:"column:giving_paper"'); // 出卷
+    21: i32    training_course_hours(go.tag='json:"training_course_hours" gorm:"column:training_course_hours"'); // 实训课
+    22: double internship_hours (go.tag='json:"internship_hours" gorm:"column:internship_hours"'); // 实习课时
+    23: i32    review_week (go.tag='json:"review_week" gorm:"column:review_week"'); // 复习周
+    24: i32     giving_paper (go.tag='json:"giving_paper" gorm:"column:giving_paper"'); // 出卷
     25: double grading_paper (go.tag='json:"grading_paper" gorm:"column:grading_paper"'); // 阅卷
     26: double other (go.tag='json:"other" gorm:"column:other"'); // 其他
     27: string material1 (go.tag='json:"material1" gorm:"column:material1"'); //佐证材料及编号1
