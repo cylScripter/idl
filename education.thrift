@@ -3196,7 +3196,7 @@ struct ModelWorkloadStatistics {
 
     // 当月教学津贴统计
     29: i32 duties_subsidy (go.tag='json:"duties_subsidy" gorm:"column:duties_subsidy"'); // 职务补贴
-    30: i32 invigilation_tour (go.tag='json:"invigilation_tour" gorm:"column:invigilation_tour"'); // 监考
+    30: double invigilation_tour (go.tag='json:"invigilation_tour" gorm:"column:invigilation_tour"'); // 监考
     31: i32 traffic_subsidy (go.tag='json:"traffic_subsidy" gorm:"column:traffic_subsidy"'); // 交通补贴
     32: i32 work_overtime (go.tag='json:"work_overtime" gorm:"column:work_overtime"'); // 加班费
     33: i32 discount (go.tag='json:"discount" gorm:"column:discount"'); // 折扣
