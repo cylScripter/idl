@@ -556,3 +556,33 @@ struct ModelTeacherCourseIndex {
   // 教师 名
   10: string teacher_name(go.tag='json:"teacher_name" gorm:"column:teacher_name"');
 }
+
+// 教室表
+struct ModelClassroom {
+  1: i32 id (go.tag='gorm:"column:id" json:"id"');
+  2: i32 created_at(go.tag='gorm:"column:created_at;index" json:"created_at"');
+  3: i32 updated_at(go.tag='gorm:"column:updated_at" json:"updated_at"');
+  4: i32 deleted_at(go.tag='gorm:"column:deleted_at" json:"deleted_at"');
+  5: string name(go.tag='json:"name" gorm:"column:name"');
+  6: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id"' );
+  7: i32 orders (go.tag='json:"orders" gorm:"column:orders"');
+  8: string location(go.tag='json:"location" gorm:"column:location"');
+}
+
+// 教师( 教室 )排课任务表teacher_schedules
+struct ModelTeacherSchedule {
+  1: i32 id (go.tag='gorm:"column:id" json:"id"');
+  2: i32 created_at(go.tag='gorm:"column:created_at;index" json:"created_at"');
+  3: i32 updated_at(go.tag='gorm:"column:updated_at" json:"updated_at"');
+  4: i32 deleted_at(go.tag='gorm:"column:deleted_at" json:"deleted_at"');
+  5: string teacher_id(go.tag='json:"teacher_id" gorm:"column:teacher_id"');
+  6: string course_id(go.tag='json:"course_id" gorm:"column:course_id"');
+  7: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id"' );
+  8: i32 week_number(go.tag='json:"week_number" gorm:"column:week_number"');
+  9: string day_of_week(go.tag='json:"day_of_week" gorm:"column:day_of_week"');
+  16: i32 status (go.tag='json:"status" gorm:"column:status"');
+  17: string academic_year(go.tag='json:"academic_year" gorm:"column:academic_year"');
+  18: string semester(go.tag='json:"semester" gorm:"column:semester"');
+  19: i32 category (go.tag='json:"category" gorm:"column:category"');
+  20: i32 classroom_id(go.tag='json:"classroom_id" gorm:"column:classroom_id"');
+}

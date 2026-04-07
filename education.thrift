@@ -1803,6 +1803,7 @@ struct UpdateCourseResp {}
 
 struct   ImportCourseReq{
     1: string upload_id(go.tag='json:"upload_id"')
+    2: i32 level(go.tag='json:"level"') // 1: 专科 2: 本科
 }
 
 struct   ImportCourseResp{
