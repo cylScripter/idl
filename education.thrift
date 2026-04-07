@@ -749,12 +749,36 @@ service educationservice {
       api.post = '/education/ImportExamWorkload'
       api.serializer = 'json'
       )
+      // 编辑
+      EditExamWorkloadResp EditExamWorkload(1:EditExamWorkloadReq req)(
+      api.post = '/education/EditExamWorkload'
+      api.serializer = 'json'
+      )
+
 
 
 }
 
 // =================req\resp===============================
 
+struct EditExamWorkloadResp {
+
+}
+
+struct EditExamWorkloadReq {
+    1: string academic_year (go.tag='json:"academic_year" binding:"required"');
+    2: string semester (go.tag='json:"semester" binding:"required"');
+    3: i32 id (go.tag='json:"id"');
+    7: string teacher_name (go.tag='json:"teacher_name" binding:"required"');
+    8: string teacher_id (go.tag='json:"teacher_id" binding:"required"');
+    9: i32 patrol_count (go.tag='json:"patrol_count"'); // 巡考场次
+    10: i32 supervision_count (go.tag='json:"supervision_count"'); // 监考场次
+    11: i32 exam_admin_count (go.tag='json:"exam_admin_count"'); // 考务场次
+    12: i32 total_count (go.tag='json:"total_count"'); // 总计场次
+    13: double fee_standard (go.tag='json:"fee_standard"'); // 费用标准（元/场）
+    14: double total_fee (go.tag='json:"total_fee"'); // 费用总计（元）
+    22: i32 education_level(go.tag='json:"education_level" binding:"required"'); // 教育层次 2:本科 1:大专
+}
 
 struct ImportExamWorkloadResp {
 
