@@ -764,6 +764,7 @@ struct ImportExamWorkloadReq {
     1: string academic_year (go.tag='json:"academic_year" binding:"required"');
     2: string semester (go.tag='json:"semester" binding:"required"');
    3: string upload_id(go.tag='json:"upload_id" binding:"required"'); // 文件上传id
+   4: i32 level(go.tag='json:"level" binding:"required"');
 }
 
 
