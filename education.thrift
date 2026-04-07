@@ -738,7 +738,7 @@ service educationservice {
       api.serializer = 'json'
       )
 
-      //
+
       GetExamWorkloadListResp GetExamWorkloadList(1:GetExamWorkloadListReq req)(
       api.post = '/education/GetExamWorkloadList'
       api.serializer = 'json'
@@ -770,7 +770,7 @@ struct ImportExamWorkloadReq {
 
 
 struct GetExamWorkloadListResp {
-    1: list<ModelExamWorkload> list (go.tag='json:"list"');
+    1: list<ModelBeginExamWorkload> list (go.tag='json:"list"');
     2: base.Paginate paginate(go.tag='json:"paginate"');
 }
 
@@ -3336,28 +3336,4 @@ struct ModelAdjustmentForm {
     9: string c_month (go.tag='json:"c_month" gorm:"column:c_month"'); // 月份
     10: string name (go.tag='json:"name" gorm:"column:name"');
     11: string remark (go.tag='json:"remark" gorm:"column:remark"');
- }
-
-
- // 考务工作量
- struct ModelExamWorkload {
-     1: i32 id (go.tag='gorm:"column:id" json:"id"');
-     2: i32 created_at(go.tag='gorm:"column:created_at;index" json:"created_at"');
-     3: i32 updated_at(go.tag='gorm:"column:updated_at" json:"updated_at"');
-     4: i32 deleted_at(go.tag='gorm:"column:deleted_at" json:"deleted_at"');
-     5: string academic_year (go.tag='json:"academic_year" gorm:"column:academic_year"');
-     6: string semester (go.tag='json:"semester" gorm:"column:semester"');
-     7: string teacher_name (go.tag='json:"teacher_name" gorm:"column:teacher_name"');
-     8: string teacher_id (go.tag='json:"teacher_id" gorm:"column:teacher_id"');
-     9: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id;index"' );
-     // 巡考
-     10: i32 patrol_count (go.tag='json:"patrol_count" gorm:"column:patrol_count"');
-     // 监考
-      11: i32 supervision_count (go.tag='json:"supervision_count" gorm:"column:supervision_count"');
-      // 考务
-      12: i32 exam_admin_count (go.tag='json:"exam_admin_count" gorm:"column:exam_admin_count"');
-      // 费用标准
-      13: double fee_standard (go.tag='json:"fee_standard" gorm:"column:fee_standard"');
-      // 总计
-      14: i32 total_count (go.tag='json:"total_count" gorm:"column:total_count"');
  }
