@@ -131,7 +131,229 @@ service trainingservice {
    api.post = '/training/UpdatePastMajor'
     api.serializer = 'json'
    )
+   // ==================================2026-04-18====================================
+   // GetClassroomList
+   GetClassroomListResp GetClassroomList(1:GetClassroomListReq req)(
+     api.post = '/training/GetClassroomList'
+     api.serializer = 'json'
+   )
 
+   // Import
+   ImportClassroomResp ImportClassroom(1:ImportClassroomReq req)(
+       api.post = '/training/ImportClassroom'
+       api.serializer = 'json'
+   )
+   // 编辑
+   EditClassroomResp EditClassroom(1:EditClassroomReq req)(
+     api.post = '/training/EditClassroom'
+     api.serializer = 'json'
+   )
+   // ExportMajorPracticeTeaching
+   ExportMajorPracticeTeachingResp ExportMajorPracticeTeaching(1:ExportMajorPracticeTeachingReq req)(
+   api.post = '/training/ExportMajorPracticeTeaching'
+    api.serializer = 'json'
+   )
+
+   // ImportMajorPracticeTeaching
+   ImportMajorPracticeTeachingResp ImportMajorPracticeTeaching(1:ImportMajorPracticeTeachingReq req)(
+   api.post = '/training/ImportMajorPracticeTeaching'
+    api.serializer = 'json'
+   )
+   // GetMajorPracticeTeachingPlanList
+   GetMajorPracticeTeachingPlanListResp GetMajorPracticeTeachingPlanList(1:GetMajorPracticeTeachingPlanListReq req)(
+   api.post = '/training/GetMajorPracticeTeachingPlanList'
+    api.serializer = 'json'
+   )
+   // 填写预算
+   FillMajorPracticeTeachingBudgetResp FillMajorPracticeTeachingBudget(1:FillMajorPracticeTeachingBudgetReq req)(
+    api.post = '/training/FillMajorPracticeTeachingBudget'
+    api.serializer = 'json'
+   )
+   // 修改
+   EditMajorPracticeTeachingPlanResp EditMajorPracticeTeachingPlan(1:EditMajorPracticeTeachingPlanReq req)(
+   api.post = '/training/EditMajorPracticeTeachingPlan'
+    api.serializer = 'json'
+   )
+   // 排课
+   ScheduleTeachingResp ScheduleTeaching(1:ScheduleTeachingReq req)(
+       api.post = '/training/ScheduleTeaching'
+       api.serializer = 'json'
+   )
+   // 排教室
+   ScheduleClassroomResp ScheduleClassroom(1:ScheduleClassroomReq req)(
+       api.post = '/training/ScheduleClassroom'
+       api.serializer = 'json'
+   )
+
+   // 获取排课结果
+   GetTeachScheduleResp GetTeachSchedule(1:GetTeachScheduleReq req)(
+       api.post = '/training/GetTeachSchedule'
+       api.serializer = 'json'
+   )
+
+}
+
+struct GetTeachScheduleReq {
+    1: string id(go.tag='json:"id"');
+    2: string name(go.tag='json:"name"');
+    3: string academic_year (go.tag='json:"academic_year"');
+    4: string semester (go.tag='json:"semester"');
+    5: i32 week_num(go.tag='json:"week_num"');
+    6: i32 category(go.tag='json:"category"'); // 1 教师 2 教室
+}
+
+
+struct GetTeachScheduleResp {
+    1:map<string, list<i32>> schedule(go.tag='json:"schedule"'); // 星期几 对应的时间
+    2:i32 week_num(go.tag='json:"week_num"'); // 周数
+}
+struct ImportClassroomReq {
+    1: string upload_id(go.tag='json:"upload_id" binding:"required"');
+}
+struct ImportClassroomResp {}
+
+struct ScheduleTeachingReq {
+    // 课程
+    1: i32 course_id(go.tag='json:"course_id" binding:"required"');
+    // 课程名称
+    2: list<ScheduleTeachingReqItem> teachers(go.tag='json:"teachers" binding:"required"');
+}
+struct ScheduleTeachingReqItem {
+    // 教师id
+    1: string teacher_id (go.tag='json:"teacher_id"');
+    // 时间
+    2: list<ScheduleTime> time(go.tag='json:"times"'); //  时间
+    3: i32 is_outside(go.tag='json:"is_outside"'); // 是否校外 1 外校  0 内校
+    4: string teacher_name (go.tag='json:"teacher_name"'); // 教师名称
+}
+
+struct ScheduleTeachingResp {}
+
+struct ScheduleClassroomReq  {
+     // 课程
+    1: i32 course_id(go.tag='json:"course_id" binding:"required"');
+    2: list<ScheduleClassroomReqItem> classrooms(go.tag='json:"classrooms" binding:"required"');
+}
+
+struct ScheduleClassroomResp {}
+
+struct ScheduleClassroomReqItem {
+  // 教室id
+  1: i32 classroom_id (go.tag='json:"classroom_id"');
+  2: list<ScheduleTime> time(go.tag='json:"times"'); //  时间
+  3: i32 is_outside(go.tag='json:"is_outside"'); // 是否校外 1 外校  0 内校
+  4: string classroom_name (go.tag='json:"classroom_name"');  //教室名称
+}
+
+
+struct ScheduleTime {
+    1: string day(go.tag='json:"day"'); // 星期几
+    2: list<i32> sessions(go.tag='json:"sessions"');
+    4: list<i32> weeks(go.tag='json:"weeks"');
+}
+
+
+struct EditMajorPracticeTeachingPlanResp {}
+
+struct EditMajorPracticeTeachingPlanReq {
+   1:i32 id (go.tag='json:"id"');
+   2: i32 is_delete (go.tag='json:"is_delete"');
+   5: string major(go.tag='json:"major"'); // 专业
+   6: string class_name(go.tag='json:"class_name"');
+     // 学生人数
+   7: i32 student_number(go.tag='json:"student_number" binding:"required"'); // 学生人数
+     // 课程名称
+     8: string course_name(go.tag='json:"course_name" binding:"required"');
+     // 安排周次
+     9: i32 week(go.tag='json:"week"binding:"required"'); // 安排周次
+     // 合作企业全称
+     10: string enterprise_name(go.tag='json:"enterprise_name"');
+     // 费用预算
+     11: string cost_budget(go.tag='json:"cost_budget"'); // 费用预算
+     // 预算说明
+     12: string cost_budget_explain(go.tag='json:"cost_budget_explain"');
+     13: string academic_year(go.tag='json:"academic_year" binding:"required"'); // 学年
+     14: string semester(go.tag='json:"semester" binding:"required"'); // 学期
+}
+
+
+
+struct FillMajorPracticeTeachingBudgetResp {
+
+}
+
+struct FillMajorPracticeTeachingBudgetReq {
+   1:i32 id (go.tag='json:"id" binding:"required"');
+   // 合作企业全称
+   2: string company_name(go.tag='json:"company_name"');
+    // 费用预算
+   3: string cost_budget(go.tag='json:"cost_budget"');
+     // 预算说明
+   4: string cost_budget_explain(go.tag='json:"cost_budget_explain"');
+}
+
+struct GetMajorPracticeTeachingPlanListResp {
+    1 :list<ModelMajorPracticeTeachingPlan> list (go.tag='json:"list"');
+    2: base.Paginate paginate(go.tag='json:"paginate"');
+}
+
+enum GetMajorPracticeTeachingPlanListReqOption {
+    id = 1
+    course_name = 2
+    class_name = 3
+    academic_year = 4
+    semester = 5
+}
+
+struct GetMajorPracticeTeachingPlanListReq {
+    1: base.ListOption list_option(go.tag='json:"list_option" binding:"required"');
+}
+
+
+struct ImportMajorPracticeTeachingResp {
+    1 :string task_key (go.tag='json:"task_key"');
+}
+struct ImportMajorPracticeTeachingReq {
+   // 学年
+  1: string academic_year(go.tag='json:"academic_year" binding:"required"');
+  // 学期
+  2: string semester(go.tag='json:"semester" binding:"required"');
+  // 导入文件
+  3: string upload_id(go.tag='json:"upload_id" binding:"required"');
+}
+
+struct ExportMajorPracticeTeachingResp {
+    1 :string task_key (go.tag='json:"task_key"');
+}
+struct ExportMajorPracticeTeachingReq {
+   // 学年
+  1: string academic_year(go.tag='json:"academic_year" binding:"required"');
+  // 学期
+  2: string semester(go.tag='json:"semester" binding:"required"');
+  // 导出类型
+  3: string export_type(go.tag='json:"export_type" binding:"required"');
+}
+
+struct EditClassroomResp {
+}
+struct EditClassroomReq {
+  1: i32 id(go.tag='json:"id"');
+  2: string name(go.tag='json:"name" binding:"required"')
+  3: string location(go.tag='json:"location" binding:"required"')
+  4: i32 is_delete(go.tag='json:"is_delete"')
+}
+
+enum OptionItem {
+  name = 1;
+  id = 2;
+}
+
+struct GetClassroomListResp {
+  1: list<ModelClassroom> list(go.tag='json:"list"');
+   2: base.Paginate paginate(go.tag='json:"paginate"');
+}
+struct GetClassroomListReq {
+  1: base.ListOption list_option(go.tag='json:"list_option" binding:"required"');
 }
 
 
@@ -230,7 +452,7 @@ struct UploadTrainingCourseCaseReq {
   2: i32 training_course_id(go.tag='json:"training_course_id" binding:"required"');
 }
 
-struct UploadTrainingCourseCaseResp {}
+struct UploadTrainingCourseCaseResp {   }
 
 struct UploadTrainingCourseFileReq {
   1: string upload_id(go.tag='json:"upload_id" binding:"required"');
@@ -570,13 +792,13 @@ struct ModelClassroom {
 }
 
 // 教师( 教室 )排课任务表teacher_schedules
-struct ModelTeacherSchedule {
+struct ModelTeachSchedule {
   1: i32 id (go.tag='gorm:"column:id" json:"id"');
   2: i32 created_at(go.tag='gorm:"column:created_at;index" json:"created_at"');
   3: i32 updated_at(go.tag='gorm:"column:updated_at" json:"updated_at"');
   4: i32 deleted_at(go.tag='gorm:"column:deleted_at" json:"deleted_at"');
   5: string teacher_id(go.tag='json:"teacher_id" gorm:"column:teacher_id"');
-  6: string course_id(go.tag='json:"course_id" gorm:"column:course_id"');
+  6: i32 course_id(go.tag='json:"course_id" gorm:"column:course_id"');
   7: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id"' );
   8: i32 week_number(go.tag='json:"week_number" gorm:"column:week_number"');
   9: string day_of_week(go.tag='json:"day_of_week" gorm:"column:day_of_week"');
@@ -585,4 +807,36 @@ struct ModelTeacherSchedule {
   18: string semester(go.tag='json:"semester" gorm:"column:semester"');
   19: i32 category (go.tag='json:"category" gorm:"column:category"');
   20: i32 classroom_id(go.tag='json:"classroom_id" gorm:"column:classroom_id"');
+  21: string time_slot(go.tag='json:"time_slot" gorm:"column:time_slot"');
+  22: string teacher_name(go.tag='json:"teacher_name" gorm:"column:teacher_name"');
+  23: i32 is_outside(go.tag='json:"is_outside" gorm:"column:is_outside"');
+}
+
+
+// 专业生产性实践教学规划表
+struct ModelMajorPracticeTeachingPlan {
+  1: i32 id (go.tag='gorm:"column:id" json:"id"');
+  2: i32 created_at(go.tag='gorm:"column:created_at;index" json:"created_at"');
+  3: i32 updated_at(go.tag='gorm:"column:updated_at" json:"updated_at"');
+  4: i32 deleted_at(go.tag='gorm:"column:deleted_at" json:"deleted_at"');
+  5: string major(go.tag='json:"major" gorm:"column:major"'); // 专业
+  // 班级
+  6: string class_name(go.tag='json:"class_name" gorm:"column:class_name"');
+  // 学生人数
+  7: i32 student_number(go.tag='json:"student_number" gorm:"column:student_number"');
+  // 课程名称
+  8: string course_name(go.tag='json:"course_name" gorm:"column:course_name"');
+  // 安排周次
+  9: i32 week(go.tag='json:"week" gorm:"column:week"');
+  // 合作企业全称
+  10: string enterprise_name(go.tag='json:"enterprise_name" gorm:"column:enterprise_name"');
+  // 费用预算
+  11: string cost_budget(go.tag='json:"cost_budget" gorm:"column:cost_budget"');
+  // 预算说明
+  12: string cost_budget_explain(go.tag='json:"cost_budget_explain" gorm:"column:cost_budget_explain"');
+
+  13: string academic_year(go.tag='json:"academic_year" gorm:"column:academic_year"');
+  14: string semester(go.tag='json:"semester" gorm:"column:semester"');
+
+  15: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id"' );
 }
