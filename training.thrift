@@ -231,6 +231,7 @@ struct GetTeachScheduleReq {
     4: string semester (go.tag='json:"semester" binding:"required"');
     5: i32 week_num(go.tag='json:"week_num" binding:"required"');
     6: i32 category(go.tag='json:"category" binding:"required"'); // 1 教师 2 教室
+    7: i32 course_id(go.tag='json:"course_id"');
 }
 
 
