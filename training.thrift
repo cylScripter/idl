@@ -190,16 +190,47 @@ service trainingservice {
        api.post = '/training/GetTeachSchedule'
        api.serializer = 'json'
    )
+   // 教室使用情况
+   GetClassroomUsageResp GetClassroomUsage(1:GetClassroomUsageReq req)(
+   api.post = '/training/GetClassroomUsage'
+    api.serializer = 'json'
+   )
+
+   // 获取规划详情
+   GetPlanDetailResp GetPlanDetail(1:GetPlanDetailReq req)(
+       api.post = '/training/GetPlanDetail'
+       api.serializer = 'json'
+   )
+}
+
+struct GetPlanDetailResp {
+    1: ModelMajorPracticeTeachingPlan info(go.tag='json:"info"');
+    // 教师安排
+    2: list<ScheduleTeachingReqItem> teaching_schedule(go.tag='json:"teaching_schedule"');
+    // 教室安排
+    3: list<ScheduleClassroomReqItem> classroom_schedule(go.tag='json:"classroom_schedule"');
+
+}
+
+struct GetPlanDetailReq {
+    1: string id(go.tag='json:"id" binding:"required"');
+}
+
+struct GetClassroomUsageResp {
+
+}
+
+struct GetClassroomUsageReq {
 
 }
 
 struct GetTeachScheduleReq {
     1: string id(go.tag='json:"id"');
     2: string name(go.tag='json:"name"');
-    3: string academic_year (go.tag='json:"academic_year"');
-    4: string semester (go.tag='json:"semester"');
-    5: i32 week_num(go.tag='json:"week_num"');
-    6: i32 category(go.tag='json:"category"'); // 1 教师 2 教室
+    3: string academic_year (go.tag='json:"academic_year" binding:"required"');
+    4: string semester (go.tag='json:"semester" binding:"required"');
+    5: i32 week_num(go.tag='json:"week_num" binding:"required"');
+    6: i32 category(go.tag='json:"category" binding:"required"'); // 1 教师 2 教室
 }
 
 
