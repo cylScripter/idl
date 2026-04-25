@@ -755,11 +755,34 @@ service educationservice {
       api.serializer = 'json'
       )
 
+      // 按钮权限
+      GetButtonPermissionResp GetButtonPermission(1:GetButtonPermissionReq req)(
+      api.post = '/education/GetButtonPermission'
+      api.serializer = 'json'
+      )
 
 
 }
 
 // =================req\resp===============================
+
+struct GetButtonPermissionReq {
+     // 父级菜单name
+     1: string parent_menu_name (go.tag='json:"parent_menu_name" binding:"required"');
+}
+
+struct GetButtonPermissionResp {
+    1:list<GetButtonPermissionRespItem> data (go.tag='json:"data"');
+}
+
+struct GetButtonPermissionRespItem {
+    1: string name (go.tag='json:"name"');
+    2: string path (go.tag='json:"path"');
+    3: string component (go.tag='json:"component"');
+    4: string redirect (go.tag='json:"redirect"');
+    5: string title (go.tag='json:"title"');
+    6: string icon (go.tag='json:"icon"');
+}
 
 struct EditExamWorkloadResp {
 
