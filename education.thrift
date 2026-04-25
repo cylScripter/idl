@@ -2794,7 +2794,7 @@ struct ModelRole {
 // 菜单表
 struct ModelMenu {
   1: i32 id (go.tag='gorm:"column:id" json:"id"');
- 2: i32 created_at(go.tag='gorm:"column:created_at;index;not null" json:"created_at"');
+  2: i32 created_at(go.tag='gorm:"column:created_at;index;not null" json:"created_at"');
   3: i32 updated_at(go.tag='gorm:"column:updated_at;not null" json:"updated_at"');
   4: i32 deleted_at(go.tag='gorm:"column:deleted_at;not null" json:"deleted_at"');
   5: string component(go.tag='json:"component" gorm:"column:component;default:BasicLayout"'); // 组件
@@ -2804,7 +2804,8 @@ struct ModelMenu {
   9: string redirect (go.tag='json:"redirect" gorm:"column:redirect"');
   10: i32 parent_id (go.tag='json:"parent_id" gorm:"column:parent_id"');
   11: list<ModelMenu> children (go.tag='json:"children" gorm:"-"');
-  12: bool status(go.tag='json:"status" gorm:"column:status;default:true"')
+  12: bool status(go.tag='json:"status" gorm:"column:status;default:true"');
+  13:i32 menu_type (go.tag='json:"menu_type" gorm:"column:menu_type;default:1"');
 }
 
 struct Meta {
