@@ -201,6 +201,19 @@ service trainingservice {
        api.post = '/training/GetPlanDetail'
        api.serializer = 'json'
    )
+
+   // resetTeachSchedule
+   ResetTeachScheduleResp ResetTeachSchedule(1:ResetTeachScheduleReq req)(
+    api.post = '/training/ResetTeachSchedule'
+    api.serializer = 'json'
+   )
+}
+
+struct ResetTeachScheduleReq {
+    1: i32 id(go.tag='json:"id" binding:"required"');
+}
+
+struct ResetTeachScheduleResp {
 }
 
 struct GetPlanDetailResp {
