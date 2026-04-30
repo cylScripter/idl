@@ -2967,7 +2967,7 @@ struct ModelCourse{
     15: double credit(go.tag='json:"credit" gorm:"column:credit"'); // 学分
     16: string teach_class(go.tag='json:"teach_class" gorm:"column:teach_class"'); // 教学班
     17: string class_name(go.tag='json:"class_name" gorm:"column:class_name"'); // 教学班组成
-    18: i32 week_hour(go.tag='json:"week_hour" gorm:"column:week_hour"'); // 周学时
+    18: double week_hour(go.tag='json:"week_hour" gorm:"column:week_hour"'); // 周学时
     19: i32 start_week(go.tag='json:"start_week" gorm:"column:start_week"'); // 起始周
     20: i32 end_week(go.tag='json:"end_week" gorm:"column:end_week"'); // 结束周
     21: string sae_week(go.tag='json:"sae_week" gorm:"column:sae_week"');  // 排课起始结束周
