@@ -3271,7 +3271,7 @@ struct ModelWorkloadStatistics {
     14: string not_class_time (go.tag='json:"not_class_time" gorm:"column:not_class_time"'); // 非上班时间上课节次
     15: i32 student_number (go.tag='json:"student_number" gorm:"column:student_number"'); // 学生总人数
     16: double number_factor (go.tag='json:"number_factor" gorm:"column:number_factor"'); // 人数系数
-    17: i32 week_hour (go.tag='json:"week_hour" gorm:"column:week_hour"'); // 每周学时
+    17: double week_hour (go.tag='json:"week_hour" gorm:"column:week_hour"'); // 每周学时
 
     //当月教学周数
     18: i32 theory_wn (go.tag='json:"theory_wn" gorm:"column:theory_wn"'); // 理论课
