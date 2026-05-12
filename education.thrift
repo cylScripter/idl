@@ -2763,17 +2763,18 @@ struct ModelApp {
 
 // 用户表
 struct ModelUser {
-  1: i32 id (go.tag='gorm:"column:id" json:"id"');
-   2: i32 created_at(go.tag='gorm:"column:created_at;index;not null" json:"created_at"');
+    1: i32 id (go.tag='gorm:"column:id" json:"id"');
+    2: i32 created_at(go.tag='gorm:"column:created_at;index;not null" json:"created_at"');
     3: i32 updated_at(go.tag='gorm:"column:updated_at;not null" json:"updated_at"');
     4: i32 deleted_at(go.tag='gorm:"column:deleted_at;not null" json:"deleted_at"');
-  5: string user_name(go.tag='gorm:"column:user_name" json:"user_name"'); // 用户名
-  6: string password(go.tag='gorm:"column:password" json:"-"');           // 密码
-  7: string nick_name(go.tag='gorm:"column:nick_name" json:"nick_name"'); // 昵称
-  8: string mobile(go.tag='gorm:"column:mobile" json:"mobile"');          // 手机号
-  9: string email(go.tag='gorm:"column:email" json:"email"');             // 邮箱
-  10: string avatar(go.tag='gorm:"column:avatar" json:"avatar"');         // 头像
-  11: i32 app_id(go.tag='gorm:"column:app_id" json:"app_id"');
+    5: string user_name(go.tag='gorm:"column:user_name" json:"user_name"'); // 用户名
+    6: string password(go.tag='gorm:"column:password" json:"-"');           // 密码
+    7: string nick_name(go.tag='gorm:"column:nick_name" json:"nick_name"'); // 昵称
+    8: string mobile(go.tag='gorm:"column:mobile" json:"mobile"');          // 手机号
+    9: string email(go.tag='gorm:"column:email" json:"email"');             // 邮箱
+    10: string avatar(go.tag='gorm:"column:avatar" json:"avatar"');         // 头像
+    11: i32 app_id(go.tag='gorm:"column:app_id" json:"app_id"');
+    12: i32 type(go.tag='gorm:"column:type;default:1" json:"type"'); // 用户类型 1 教师 2 学生
 }
 
 
