@@ -301,24 +301,24 @@ struct ScheduleTime {
 struct EditMajorPracticeTeachingPlanResp {}
 
 struct EditMajorPracticeTeachingPlanReq {
-   1:i32 id (go.tag='json:"id"');
-   2: i32 is_delete (go.tag='json:"is_delete"');
-   5: string major(go.tag='json:"major"'); // 专业
-   6: string class_name(go.tag='json:"class_name"');
+    1:i32 id (go.tag='json:"id"');
+    2: i32 is_delete (go.tag='json:"is_delete"');
+    5: string major(go.tag='json:"major"'); // 专业
+    6: string class_name(go.tag='json:"class_name"');
      // 学生人数
-   7: i32 student_number(go.tag='json:"student_number" binding:"required"'); // 学生人数
+    7: i32 student_number(go.tag='json:"student_number" binding:"required"'); // 学生人数
      // 课程名称
-     8: string course_name(go.tag='json:"course_name" binding:"required"');
+    8: string course_name(go.tag='json:"course_name" binding:"required"');
      // 安排周次
-     9: i32 week(go.tag='json:"week"binding:"required"'); // 安排周次
+    9: i32 week(go.tag='json:"week"binding:"required"'); // 安排周次
      // 合作企业全称
-     10: string enterprise_name(go.tag='json:"enterprise_name"');
+    10: string enterprise_name(go.tag='json:"enterprise_name"');
      // 费用预算
-     11: string cost_budget(go.tag='json:"cost_budget"'); // 费用预算
+    11: string cost_budget(go.tag='json:"cost_budget"'); // 费用预算
      // 预算说明
-     12: string cost_budget_explain(go.tag='json:"cost_budget_explain"');
-     13: string academic_year(go.tag='json:"academic_year" binding:"required"'); // 学年
-     14: string semester(go.tag='json:"semester" binding:"required"'); // 学期
+    12: string cost_budget_explain(go.tag='json:"cost_budget_explain"');
+    13: string academic_year(go.tag='json:"academic_year" binding:"required"'); // 学年
+    14: string semester(go.tag='json:"semester" binding:"required"'); // 学期
 }
 
 
@@ -359,12 +359,13 @@ struct ImportMajorPracticeTeachingResp {
     1 :string task_key (go.tag='json:"task_key"');
 }
 struct ImportMajorPracticeTeachingReq {
-   // 学年
-  1: string academic_year(go.tag='json:"academic_year" binding:"required"');
-  // 学期
-  2: string semester(go.tag='json:"semester" binding:"required"');
-  // 导入文件
-  3: string upload_id(go.tag='json:"upload_id" binding:"required"');
+    // 学年
+    1: string academic_year(go.tag='json:"academic_year" binding:"required"');
+    // 学期
+    2: string semester(go.tag='json:"semester" binding:"required"');
+    // 导入文件
+    3: string upload_id(go.tag='json:"upload_id" binding:"required"');
+
 }
 
 struct ExportMajorPracticeTeachingResp {
