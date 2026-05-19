@@ -2809,7 +2809,7 @@ struct ModelUser {
     9: string email(go.tag='gorm:"column:email" json:"email"');             // 邮箱
     10: string avatar(go.tag='gorm:"column:avatar" json:"avatar"');         // 头像
     11: i32 app_id(go.tag='gorm:"column:app_id" json:"app_id"');
-    12: i32 type(go.tag='gorm:"column:type;default:1" json:"type"'); // 用户类型 1 教师 2 学生
+    12: i32 user_type(go.tag='gorm:"column:user_type;default:1" json:"user_type"'); // 用户类型 1 教师 2 学生
 }
 
 
