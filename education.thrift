@@ -2344,15 +2344,16 @@ struct GetMenuListReq {
 }
 
 enum GetMenuListOption {
-   id = 1,
-   name = 2,
-   path = 3,
-   component = 4,
-   redirect = 5,
-   parent_id = 6,
-   title = 7,
-   created_at = 8,
-   status = 9,
+    id = 1,
+    name = 2,
+    path = 3,
+    component = 4,
+    redirect = 5,
+    parent_id = 6,
+    title = 7,
+    created_at = 8,
+    status = 9,
+    menu_side = 10,
 }
 
 
@@ -2960,9 +2961,9 @@ enum IsExternalType{
 // 职务表
 struct ModelDuties{
     1: i32 id (go.tag='gorm:"column:id" json:"id"');
-     2: i32 created_at(go.tag='gorm:"column:created_at;index;not null" json:"created_at"');
-      3: i32 updated_at(go.tag='gorm:"column:updated_at;not null" json:"updated_at"');
-      4: i32 deleted_at(go.tag='gorm:"column:deleted_at;not null" json:"deleted_at"');
+    2: i32 created_at(go.tag='gorm:"column:created_at;index;not null" json:"created_at"');
+    3: i32 updated_at(go.tag='gorm:"column:updated_at;not null" json:"updated_at"');
+    4: i32 deleted_at(go.tag='gorm:"column:deleted_at;not null" json:"deleted_at"');
     5: string name(go.tag='json:"name" gorm:"column:name"');
     6: string description(go.tag='json:"description" gorm:"column:description"');
     7: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id"' );
