@@ -348,6 +348,7 @@ enum GetMajorPracticeTeachingPlanListReqOption {
     class_name = 3
     academic_year = 4
     semester = 5
+    major = 6
 }
 
 struct GetMajorPracticeTeachingPlanListReq {
