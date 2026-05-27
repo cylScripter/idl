@@ -222,7 +222,6 @@ struct GetPlanDetailResp {
     2: list<ScheduleTeachingReqItem> teaching_schedule(go.tag='json:"teaching_schedule"');
     // 教室安排
     3: list<ScheduleClassroomReqItem> classroom_schedule(go.tag='json:"classroom_schedule"');
-
 }
 
 struct GetPlanDetailReq {
@@ -366,7 +365,8 @@ struct ImportMajorPracticeTeachingReq {
     2: string semester(go.tag='json:"semester" binding:"required"');
     // 导入文件
     3: string upload_id(go.tag='json:"upload_id" binding:"required"');
-
+    // 导入类型
+    4: i32 course_type(go.tag='json:"course_type"'); // 1 实训课 2 生产性实践教学课
 }
 
 struct ExportMajorPracticeTeachingResp {
@@ -405,21 +405,22 @@ struct GetClassroomListReq {
 
 
 struct  UpdatePastMajorReq {
-  1: i32 id(go.tag='json:"id" binding:"required"');
-  2: string name(go.tag='json:"name" binding:"required"'); // 专业名称
-  3: i32 orders   (go.tag='json:"orders"');
-  4: string research_director_id (go.tag='json:"research_director_id" binding:"required"');
-  5: string research_director (go.tag='json:"research_director" binding:"required"');
+    1: i32 id(go.tag='json:"id" binding:"required"');
+    2: string name(go.tag='json:"name" binding:"required"'); // 专业名称
+    3: i32 orders   (go.tag='json:"orders"');
+    4: string research_director_id (go.tag='json:"research_director_id" binding:"required"');
+    5: string research_director (go.tag='json:"research_director" binding:"required"');
+    6: double budget_total(go.tag='json:"budget_total" gorm:"column:budget_total"'); // 预算总金额
 }
 
 struct UpdatePastMajorResp {
 }
 
 struct AddPastMajorReq {
-  1: string name(go.tag='json:"name" binding:"required"'); // 专业名称
-  2: i32 orders   (go.tag='json:"orders"');
-  3: string research_director_id (go.tag='json:"research_director_id" binding:"required"'); // 主任id
-
+    1: string name(go.tag='json:"name" binding:"required"'); // 专业名称
+    2: i32 orders   (go.tag='json:"orders"');
+    3: string research_director_id (go.tag='json:"research_director_id" binding:"required"'); // 主任id
+    4: double budget_total(go.tag='json:"budget_total" gorm:"column:budget_total"'); // 预算总金额
 }
 
 struct AddPastMajorResp {
@@ -661,7 +662,6 @@ struct ImportTrainingCourseReq {
   3: string upload_id(go.tag='json:"upload_id" binding:"required"'); // 文件上传id
   // 课程类型
   4: i32 type(go.tag='json:"type" binding:"required"'); // 1 实训课 2 生产性实践教学课
-
 }
 struct ImportTrainingCourseResp {
     1 :string task_key (go.tag='json:"task_key"');
@@ -678,7 +678,7 @@ struct CreateTrainingCourseReq {
   8: string teachers(go.tag='json:"teachers"'); // 指导老师
   9: string academic_year(go.tag='json:"academic_year" binding:"required"'); // 学年
   10: string semester(go.tag='json:"semester" binding:"required"'); // 学期
-  11: i32    education_level(go.tag='json:"education_level"'); // 教育层次 2:本科 1:大专
+  11: i32  education_level(go.tag='json:"education_level"'); // 教育层次 2:本科 1:大专
   12: string grade(go.tag='json:"grade"'); // 年级
   13: string main_teacher(go.tag='json:"main_teacher"'); // 主带教师
   14: i32 course_type(go.tag='json:"course_type"'); // 课程类型
@@ -786,7 +786,7 @@ struct ModelTrainingCourseTeacher {
   12: string content(go.tag='json:"content" gorm:"column:content;type:text"');
   // 上课地点
   13: string location(go.tag='json:"location" gorm:"column:location"');
-
+    // 填报人
   14: string fill_teacher(go.tag='json:"fill_teacher" gorm:"column:fill_teacher"'); // 填报老师
   // 日期
   15: string date(go.tag='json:"date" gorm:"column:date"'); // 日期
@@ -798,17 +798,20 @@ struct ModelTrainingCourseTeacher {
 
 // 专业表
 struct ModelMajor {
-   1: i32 id (go.tag='gorm:"column:id" json:"id"');
-   2: i32 created_at(go.tag='gorm:"column:created_at;index" json:"created_at"');
-   3: i32 updated_at(go.tag='gorm:"column:updated_at" json:"updated_at"');
-   4: i32 deleted_at(go.tag='gorm:"column:deleted_at" json:"deleted_at"');
-   5: string name(go.tag='json:"name" gorm:"column:name"');
-   6: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id"' );
-   7: i32 orders (go.tag='json:"orders" gorm:"column:orders"');
+    1: i32 id (go.tag='gorm:"column:id" json:"id"');
+    2: i32 created_at(go.tag='gorm:"column:created_at;index" json:"created_at"');
+    3: i32 updated_at(go.tag='gorm:"column:updated_at" json:"updated_at"');
+    4: i32 deleted_at(go.tag='gorm:"column:deleted_at" json:"deleted_at"');
+    5: string name(go.tag='json:"name" gorm:"column:name"');
+    6: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id"' );
+    7: i32 orders (go.tag='json:"orders" gorm:"column:orders"');
    // 教研室主任
-   8: string research_director(go.tag='json:"research_director" gorm:"column:research_director"'); // 教研室主任
-   9: string research_director_id(go.tag='json:"research_director_id" gorm:"column:research_director_id"');
+    8: string research_director(go.tag='json:"research_director" gorm:"column:research_director"'); // 教研室主任
+    9: string research_director_id(go.tag='json:"research_director_id" gorm:"column:research_director_id"');
+    10: double budget_total(go.tag='json:"budget_total" gorm:"column:budget_total"'); // 预算总金额
 }
+
+
 
 // 教师课程索引
 struct ModelTeacherCourseIndex {
@@ -822,7 +825,7 @@ struct ModelTeacherCourseIndex {
   // 学期
   8: string academic_year(go.tag='json:"academic_year" gorm:"column:academic_year"');
   9: string semester(go.tag='json:"semester" gorm:"column:semester"');
-  // 教师 名
+  // 教师 /教室 名
   10: string teacher_name(go.tag='json:"teacher_name" gorm:"column:teacher_name"');
 }
 
@@ -862,28 +865,31 @@ struct ModelTeachSchedule {
 
 // 专业生产性实践教学规划表
 struct ModelMajorPracticeTeachingPlan {
-  1: i32 id (go.tag='gorm:"column:id" json:"id"');
-  2: i32 created_at(go.tag='gorm:"column:created_at;index" json:"created_at"');
-  3: i32 updated_at(go.tag='gorm:"column:updated_at" json:"updated_at"');
-  4: i32 deleted_at(go.tag='gorm:"column:deleted_at" json:"deleted_at"');
-  5: string major(go.tag='json:"major" gorm:"column:major"'); // 专业
-  // 班级
-  6: string class_name(go.tag='json:"class_name" gorm:"column:class_name"');
-  // 学生人数
-  7: i32 student_number(go.tag='json:"student_number" gorm:"column:student_number"');
-  // 课程名称
-  8: string course_name(go.tag='json:"course_name" gorm:"column:course_name"');
-  // 安排周次
-  9: i32 week(go.tag='json:"week" gorm:"column:week"');
-  // 合作企业全称
-  10: string enterprise_name(go.tag='json:"enterprise_name" gorm:"column:enterprise_name"');
-  // 费用预算
-  11: string cost_budget(go.tag='json:"cost_budget" gorm:"column:cost_budget"');
-  // 预算说明
-  12: string cost_budget_explain(go.tag='json:"cost_budget_explain" gorm:"column:cost_budget_explain"');
+    1: i32 id (go.tag='gorm:"column:id" json:"id"');
+    2: i32 created_at(go.tag='gorm:"column:created_at;index" json:"created_at"');
+    3: i32 updated_at(go.tag='gorm:"column:updated_at" json:"updated_at"');
+    4: i32 deleted_at(go.tag='gorm:"column:deleted_at" json:"deleted_at"');
+    5: string major(go.tag='json:"major" gorm:"column:major"'); // 专业
+    // 班级
+    6: string class_name(go.tag='json:"class_name" gorm:"column:class_name"');
+    // 学生人数
+    7: i32 student_number(go.tag='json:"student_number" gorm:"column:student_number"');
+    // 课程名称
+    8: string course_name(go.tag='json:"course_name" gorm:"column:course_name"');
+    // 安排周次
+    9: i32 week(go.tag='json:"week" gorm:"column:week"');
+    // 合作企业全称
+    10: string enterprise_name(go.tag='json:"enterprise_name" gorm:"column:enterprise_name"');
+    // 费用预算
+    11: string cost_budget(go.tag='json:"cost_budget" gorm:"column:cost_budget"');
+    // 预算说明
+    12: string cost_budget_explain(go.tag='json:"cost_budget_explain" gorm:"column:cost_budget_explain"');
 
-  13: string academic_year(go.tag='json:"academic_year" gorm:"column:academic_year"');
-  14: string semester(go.tag='json:"semester" gorm:"column:semester"');
+    13: string academic_year(go.tag='json:"academic_year" gorm:"column:academic_year"');
+    14: string semester(go.tag='json:"semester" gorm:"column:semester"');
 
-  15: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id"' );
+    15: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id"' );
+    // 年级
+    16: string grade(go.tag='json:"grade" gorm:"column:grade"');
+    17: i32 course_type(go.tag='json:"course_type" gorm:"column:course_type;default:1"'); // 1 实训课 2 生产性实践教学课
 }
