@@ -755,6 +755,8 @@ struct ModelTrainingCourse {
 
   //  实践项目来源证明上报人
   29: string project_source_proof_person(go.tag='json:"project_source_proof_person" gorm:"column:project_source_proof_person"');
+  30: string class_time(go.tag='json:"class_time" gorm:"column:class_time"'); // 上课时间
+  31: string source_product_name(go.tag='json:"source_product_name" gorm:"column:source_product_name"'); // 来源于合作企业产品名称
 }
 
 enum CourseType {
@@ -907,3 +909,25 @@ struct ModelMajorPracticeTeachingPlan {
     16: string grade(go.tag='json:"grade" gorm:"column:grade"');
     17: i32 course_type(go.tag='json:"course_type" gorm:"column:course_type;default:1"'); // 1 实训课 2 生产性实践教学课
 }
+struct ModelPracticeTeachingStats {
+    1: i32 id (go.tag='gorm:"column:id" json:"id"');
+    2: i32 created_at(go.tag='gorm:"column:created_at;index" json:"created_at"');
+    3: i32 updated_at(go.tag='gorm:"column:updated_at" json:"updated_at"');
+    4: i32 deleted_at(go.tag='gorm:"column:deleted_at" json:"deleted_at"');
+    5: string grade(go.tag='json:"grade" gorm:"column:grade"'); // 年级
+    6: string major(go.tag='json:"major" gorm:"column:major"'); // 专业
+    7: i32 student_count(go.tag='json:"student_count" gorm:"column:student_count"'); // 实践学生总人数
+    8: i32 class_count(go.tag='json:"class_count" gorm:"column:class_count"'); // 实践班级总数
+    9: i32 project_count(go.tag='json:"project_count" gorm:"column:project_count"'); // 实践项目总数
+    10: i32 location_count(go.tag='json:"location_count" gorm:"column:location_count"'); // 实践场所总数
+    11: i32 instructor_count(go.tag='json:"instructor_count" gorm:"column:instructor_count"'); // 实践指导教师总数
+    12: i32 internal_instructor_count(go.tag='json:"internal_instructor_count" gorm:"column:internal_instructor_count"'); // 校内指导教师总数
+    13: i32 external_instructor_count(go.tag='json:"external_instructor_count" gorm:"column:external_instructor_count"'); // 校外指导教师总数
+    14: string safety_measures(go.tag='json:"safety_measures" gorm:"column:safety_measures;type:text"'); // 校内实践安全管理与举措
+    15: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id"');
+    16: string academic_year(go.tag='json:"academic_year" gorm:"column:academic_year"'); // 学年
+    17: string semester(go.tag='json:"semester" gorm:"column:semester"'); // 学期
+    18: i32 type(go.tag='json:"course_type" gorm:"column:course_type;default:1"');  // 1  校内  2  校外
+    19: i32 has_emergency_plan(go.tag='json:"has_emergency_plan" gorm:"column:has_emergency_plan;default:2"'); // 是否制定紧急预案 1是 2否
+}
+
