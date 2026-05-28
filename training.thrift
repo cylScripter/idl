@@ -154,6 +154,12 @@ service trainingservice {
     api.serializer = 'json'
    )
 
+   // 导出实践教学计划汇总表
+   ExportPracticeSummaryResp ExportPracticeSummary(1:ExportPracticeSummaryReq req)(
+   api.post = '/training/ExportPracticeSummary'
+    api.serializer = 'json'
+   )
+
    // ImportMajorPracticeTeaching
    ImportMajorPracticeTeachingResp ImportMajorPracticeTeaching(1:ImportMajorPracticeTeachingReq req)(
    api.post = '/training/ImportMajorPracticeTeaching'
@@ -379,6 +385,14 @@ struct ExportMajorPracticeTeachingReq {
   2: string semester(go.tag='json:"semester" binding:"required"');
   // 导出类型
   3: string export_type(go.tag='json:"export_type" binding:"required"');
+}
+
+struct ExportPracticeSummaryResp {
+    1 :string task_key (go.tag='json:"task_key"');
+}
+struct ExportPracticeSummaryReq {
+  1: string academic_year(go.tag='json:"academic_year" binding:"required"');
+  2: string semester(go.tag='json:"semester" binding:"required"');
 }
 
 struct EditClassroomResp {
