@@ -767,17 +767,44 @@ service educationservice {
       api.serializer = 'json'
    )
 
+    // 导入班级学生
+    ImportClassStudentResp ImportClassStudent(1:ImportClassStudentReq req)(
+    api.post = '/education/ImportClassStudent'
+    api.serializer = 'json'
+    )
+
+    EditClassStudentResp EditClassStudent(1:EditClassStudentReq req)(
+    api.post = '/education/EditClassStudent'
+    api.serializer = 'json'
+    )
+
 
 
 }
 
 // =================req\resp===============================
 
+
+struct EditClassStudentReq  {
+    1: i32 id (go.tag='json:"id"');
+    2: string student_id (go.tag='json:"student_id" binding:"required"');
+    3: string class_id (go.tag='json:"class_id" binding:"required"');
+    4: string student_name (go.tag='json:"student_name" binding:"required"');
+    5: i32 is_delete  (go.tag='json:"is_delete" binding:"is_delete"');
+}
+struct EditClassStudentResp {}
+struct ImportClassStudentResp {}
+
+struct ImportClassStudentReq {
+    1: string upload_id (go.tag='json:"upload_id" binding:"required"');
+}
+
 struct EditClassReq {
     1:i32 id (go.tag='json:"id"');
     2: string name (go.tag='json:"name" binding:"required"');
     3: string description(go.tag='json:"description"');
     4: string grade(go.tag='json:"grade"');
+    5: i32  is_delete(go.tag='json:"is_delete"');
 }
 
 struct EditClassResp {
@@ -3429,7 +3456,7 @@ struct ModelAdjustmentForm {
 }
 
 
-//班级学生表
+// 班级学生表
 struct ModelClassStudent {
     1: i32 id (go.tag='gorm:"column:id" json:"id"');
     2: i32 created_at(go.tag='gorm:"column:created_at;index" json:"created_at"');
@@ -3438,6 +3465,9 @@ struct ModelClassStudent {
     5: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id;index"' );
     6: i32 class_id (go.tag='json:"class_id" gorm:"column:class_id"');
     7: string student_id (go.tag='json:"student_id" gorm:"column:student_id"');
+    8: string student_name (go.tag='json:"student_name" gorm:"column:student_name"');
+    9: string grade (go.tag='json:"grade" gorm:"column:grade"'); // 年级
+    10: string class_name (go.tag='json:"class_name" gorm:"column:class_name"'); // 班级名称
 }
 
 
