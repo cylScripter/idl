@@ -777,18 +777,39 @@ service educationservice {
     api.post = '/education/EditClassStudent'
     api.serializer = 'json'
     )
+    // 获取班级学生列表
+    GetClassStudentListResp GetClassStudentList(1:GetClassStudentListReq req)(
+    api.post = '/education/GetClassStudentList'
+    api.serializer = 'json'
+    )
 
 
 
 }
 
-// =================req\resp===============================
+// =================req\resp===============================、
+
+enum GetClassStudentListReqOption{
+    id = 1
+    class_id = 2
+    student_name = 3
+    student_id = 4
+}
+
+struct GetClassStudentListReq {
+    4: base.ListOption list_option (go.tag='json:"list_option"');
+}
+
+struct GetClassStudentListResp {
+    1: list<ModelClassStudent> list (go.tag='json:"list"');
+    2: base.Paginate paginate (go.tag='json:"paginate"');
+}
 
 
 struct EditClassStudentReq  {
     1: i32 id (go.tag='json:"id"');
     2: string student_id (go.tag='json:"student_id" binding:"required"');
-    3: string class_id (go.tag='json:"class_id" binding:"required"');
+    3: i32 class_id (go.tag='json:"class_id" binding:"required"');
     4: string student_name (go.tag='json:"student_name" binding:"required"');
     5: i32 is_delete  (go.tag='json:"is_delete" binding:"is_delete"');
 }
