@@ -944,3 +944,4 @@ struct DeleteMenuReq {
   1: list<i32> ids(go.tag='json:"ids" binding:"required"');
 }
 struct DeleteMenuResp {}
+
