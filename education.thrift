@@ -794,6 +794,8 @@ enum GetClassStudentListReqOption{
     class_id = 2
     student_name = 3
     student_id = 4
+    grade = 5
+    class_name = 6
 }
 
 struct GetClassStudentListReq {
@@ -2626,6 +2628,7 @@ struct GetClassListReq{
 enum GetClassListReqOption {
     id = 1; // id
     name = 2; // 班级名称
+    grade = 3;
 }
 
 struct GetClassListResp{
