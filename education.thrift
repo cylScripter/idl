@@ -811,9 +811,9 @@ struct GetClassStudentListResp {
 struct EditClassStudentReq  {
     1: i32 id (go.tag='json:"id"');
     2: string student_id (go.tag='json:"student_id" binding:"required"');
-    3: i32 class_id (go.tag='json:"class_id" binding:"required"');
+    3: string class_name (go.tag='json:"class_name" binding:"required"');
     4: string student_name (go.tag='json:"student_name" binding:"required"');
-    5: i32 is_delete  (go.tag='json:"is_delete" binding:"is_delete"');
+    5: i32 is_delete  (go.tag='json:"is_delete"');
 }
 struct EditClassStudentResp {}
 struct ImportClassStudentResp {}
