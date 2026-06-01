@@ -1171,7 +1171,7 @@ struct ModelStuPracticeReport {
     2: i32 created_at(go.tag='gorm:"column:created_at;index" json:"created_at"');
     3: i32 updated_at(go.tag='gorm:"column:updated_at" json:"updated_at"');
     4: i32 deleted_at(go.tag='gorm:"column:deleted_at" json:"deleted_at"');
-    5: string name(go.tag='json:"student_name" gorm:"column:student_name"');
+    5: string name(go.tag='json:"name" gorm:"column:name"');
     6: string class_name(go.tag='json:"class_name" gorm:"column:class_name"');
     7: string major(go.tag='json:"major" gorm:"column:major"');
     8: string weeks(go.tag='json:"weeks" gorm:"column:weeks"'); // 安排周次
