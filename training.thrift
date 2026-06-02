@@ -674,7 +674,7 @@ struct GetPastMajorListResp {
     1: list<ModelMajor> list(go.tag='json:"list"');
     2: base.Paginate paginate(go.tag='json:"paginate"');
     // 专业预算总额
-    3: map<string, double> budget_map(go.tag='json:"budget_total"');
+    3: map<string, double> budget_map(go.tag='json:"budget_map"');
 }
 
 struct GetExportResultReq {
