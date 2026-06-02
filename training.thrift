@@ -565,6 +565,8 @@ enum GetMajorPracticeTeachingPlanListReqOption {
     academic_year = 4
     semester = 5
     major = 6
+    // 是否填写
+    is_fill = 7 ; // 是否填写 1 已经填写 2 未填写
 }
 
 struct GetMajorPracticeTeachingPlanListReq {
@@ -658,17 +660,21 @@ struct DeletePastMajorResp {
 }
 
 enum GetPastMajorListOption {
-   id = 1;
-   name = 2;
-   research_director_id = 3;
+    id = 1;
+    name = 2;
+    research_director_id = 3;
+    academic_year =4;
+    semester = 5;
 }
 
 struct GetPastMajorListReq  {
   1: base.ListOption list_option(go.tag='json:"list_option" binding:"required"');
 }
 struct GetPastMajorListResp {
-  1: list<ModelMajor> list(go.tag='json:"list"');
-   2: base.Paginate paginate(go.tag='json:"paginate"');
+    1: list<ModelMajor> list(go.tag='json:"list"');
+    2: base.Paginate paginate(go.tag='json:"paginate"');
+    // 专业预算总额
+    3: map<string, double> budget_map(go.tag='json:"budget_total"');
 }
 
 struct GetExportResultReq {
