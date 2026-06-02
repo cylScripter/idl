@@ -522,9 +522,9 @@ struct EditMajorPracticeTeachingPlanReq {
     5: string major(go.tag='json:"major"'); // 专业
     6: string class_name(go.tag='json:"class_name"');
      // 学生人数
-    7: i32 student_number(go.tag='json:"student_number" binding:"required"'); // 学生人数
+    7: i32 student_number(go.tag='json:"student_number"'); // 学生人数
      // 课程名称
-    8: string course_name(go.tag='json:"course_name" binding:"required"');
+    8: string course_name(go.tag='json:"course_name"');
      // 安排周次
     9: i32 week(go.tag='json:"week"binding:"required"'); // 安排周次
      // 合作企业全称
@@ -533,8 +533,8 @@ struct EditMajorPracticeTeachingPlanReq {
     11: string cost_budget(go.tag='json:"cost_budget"'); // 费用预算
      // 预算说明
     12: string cost_budget_explain(go.tag='json:"cost_budget_explain"');
-    13: string academic_year(go.tag='json:"academic_year" binding:"required"'); // 学年
-    14: string semester(go.tag='json:"semester" binding:"required"'); // 学期
+    13: string academic_year(go.tag='json:"academic_year" '); // 学年
+    14: string semester(go.tag='json:"semester" '); // 学期
 }
 
 
