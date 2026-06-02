@@ -526,7 +526,7 @@ struct EditMajorPracticeTeachingPlanReq {
      // 课程名称
     8: string course_name(go.tag='json:"course_name"');
      // 安排周次
-    9: i32 week(go.tag='json:"week"binding:"required"'); // 安排周次
+    9: i32 week(go.tag='json:"week"'); // 安排周次
      // 合作企业全称
     10: string enterprise_name(go.tag='json:"enterprise_name"');
      // 费用预算
