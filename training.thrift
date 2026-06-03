@@ -238,7 +238,7 @@ service trainingservice {
     )
 
     OnePracticeReportResp OnePracticeReport(1:OnePracticeReportReq req)(
-    api.post = '/training/OnePracticeRepor'
+    api.post = '/training/OnePracticeReport'
     api.serializer = 'json'
     )
 
