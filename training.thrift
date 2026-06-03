@@ -322,6 +322,7 @@ struct EditAttendanceResp {
 struct FillAttendanceReq {
     1:string evaluation_id (go.tag='json:"evaluation_id" binding:"required"');
     2:i32 type (go.tag='json:"type" binding:"required"'); // 1 导出 2 录入
+    3: string upload_id(go.tag='json:"upload_id"');
 }
 
 struct FillAttendanceResp {
