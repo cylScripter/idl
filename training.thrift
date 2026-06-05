@@ -331,9 +331,9 @@ struct FillAttendanceResp {
 
 struct ExportAllPracticeReportReq {
     // 学年
-    1: string academic_year (go.tag='json:"academic_year" binding:"required"');
+    1: string academic_year (go.tag='json:"academic_year"');
     // 学期
-    2: string semester (go.tag='json:"semester" binding:"required"');
+    2: string semester (go.tag='json:"semester"');
 
     3:string evaluation_id (go.tag='json:"evaluation_id"'); // 如果有 evaluation_id 则导出该评价下的所有报告
 }
@@ -1221,6 +1221,12 @@ struct ModelStuPracticeReport {
     27: i32 evaluation_id(go.tag='json:"evaluation_id" gorm:"column:evaluation_id"');
     // 实践时间
     28: string practice_time(go.tag='json:"practice_time" gorm:"column:practice_time"');
+    // 实践地址
+    29: string practice_address(go.tag='json:"practice_address" gorm:"column:practice_address"');
+    // 评价老师
+    30: string teacher_name(go.tag='json:"teacher_name" gorm:"column:teacher_name"');
+    // 评价老师id
+    31: string teacher_id(go.tag='json:"teacher_id" gorm:"column:teacher_id"');
 }
 
 // 企业指导老师
