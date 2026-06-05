@@ -364,11 +364,11 @@ struct FillPracticeReportReq {
     2:string practice_time (go.tag='json:"practice_time" binding:"required"');
     3:string school_teacher (go.tag='json:"school_teacher" binding:"required"'); // 校内老师
     4:list<EnterpriseTeacher> enterprise_teacher (go.tag='json:"enterprise_teacher"'); // 企业导师
-
     // 内容
     5:string content (go.tag='json:"content" binding:"required"');
     // 总结
     6:string summary (go.tag='json:"summary" binding:"required"');
+
 
 
 }
@@ -1227,6 +1227,10 @@ struct ModelStuPracticeReport {
     30: string teacher_name(go.tag='json:"teacher_name" gorm:"column:teacher_name"');
     // 评价老师id
     31: string teacher_id(go.tag='json:"teacher_id" gorm:"column:teacher_id"');
+
+    // 填写报告时间
+    32: double fill_report_time(go.tag='json:"fill_report_time" gorm:"column:fill_report_time"');
+    33: i32 status (go.tag='json:"status" gorm:"column:status;default:1"'); // 2 未填写 1 已填写
 }
 
 // 企业指导老师
