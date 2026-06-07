@@ -272,7 +272,57 @@ service trainingservice {
     api.post = '/training/EvaluatePracticeReport'
     api.serializer = 'json'
     )
+    // ModelPracticeTeachingStats
+    ListPracticeTeachingStatsResp ListPracticeTeachingStats(1:ListPracticeTeachingStatsReq req)(
+    api.post = '/training/ListPracticeTeachingStats'
+    api.serializer = 'json'
+    )
 
+    // 修改
+    EditPracticeTeachingStatsResp EditPracticeTeachingStats(1:EditPracticeTeachingStatsReq req)(
+    api.post = '/training/EditPracticeTeachingStats'
+    api.serializer = 'json'
+    )
+
+
+}
+
+struct EditPracticeTeachingStatsReq {
+    1:i32 id(go.tag='json:"id"');
+    7: i32 student_count(go.tag='json:"student_count"'); // 实践学生总人数
+    8: i32 class_count(go.tag='json:"class_count"'); // 实践班级总数
+    9: i32 project_count(go.tag='json:"project_count"'); // 实践项目总数
+    10: i32 location_count(go.tag='json:"location_count"'); // 实践场所总数
+    11: i32 instructor_count(go.tag='json:"instructor_count"'); // 实践指导教师总数
+    12: i32 internal_instructor_count(go.tag='json:"internal_instructor_count"'); // 校内指导教师总数
+    13: i32 external_instructor_count(go.tag='json:"external_instructor_count"'); // 校外指导教师总数
+    14: string safety_measures(go.tag='json:"safety_measures"'); // 校内实践安全管理与举措
+    19: i32 has_emergency_plan(go.tag='json:"has_emergency_plan"'); // 是否制定紧急预案 1是 2否
+    20: i32 is_delete(go.tag='json:"has_safety_measures"'); // 1 删除
+}
+
+struct EditPracticeTeachingStatsResp {
+}
+
+
+
+enum ListPracticeTeachingStatsReqOption {
+    id  =1
+    grade =2
+    major =3
+    academic_year =4
+    semester =5
+    type =6
+
+}
+
+struct ListPracticeTeachingStatsReq {
+    1: base.ListOption list_option(go.tag='json:"list_option" binding:"required"');
+}
+
+struct ListPracticeTeachingStatsResp {
+    1:list<ModelPracticeTeachingStats> list(go.tag='json:"list"');
+    2: base.Paginate paginate(go.tag='json:"paginate"');
 }
 
 struct EvaluatePracticeReportReq {
@@ -1127,6 +1177,7 @@ struct ModelMajorPracticeTeachingPlan {
     16: string grade(go.tag='json:"grade" gorm:"column:grade"');
     17: i32 course_type(go.tag='json:"course_type" gorm:"column:course_type;default:1"'); // 1 实训课 2 生产性实践教学课
 }
+// 实践教学情况统计
 struct ModelPracticeTeachingStats {
     1: i32 id (go.tag='gorm:"column:id" json:"id"');
     2: i32 created_at(go.tag='gorm:"column:created_at;index" json:"created_at"');
@@ -1230,7 +1281,7 @@ struct ModelStuPracticeReport {
 
     // 填写报告时间
     32: double fill_report_time(go.tag='json:"fill_report_time" gorm:"column:fill_report_time"');
-    33: i32 status (go.tag='json:"status" gorm:"column:status;default:1"'); // 2 未填写 1 已填写
+    33: i32 status (go.tag='json:"status" gorm:"column:status;default:1"'); // 1 未填写 2 已填写 3 已评价
 }
 
 // 企业指导老师
