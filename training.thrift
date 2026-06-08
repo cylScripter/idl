@@ -290,8 +290,26 @@ service trainingservice {
     api.serializer = 'json'
     )
 
+    // 导出模版
+    ExportPracticeTeachingStatsResp ExportPracticeTeachingStats(1:ExportPracticeTeachingStatsReq req)(
+    api.post = '/training/ExportPracticeTeachingStats'
+    api.serializer = 'json'
+    )
+
 
 }
+
+struct ExportPracticeTeachingStatsReq {
+    // 学年
+    1:string academic_year(go.tag='json:"academic_year"');
+    // 学期
+    2:string semester(go.tag='json:"semester"');
+}
+
+struct ExportPracticeTeachingStatsResp {
+    1:string task_key(go.tag='json:"task_key"');
+}
+
 
 struct PracticeTeachingStatsReq {
     // 学年
