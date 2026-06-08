@@ -284,7 +284,24 @@ service trainingservice {
     api.serializer = 'json'
     )
 
+    // 统计
+    PracticeTeachingStatsResp PracticeTeachingStats(1:PracticeTeachingStatsReq req)(
+    api.post = '/training/PracticeTeachingStats'
+    api.serializer = 'json'
+    )
 
+
+}
+
+struct PracticeTeachingStatsReq {
+    // 学年
+    1:string academic_year(go.tag='json:"academic_year"');
+    // 学期
+    2:string semester(go.tag='json:"semester"');
+}
+
+struct PracticeTeachingStatsResp {
+    1:string task_key(go.tag='json:"task_key"');
 }
 
 struct EditPracticeTeachingStatsReq {
