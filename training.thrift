@@ -336,7 +336,7 @@ struct EditPracticeTeachingStatsReq {
     18: i32 type(go.tag='json:"course_type" gorm:"column:course_type;default:1"');  // 1  校内  2  校外
     20: i32 outside_practice_total_weeks(go.tag='json:"outside_practice_total_weeks" gorm:"column:outside_practice_total_weeks"'); // 校外实践总周数
     21: i32 location_is_shenzhen(go.tag='json:"location_is_shenzhen" gorm:"column:location_is_shenzhen;default:2"'); //// 校外实践场所是否均在深圳
-    22: i32 is_delete(go.tag='json:"has_safety_measures"'); // 1 删除
+    22: i32 is_delete(go.tag='json:"is_delete"'); // 1 删除
 }
 
 struct EditPracticeTeachingStatsResp {
