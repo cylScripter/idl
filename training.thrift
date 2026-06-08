@@ -1216,7 +1216,7 @@ struct ModelPracticeTeachingStats {
     15: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id"');
     16: string academic_year(go.tag='json:"academic_year" gorm:"column:academic_year"'); // 学年
     17: string semester(go.tag='json:"semester" gorm:"column:semester"'); // 学期
-    18: i32 type(go.tag='json:"course_type" gorm:"column:course_type;default:1"');  // 1  校内  2  校外
+    18: i32 type(go.tag='json:"type" gorm:"column:type;default:1"');  // 1  校内  2  校外
     19: i32 has_emergency_plan(go.tag='json:"has_emergency_plan" gorm:"column:has_emergency_plan;default:2"'); // 是否制定紧急预案 1是 2否
     20: i32 outside_practice_total_weeks(go.tag='json:"outside_practice_total_weeks" gorm:"column:outside_practice_total_weeks"'); // 校外实践总周数
     21: i32 location_is_shenzhen(go.tag='json:"location_is_shenzhen" gorm:"column:location_is_shenzhen;default:2"'); //// 校外实践场所是否均在深圳
