@@ -704,6 +704,19 @@ struct EditClassroomReq {
   2: string name(go.tag='json:"name" binding:"required"')
   3: string location(go.tag='json:"location" binding:"required"')
   4: i32 is_delete(go.tag='json:"is_delete"')
+  5: i32 computer_count(go.tag='json:"computer_count"'); // 机房电脑数量（含教师机）
+  6: i32 seat_count(go.tag='json:"seat_count"'); // 教室机位数量（不含教师机）
+  7: string computer_brand(go.tag='json:"computer_brand"'); // 电脑品牌
+  8: string computer_model(go.tag='json:"computer_model"'); // 型号
+  9: string cpu(go.tag='json:"cpu"');
+  10: string disk(go.tag='json:"disk"'); // 硬盘
+  11: string memory(go.tag='json:"memory"'); // 内存
+  12: string has_discrete_graphics(go.tag='json:"has_discrete_graphics"'); // 有无独立显卡
+  13: string graphics(go.tag='json:"graphics"'); // 显卡
+  14: string monitor_size(go.tag='json:"monitor_size"'); // 显示器大小
+  15: string operating_system(go.tag='json:"operating_system"'); // 操作系统
+  16: string purchase_date(go.tag='json:"purchase_date"'); // 购买日期
+  17: string statistics_date(go.tag='json:"statistics_date"'); // 数据统计时间
 }
 
 enum OptionItem {
@@ -1161,6 +1174,19 @@ struct ModelClassroom {
   6: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id"' );
   7: i32 orders (go.tag='json:"orders" gorm:"column:orders"');
   8: string location(go.tag='json:"location" gorm:"column:location"');
+  9: i32 computer_count(go.tag='json:"computer_count" gorm:"column:computer_count"'); // 机房电脑数量（含教师机）
+  10: i32 seat_count(go.tag='json:"seat_count" gorm:"column:seat_count"'); // 教室机位数量（不含教师机）
+  11: string computer_brand(go.tag='json:"computer_brand" gorm:"column:computer_brand"'); // 电脑品牌
+  12: string computer_model(go.tag='json:"computer_model" gorm:"column:computer_model"'); // 型号
+  13: string cpu(go.tag='json:"cpu" gorm:"column:cpu"');
+  14: string disk(go.tag='json:"disk" gorm:"column:disk"'); // 硬盘
+  15: string memory(go.tag='json:"memory" gorm:"column:memory"'); // 内存
+  16: string has_discrete_graphics(go.tag='json:"has_discrete_graphics" gorm:"column:has_discrete_graphics"'); // 有无独立显卡
+  17: string graphics(go.tag='json:"graphics" gorm:"column:graphics"'); // 显卡
+  18: string monitor_size(go.tag='json:"monitor_size" gorm:"column:monitor_size"'); // 显示器大小
+  19: string operating_system(go.tag='json:"operating_system" gorm:"column:operating_system"'); // 操作系统
+  20: string purchase_date(go.tag='json:"purchase_date" gorm:"column:purchase_date"'); // 购买日期
+  21: string statistics_date(go.tag='json:"statistics_date" gorm:"column:statistics_date"'); // 数据统计时间
 }
 
 // 教师( 教室 )排课任务表teacher_schedules
