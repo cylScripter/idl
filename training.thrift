@@ -708,7 +708,7 @@ struct EditClassroomResp {
 struct EditClassroomReq {
   1: i32 id(go.tag='json:"id"');
   2: string name(go.tag='json:"name" binding:"required"')
-  3: string location(go.tag='json:"location" binding:"required"')
+  3: string location(go.tag='json:"location"')
   4: i32 is_delete(go.tag='json:"is_delete"')
   5: i32 computer_count(go.tag='json:"computer_count"'); // 机房电脑数量（含教师机）
   6: i32 seat_count(go.tag='json:"seat_count"'); // 教室机位数量（不含教师机）
