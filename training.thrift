@@ -138,6 +138,12 @@ service trainingservice {
      api.serializer = 'json'
    )
 
+   // GetClassroomDetail
+   GetClassroomDetailResp GetClassroomDetail(1:GetClassroomDetailReq req)(
+     api.post = '/training/GetClassroomDetail'
+     api.serializer = 'json'
+   )
+
    // Import
    ImportClassroomResp ImportClassroom(1:ImportClassroomReq req)(
        api.post = '/training/ImportClassroom'
@@ -730,6 +736,13 @@ struct GetClassroomListResp {
 }
 struct GetClassroomListReq {
   1: base.ListOption list_option(go.tag='json:"list_option" binding:"required"');
+}
+
+struct GetClassroomDetailResp {
+  1: ModelClassroom detail(go.tag='json:"detail"');
+}
+struct GetClassroomDetailReq {
+  1: i32 id(go.tag='json:"id" binding:"required"');
 }
 
 
