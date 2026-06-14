@@ -837,6 +837,7 @@ struct EditClassResp {
 struct GetButtonPermissionReq {
      // 父级菜单name
      1: string parent_menu_name (go.tag='json:"parent_menu_name" binding:"required"');
+     2: i32 menu_type (go.tag='json:"menu_type"');
 }
 
 struct GetButtonPermissionResp {
