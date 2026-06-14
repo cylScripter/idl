@@ -850,6 +850,9 @@ struct GetButtonPermissionRespItem {
     4: string redirect (go.tag='json:"redirect"');
     5: string title (go.tag='json:"title"');
     6: string icon (go.tag='json:"icon"');
+    7: list<DynamicForm> dynamic_form (go.tag='json:"dynamic_form"');
+    8: string export_api (go.tag='json:"export_api"');
+    9: string method (go.tag='json:"method"');
 }
 
 struct EditExamWorkloadResp {
@@ -2245,9 +2248,26 @@ struct MenuItem {
     4: string path (go.tag='json:"path"');
     5: string redirect (go.tag='json:"redirect"');
     6:list<MenuItem> children (go.tag='json:"children" gorm:"-"');
-    // 7: list<DynamicForm> dynamic_form(go.tag='json:"dynamic_form" gorm:"-"');  // 表单字段
+    7:list<DynamicForm> dynamic_form(go.tag='json:"dynamic_form" gorm:"-"');  // 表单字段
 }
 
+
+// 动态表单选项
+struct DynamicFormOption {
+    1: string label(go.tag='json:"label"');
+    2: string value(go.tag='json:"value"');
+    3: string value_type(go.tag='json:"value_type"');
+}
+
+// 动态表单选项接口
+struct DynamicFormOptionApi {
+    1: string url(go.tag='json:"url"');
+    2: string method(go.tag='json:"method"');
+    3: string params(go.tag='json:"params"');
+    4: string data_path(go.tag='json:"data_path"');
+    5: string label_field(go.tag='json:"label_field"');
+    6: string value_field(go.tag='json:"value_field"');
+}
 
 // 动态表单
 struct DynamicForm {
@@ -2257,9 +2277,15 @@ struct DynamicForm {
     4: string placeholder(go.tag='json:"placeholder"');
     5: string value(go.tag='json:"value"');
     6: string rules(go.tag='json:"rules"');
-    7: string options(go.tag='json:"options"');
+    7: list<DynamicFormOption> options(go.tag='json:"options"');
     8: string description(go.tag='json:"description"');
     9: string component(go.tag='json:"component"');
+    10: string default_value(go.tag='json:"default_value"');
+    11: bool required(go.tag='json:"required"');
+    12: i32 sort(go.tag='json:"sort"');
+    13: bool hidden(go.tag='json:"hidden"');
+    14: string option_source(go.tag='json:"option_source"');
+    15: DynamicFormOptionApi option_api(go.tag='json:"option_api"');
 }
 
 struct GetMenuResp {
@@ -2897,6 +2923,8 @@ struct ModelMenu {
   13:i32 menu_type (go.tag='json:"menu_type" gorm:"column:menu_type;default:1"');
   14:i32 menu_side(go.tag='json:"menu_side" gorm:"column:menu_side;default:1"');  // 1是 教师端 2 学生端
   15:string extend(go.tag='json:"extend" gorm:"column:extend;type:text"'); // 拓展字段 类型 text
+  16: string export_api (go.tag='json:"export_api" gorm:"column:export_api;type:text"');
+  17: string method (go.tag='json:"method" gorm:"column:method;default:post"');
 }
 
 struct Meta {
