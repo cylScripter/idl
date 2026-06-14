@@ -902,7 +902,7 @@ struct ExportTrainingCourseReq {
   // 学期
   2: string semester(go.tag='json:"semester" binding:"required"');
 
-  3: string course_type(go.tag='json:"course_type"'); // 课程类型 1 实训课  2 实践课
+  3: i32 course_type(go.tag='json:"course_type"'); // 课程类型 1 实训课  2 实践课
 }
 
 struct ExportTrainingCourseResp {
