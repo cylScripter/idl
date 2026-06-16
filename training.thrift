@@ -303,6 +303,22 @@ service trainingservice {
     )
 
 
+    // 导出课程填报情况
+    ExportCourseFillStatusResp ExportCourseFillStatus(1:ExportCourseFillStatusReq req)(
+    api.post = '/training/ExportCourseFillStatus'
+    api.serializer = 'json'
+    )
+}
+
+struct ExportCourseFillStatusReq {
+    // 学年
+    1:string academic_year(go.tag='json:"academic_year"');
+    // 学期
+    2:string semester(go.tag='json:"semester"');
+}
+
+struct ExportCourseFillStatusResp {
+    1:string task_key(go.tag='json:"task_key"');
 }
 
 struct ExportPracticeTeachingStatsReq {
