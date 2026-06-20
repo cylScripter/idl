@@ -303,11 +303,27 @@ service trainingservice {
     )
 
 
-    // 导出课程填报情况
+    // 导出填报情况
     ExportCourseFillStatusResp ExportCourseFillStatus(1:ExportCourseFillStatusReq req)(
     api.post = '/training/ExportCourseFillStatus'
     api.serializer = 'json'
     )
+
+    // 上传签名
+
+    UploadEvaluationSignResp UploadEvaluationSign(1:UploadEvaluationSignReq req)(
+    api.post = '/training/UploadEvaluationSign'
+    api.serializer = 'json'
+    )
+}
+
+struct UploadEvaluationSignReq {
+    1:string upload_id(go.tag='json:"upload_id"');
+    2:i32 evaluation_sign_type (go.tag='json:"evaluation_sign_type"'); // 1 校内 2 校外
+    3:i32 evaluation_id (go.tag='json:"evaluation_id"');
+}
+
+struct UploadEvaluationSignResp {
 }
 
 struct ExportCourseFillStatusReq {
@@ -1316,6 +1332,8 @@ struct ModelPracticeCourseEvaluation {
     16: string teacher_name(go.tag='json:"teacher_name" gorm:"column:teacher_name"');
     // 学生人数
     17: i32 student_number(go.tag='json:"student_number" gorm:"column:student_number"');
+    18: string enterprise_teacher_sign (go.tag='json:"enterprise_teacher_sign" gorm:"column:enterprise_teacher_sign;type:text"');
+    19: string teacher_sign (go.tag='json:"teacher_sign" gorm:"column:teacher_sign;type:text"');
 }
 
 // 学实践报告

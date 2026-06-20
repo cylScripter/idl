@@ -3,7 +3,7 @@ include "common/base.thrift"
 
 // 会话状态: 1 正常 2 归档 3 删除
 // 消息角色: user / assistant / system / tool
-// 消息状态: 1 生成中 2 成功 3 失败 4 已撤回
+// 消息状态: 1 生成中 2 成功 3 失败 4 已撤回 5 停止中
 
 // 会话表
 struct ModelSession {
@@ -22,6 +22,8 @@ struct ModelSession {
   13: string last_message_id(go.tag='gorm:"column:last_message_id;size:64" json:"last_message_id"');
   14: string last_message_preview(go.tag='gorm:"column:last_message_preview;size:255" json:"last_message_preview"');
   15: string metadata(go.tag='gorm:"column:metadata;type:text" json:"metadata"');
+  16: i32 running_status(go.tag='gorm:"column:running_status;index;default:0;not null" json:"running_status"');
+  17: string running_message_id(go.tag='gorm:"column:running_message_id;size:64;not null" json:"running_message_id"');
 }
 
 // 消息表
@@ -94,6 +96,8 @@ struct ChatResp {
   3: string message_id(go.tag='json:"message_id"');
   4: string event(go.tag='json:"event"'); // start / delta / done / error
   5: string error(go.tag='json:"error"');
+  6: i32 seq(go.tag='json:"seq"');
+  7: string event_id(go.tag='json:"event_id"');
 }
 
 struct HealthReq {}
@@ -117,6 +121,8 @@ struct AgentSession {
   11: i32 created_at(go.tag='json:"created_at"');
   12: i32 updated_at(go.tag='json:"updated_at"');
   13: i32 deleted_at(go.tag='json:"deleted_at"');
+  14: i32 running_status(go.tag='json:"running_status"');
+  15: string running_message_id(go.tag='json:"running_message_id"');
 }
 
 struct AgentMessage {
@@ -207,6 +213,18 @@ struct ListSessionMessagesResp {
   3: string next_before_message_id(go.tag='json:"next_before_message_id"');
 }
 
+struct StopChatReq {
+  1: string session_id(go.tag='json:"session_id"');
+  2: i32 user_id(go.tag='json:"user_id"');
+  3: i32 app_id(go.tag='json:"app_id"');
+}
+
+struct StopChatResp {
+  1: bool stopped(go.tag='json:"stopped"');
+  2: string session_id(go.tag='json:"session_id"');
+  3: string message_id(go.tag='json:"message_id"');
+}
+
 service AgentService {
   ChatResp Chat(1: ChatReq req)(
       api.post = '/agent/Chat',
@@ -246,6 +264,11 @@ service AgentService {
 
   ListSessionMessagesResp ListSessionMessages(1: ListSessionMessagesReq req)(
       api.post = '/agent/ListSessionMessages',
+      api.serializer = 'json'
+  );
+
+  StopChatResp StopChat(1: StopChatReq req)(
+      api.post = '/agent/StopChat',
       api.serializer = 'json'
   );
 }
