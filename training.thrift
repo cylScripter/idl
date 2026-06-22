@@ -310,8 +310,8 @@ service trainingservice {
     )
 
     // 导出实践教学情况检查登记表
-    ExportPracticeCheckResp ExportPracticeTeachingCheckRegister(1:ExportPracticeCheckReq req)(
-    api.post = '/training/ExportPracticeTeachingCheckRegister'
+    ExportPracticeCheckResp ExportPracticeCheck(1:ExportPracticeCheckReq req)(
+    api.post = '/training/ExportPracticeCheck'
     api.serializer = 'json'
     )
 
