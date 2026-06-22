@@ -309,6 +309,12 @@ service trainingservice {
     api.serializer = 'json'
     )
 
+    // 导出实践教学情况检查登记表
+    ExportPracticeCheckResp ExportPracticeTeachingCheckRegister(1:ExportPracticeCheckReq req)(
+    api.post = '/training/ExportPracticeTeachingCheckRegister'
+    api.serializer = 'json'
+    )
+
     // 上传签名
 
     UploadEvaluationSignResp UploadEvaluationSign(1:UploadEvaluationSignReq req)(
@@ -334,6 +340,17 @@ struct ExportCourseFillStatusReq {
 }
 
 struct ExportCourseFillStatusResp {
+    1:string task_key(go.tag='json:"task_key"');
+}
+
+struct ExportPracticeCheckReq {
+    // 学年
+    1:string academic_year(go.tag='json:"academic_year"');
+    // 学期
+    2:string semester(go.tag='json:"semester"');
+}
+
+struct ExportPracticeCheckResp {
     1:string task_key(go.tag='json:"task_key"');
 }
 
