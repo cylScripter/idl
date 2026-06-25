@@ -1206,6 +1206,7 @@ struct ModelMajor {
     8: string research_director(go.tag='json:"research_director" gorm:"column:research_director"'); // 教研室主任
     9: string research_director_id(go.tag='json:"research_director_id" gorm:"column:research_director_id"');
     10: double budget_total(go.tag='json:"budget_total" gorm:"column:budget_total"'); // 预算总金额
+    11: string major_no(go.tag='json:"major_no" gorm:"column:major_no"'); // 专业编号
 }
 
 
@@ -1351,6 +1352,8 @@ struct ModelPracticeCourseEvaluation {
     17: i32 student_number(go.tag='json:"student_number" gorm:"column:student_number"');
     18: string enterprise_teacher_sign (go.tag='json:"enterprise_teacher_sign" gorm:"column:enterprise_teacher_sign;type:text"');
     19: string teacher_sign (go.tag='json:"teacher_sign" gorm:"column:teacher_sign;type:text"');
+    // 实践项目名称
+    20: string project_name(go.tag='json:"project_name" gorm:"column:project_name"');
 }
 
 // 学实践报告
@@ -1412,6 +1415,7 @@ struct ModelStuPracticeReport {
     // 填写报告时间
     32: double fill_report_time(go.tag='json:"fill_report_time" gorm:"column:fill_report_time"');
     33: i32 status (go.tag='json:"status" gorm:"column:status;default:1"'); // 1 未填写 2 已填写 3 已评价
+    34: string project_name(go.tag='json:"project_name" gorm:"column:project_name"');
 }
 
 // 企业指导老师
