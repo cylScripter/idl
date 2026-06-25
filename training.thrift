@@ -802,6 +802,7 @@ struct  UpdatePastMajorReq {
     4: string research_director_id (go.tag='json:"research_director_id" binding:"required"');
     5: string research_director (go.tag='json:"research_director" binding:"required"');
     6: double budget_total(go.tag='json:"budget_total" gorm:"column:budget_total"'); // 预算总金额
+    7: string major_no(go.tag='json:"major_no"'); // 专业编号
 }
 
 struct UpdatePastMajorResp {
