@@ -314,14 +314,47 @@ service trainingservice {
     api.post = '/training/ExportPracticeCheck'
     api.serializer = 'json'
     )
-
     // 上传签名
-
     UploadEvaluationSignResp UploadEvaluationSign(1:UploadEvaluationSignReq req)(
     api.post = '/training/UploadEvaluationSign'
     api.serializer = 'json'
     )
+
+    // 导出实践项目数据表
+    ExportPracticeDataTableResp ExportPracticeDataTable(1:ExportPracticeDataTableReq req)(
+    api.post = '/training/ExportPracticeDataTable'
+    api.serializer = 'json'
+    )
+    // 导出实践教学过程数据表
+    ExportPracticeProcessDataTableResp ExportPracticeProcessDataTable(1:ExportPracticeProcessDataTableReq req)(
+    api.post = '/training/ExportPracticeProcessDataTable'
+    api.serializer = 'json'
+    )
+
 }
+
+struct ExportPracticeProcessDataTableReq {
+    // 学年
+    1:string academic_year(go.tag='json:"academic_year"');
+    // 学期
+    2:string semester(go.tag='json:"semester"');
+}
+
+struct ExportPracticeProcessDataTableResp {
+    1:string task_key(go.tag='json:"task_key"');
+}
+
+struct ExportPracticeDataTableReq {
+    // 学年
+    1:string academic_year(go.tag='json:"academic_year"');
+    // 学期
+    2:string semester(go.tag='json:"semester"');
+}
+
+struct ExportPracticeDataTableResp {
+    1:string task_key(go.tag='json:"task_key"');
+}
+
 
 struct UploadEvaluationSignReq {
     1:string upload_id(go.tag='json:"upload_id"');
@@ -1429,4 +1462,15 @@ struct EnterpriseTeacher {
     4:string speciality (go.tag='json:"speciality"');
     // 从事岗位年限
     5:string job_years (go.tag='json:"job_years"');
+}
+
+
+// 专业课程设置表
+struct ModelMajorCourseConfig {
+    1: i32 id (go.tag='gorm:"column:id" json:"id"');
+    2: i32 created_at(go.tag='gorm:"column:created_at;index" json:"created_at"');
+    3: i32 updated_at(go.tag='gorm:"column:updated_at" json:"updated_at"');
+    4: i32 deleted_at(go.tag='gorm:"column:deleted_at" json:"deleted_at"');
+    5: string project_name(go.tag='json:"project_name" gorm:"column:project_name"');
+    6: string project_number(go.tag='json:"project_number" gorm:"column:project_number"');
 }
