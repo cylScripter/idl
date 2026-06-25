@@ -3521,6 +3521,12 @@ struct ModelClassStudent {
     8: string student_name (go.tag='json:"student_name" gorm:"column:student_name"');
     9: string grade (go.tag='json:"grade" gorm:"column:grade"'); // 年级
     10: string class_name (go.tag='json:"class_name" gorm:"column:class_name"'); // 班级名称
+    11: string class_type(go.tag='json:"class_type" gorm:"column:class_type;default:1"'); // 专科  本科
+    12: string major_no (go.tag='json:"major_no" gorm:"column:major_no"'); // 专业号
+    13: string major_name (go.tag='json:"major_name" gorm:"column:major_name"');
+    14: string sex(go.tag='json:"sex" gorm:"column:sex"'); // 性别   男 女
+    15: string class_no (go.tag='json:"class_no" gorm:"column:class_no"'); // 班级编号
+    16: string mobile (go.tag='json:"mobile" gorm:"column:mobile"'); // 手机号
 }
 
 
