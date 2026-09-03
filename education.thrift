@@ -458,35 +458,25 @@ service educationservice {
         api.serializer = 'json'
     )
 
-    // 同步期末考试信息
-    SyncFinalExamResp SyncFinalExam(1:SyncFinalExamReq req)(
-        api.post = '/education/SyncFinalExam'
-        api.serializer = 'json'
-    )
-
     // 获取期末考试列表
     GetFinalExamListResp GetFinalExamList(1:GetFinalExamListReq req)(
         api.post = '/education/GetFinalExamList'
         api.serializer = 'json'
     )
 
-    // 获取期末考试科目列表
-    GetFinalExamSubjectListResp GetFinalExamSubjectList(1:GetFinalExamSubjectListReq req)(
-        api.post = '/education/GetFinalExamSubjectList'
+    // 导入
+    ImportFinalExamResp ImportFinalExam(1:ImportFinalExamReq req)(
+        api.post = '/education/ImportFinalExam'
         api.serializer = 'json'
     )
 
-    // 更新期末考试
-    UpdateFinalExamResp UpdateFinalExam(1:UpdateFinalExamReq req)(
-        api.post = '/education/UpdateFinalExam'
+    // 同步期末考试工作量
+    SyncFinalExamWorkloadResp SyncFinalExamWorkload(1:SyncFinalExamWorkloadReq req)(
+        api.post = '/education/SyncFinalExamWorkload'
         api.serializer = 'json'
     )
 
-    // 导出期末考试
-    ExportFinalExamResp ExportFinalExam(1:ExportFinalExamReq req)(
-        api.post = '/education/ExportFinalExam'
-        api.serializer = 'json'
-    )
+
 
     // 计算期末考试工作量
     CalculateFinalExamWorkloadResp CalculateFinalExamWorkload(1:CalculateFinalExamWorkloadReq req)(
@@ -788,6 +778,24 @@ service educationservice {
 }
 
 // =================req\resp===============================、
+
+
+struct SyncFinalExamWorkloadReq {
+    1: string academic_year (go.tag='json:"academic_year"');
+    2: string semester (go.tag='json:"semester"');
+    3: i32 record_id (go.tag='json:"record_id"');
+}
+struct SyncFinalExamWorkloadResp {}
+
+struct ImportFinalExamReq{
+    1: string academic_year (go.tag='json:"academic_year"');
+    2: string semester (go.tag='json:"semester"');
+    3: string upload_id (go.tag='json:"upload_id" binding:"required"');
+}
+
+struct ImportFinalExamResp{
+}
+
 
 enum GetClassStudentListReqOption{
     id = 1
@@ -1627,7 +1635,6 @@ struct GetFinalExamListResp{
 struct SyncFinalExamReq {
   1: string academic_year(go.tag='json:"academic_year" binding:"required" ');
   2: string semester(go.tag='json:"semester"binding:"required" ');
-
 }
 
 struct SyncFinalExamResp{
@@ -3291,29 +3298,26 @@ struct ModelTrainingCourseTeacher {
 
 // 期末考试
 struct ModelFinalExam {
-  1: i32 id (go.tag='gorm:"column:id" json:"id"');
-  2: i32 created_at(go.tag='gorm:"column:created_at;index" json:"created_at"');
-  3: i32 updated_at(go.tag='gorm:"column:updated_at" json:"updated_at"');
-  4: i32 deleted_at(go.tag='gorm:"column:deleted_at" json:"deleted_at"');
-  5: string academic_year (go.tag='json:"academic_year" gorm:"column:academic_year"');
-  6: string semester (go.tag='json:"semester" gorm:"column:semester"');
-  7: string assessment_method (go.tag='json:"assessment_method" gorm:"column:assessment_method"'); // 考核方式
-  8: string exam_subject (go.tag='json:"exam_subject" gorm:"column:exam_subject"');  //考试科目
-  9: string class_name (go.tag='json:"class_name" gorm:"column:class_name"');//使用班级
-  10: string a_proposer (go.tag='json:"a_proposer" gorm:"column:a_proposer"');  // A卷命题人
-  11: string b_proposer (go.tag='json:"b_proposer" gorm:"column:b_proposer"'); //B卷命题人
-  12: string c_proposer (go.tag='json:"c_proposer" gorm:"column:c_proposer"');  //C卷命题人
-  13: bool a_is_shared (go.tag='json:"a_is_shared" gorm:"column:a_is_shared"');
-  14: bool b_is_shared (go.tag='json:"b_is_shared" gorm:"column:b_is_shared"');
-  15: bool c_is_shared (go.tag='json:"c_is_shared" gorm:"column:c_is_shared"');
-  16: bool is_scoring (go.tag='json:"is_scoring" gorm:"column:is_scoring"');
-  17: i32 exam_workload (go.tag='json:"exam_workload" gorm:"column:exam_workload"'); // 出卷工作量
-  18: i32 scoring_workload (go.tag='json:"scoring_workload" gorm:"column:scoring_workload"'); // 阅卷工作量
-  19: string scoring_teacher (go.tag='json:"scoring_teacher" gorm:"column:scoring_teacher"'); // 阅卷老师
-  20: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id"' );
-  21: i32 course_id (go.tag='json:"course_id" gorm:"column:course_id"');
-  22: i32 education_level(go.tag='json:"education_level" gorm:"column:education_level;default:1"'); // 教育层次 1:本科 2:大专
+    1: i32 id (go.tag='gorm:"column:id" json:"id"');
+    2: i32 created_at(go.tag='gorm:"column:created_at;index" json:"created_at"');
+    3: i32 updated_at(go.tag='gorm:"column:updated_at" json:"updated_at"');
+    4: i32 deleted_at(go.tag='gorm:"column:deleted_at" json:"deleted_at"');
+    5: string academic_year (go.tag='json:"academic_year" gorm:"column:academic_year"');
+    6: string semester (go.tag='json:"semester" gorm:"column:semester"');
+    7: string teacher_name (go.tag='json:"teacher_name" gorm:"column:teacher_name"'); // 教师姓名
+    8: string exam_subject (go.tag='json:"exam_subject" gorm:"column:exam_subject"'); // 考试科目
+    9: string class_name (go.tag='json:"class_name" gorm:"column:class_name"'); // 使用试卷班级
+    10: i32 exam_workload (go.tag='json:"exam_workload" gorm:"column:exam_workload"'); // 出卷
+    11: i32 scoring_workload (go.tag='json:"scoring_workload" gorm:"column:scoring_workload"'); // 阅卷
+    12: i32 patrol_count (go.tag='json:"patrol_count" gorm:"column:patrol_count"'); // 巡考
+    13: i32 supervision_count (go.tag='json:"supervision_count" gorm:"column:supervision_count"'); // 监考
+    14: i32 exam_admin_count (go.tag='json:"exam_admin_count" gorm:"column:exam_admin_count"'); // 考务
+    15: double fee_standard (go.tag='json:"fee_standard" gorm:"column:fee_standard"'); // 费用标准（元）
+    16: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id"');
 }
+
+
+
 // 期末考试填写记录
 struct ModelFinalExamRecord {
   1: i32 id (go.tag='gorm:"column:id" json:"id"');
