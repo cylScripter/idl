@@ -2017,6 +2017,8 @@ enum GetCourseListReqOption {
 
 struct ExportTeacherInfoReq {
    1: list<i32> ids(go.tag='json:"ids"')
+   2: string academic_year(go.tag='json:"academic_year" binding:"required"'); // 学年
+   3: string semester(go.tag='json:"semester" binding:"required"'); // 学期
 }
 
 struct ExportTeacherInfoResp {
@@ -2037,6 +2039,8 @@ struct CreateTeacherInfoReq {
     10: i64 remunerate(go.tag='json:"remunerate" ') // 岗位等级课酬标准
     11: string id_category(go.tag='json:"id_category" ') // 身份类别
     12: i32 is_external(go.tag='json:"is_external" '); // 是否外聘
+    13: string academic_year(go.tag='json:"academic_year" binding:"required"'); // 学年
+    14: string semester(go.tag='json:"semester" binding:"required"'); // 学期
 }
 
 struct CreateTeacherInfoResp {
@@ -2044,6 +2048,8 @@ struct CreateTeacherInfoResp {
 
 struct DeleteTeacherInfoReq {
     1: list<i32> ids(go.tag='json:"ids" binding:"required"');
+    2: string academic_year(go.tag='json:"academic_year" binding:"required"'); // 学年
+    3: string semester(go.tag='json:"semester" binding:"required"'); // 学期
 }
 
 struct DeleteTeacherInfoResp {
@@ -2116,6 +2122,8 @@ struct GetTokenResp {
 
 struct GetTeacherInfoListReq {
    1: base.ListOption list_option(go.tag='json:"list_option"');
+   2: string academic_year(go.tag='json:"academic_year" binding:"required"'); // 学年
+   3: string semester(go.tag='json:"semester" binding:"required"'); // 学期
 
 }
 
@@ -2137,6 +2145,8 @@ struct GetTeacherInfoListResp {
 
 struct ImportTeacherInfoReq {
   1: string file_upload_id(go.tag='json:"file_upload_id" binding:"required"');
+  2: string academic_year(go.tag='json:"academic_year" binding:"required"'); // 学年
+  3: string semester(go.tag='json:"semester" binding:"required"'); // 学期
 }
 
 struct ImportTeacherInfoResp {
@@ -2157,6 +2167,8 @@ struct  UpdateTeacherInfoReq   {
   10: i32 order(go.tag='json:"order"');
   11: string department(go.tag='json:"department"'); // 教师所属部门
   12: i32 id(go.tag='json:"id" binding:"required"');
+  13: string academic_year(go.tag='json:"academic_year" binding:"required"'); // 学年
+  14: string semester(go.tag='json:"semester" binding:"required"'); // 学期
 }
 
 
@@ -2166,6 +2178,8 @@ struct UpdateTeacherInfoResp {
 
 struct SetTeacherInfoStatusReq {
   1: list<SetTeacherInfoStatusReq_Value> item(go.tag='json:"item" binding:"required"');
+  2: string academic_year(go.tag='json:"academic_year" binding:"required"'); // 学年
+  3: string semester(go.tag='json:"semester" binding:"required"'); // 学期
 }
 
 struct SetTeacherInfoStatusReq_Value {
@@ -2421,6 +2435,8 @@ struct DeleteUserResp{}
 
 struct DeleteUserReq{
    1: i32 user_id(go.tag='json:"user_id" binding:"required"');
+   2: string academic_year(go.tag='json:"academic_year" binding:"required"'); // 学年
+   3: string semester(go.tag='json:"semester" binding:"required"'); // 学期
 }
 
 struct GetMenuListReq {
@@ -2456,6 +2472,8 @@ struct ImportCourseApplyReq{
 
 struct ImportUserReq{
    1: string file_upload_id(go.tag='json:"file_upload_id" binding:"required"'); // 文件上传id
+   2: string academic_year(go.tag='json:"academic_year" binding:"required"'); // 学年
+   3: string semester(go.tag='json:"semester" binding:"required"'); // 学期
 }
 
 struct ImportUserResp{
@@ -3238,6 +3256,8 @@ struct ModelTeacherInfo {
   18 :i32 orders(go.tag='json:"orders" gorm:"column:orders;default:1"')  // 排序
   19 :string user_name(go.tag='json:"user_name" gorm:"column:user_name"') // 学号
   22: i32 education_level(go.tag='json:"education_level" gorm:"column:education_level;default:1"'); // 教育层次 1:本科 2:大专
+  23: string academic_year(go.tag='json:"academic_year" gorm:"column:academic_year;index"'); // 学年
+  24: string semester(go.tag='json:"semester" gorm:"column:semester;index"'); // 学期
 }
 
 struct ModelHoliday {
