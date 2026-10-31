@@ -131,6 +131,12 @@ service trainingservice {
    api.post = '/training/UpdatePastMajor'
     api.serializer = 'json'
    )
+
+   // 设置专业学期预算额度
+   SetMajorBudgetResp SetMajorBudget(1:SetMajorBudgetReq req)(
+    api.post = '/training/SetMajorBudget'
+    api.serializer = 'json'
+   )
    // ==================================2026-04-18====================================
    // GetClassroomList
    GetClassroomListResp GetClassroomList(1:GetClassroomListReq req)(
@@ -841,6 +847,16 @@ struct  UpdatePastMajorReq {
 struct UpdatePastMajorResp {
 }
 
+struct SetMajorBudgetReq {
+    1: i32 major_id(go.tag='json:"major_id" binding:"required"');
+    2: string academic_year(go.tag='json:"academic_year" binding:"required"');
+    3: string semester(go.tag='json:"semester" binding:"required"');
+    4: optional double budget_total(go.tag='json:"budget_total" binding:"required"'); // 指针区分缺失与合法的0额度
+}
+
+struct SetMajorBudgetResp {
+}
+
 struct AddPastMajorReq {
     1: string name(go.tag='json:"name" binding:"required"'); // 专业名称
     2: i32 orders   (go.tag='json:"orders"');
@@ -1239,8 +1255,21 @@ struct ModelMajor {
    // 教研室主任
     8: string research_director(go.tag='json:"research_director" gorm:"column:research_director"'); // 教研室主任
     9: string research_director_id(go.tag='json:"research_director_id" gorm:"column:research_director_id"');
-    10: double budget_total(go.tag='json:"budget_total" gorm:"column:budget_total"'); // 预算总金额
+    10: double budget_total(go.tag='json:"budget_total" gorm:"-"'); // 学期额度由服务填充，不映射专业表
     11: string major_no(go.tag='json:"major_no" gorm:"column:major_no"'); // 专业编号
+}
+
+// 专业学期预算额度
+struct ModelMajorBudget {
+    1: i32 id(go.tag='json:"id" gorm:"column:id;primaryKey"');
+    2: i32 created_at(go.tag='json:"created_at" gorm:"column:created_at"');
+    3: i32 updated_at(go.tag='json:"updated_at" gorm:"column:updated_at"');
+    4: i32 deleted_at(go.tag='json:"deleted_at" gorm:"column:deleted_at"');
+    5: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id"');
+    6: i32 major_id(go.tag='json:"major_id" gorm:"column:major_id"');
+    7: string academic_year(go.tag='json:"academic_year" gorm:"column:academic_year"');
+    8: string semester(go.tag='json:"semester" gorm:"column:semester"');
+    9: double budget_total(go.tag='json:"budget_total" gorm:"column:budget_total"');
 }
 
 
