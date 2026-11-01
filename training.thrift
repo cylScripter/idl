@@ -182,6 +182,16 @@ service trainingservice {
    api.post = '/training/GetMajorPracticeTeachingPlanList'
     api.serializer = 'json'
    )
+   // 教务办教学规划管理列表
+   GetTeachingPlanManagementListResp GetTeachingPlanManagementList(1:GetTeachingPlanManagementListReq req)(
+       api.post = '/training/GetTeachingPlanManagementList'
+       api.serializer = 'json'
+   )
+   // 统一保存规划、教师和教室安排
+   SaveTeachingPlanResp SaveTeachingPlan(1:SaveTeachingPlanReq req)(
+       api.post = '/training/SaveTeachingPlan'
+       api.serializer = 'json'
+   )
    // 填写预算
    FillMajorPracticeTeachingBudgetResp FillMajorPracticeTeachingBudget(1:FillMajorPracticeTeachingBudgetReq req)(
     api.post = '/training/FillMajorPracticeTeachingBudget'
@@ -756,6 +766,41 @@ struct GetMajorPracticeTeachingPlanListReq {
     1: base.ListOption list_option(go.tag='json:"list_option" binding:"required"');
 }
 
+
+enum GetTeachingPlanManagementListReqOption {
+    id = 1
+    course_name = 2
+    class_name = 3
+    academic_year = 4
+    semester = 5
+    major = 6
+    budget_status = 7
+    teacher_status = 8
+    classroom_status = 9
+}
+
+struct GetTeachingPlanManagementListReq {
+    1: base.ListOption list_option(go.tag='json:"list_option" binding:"required"');
+}
+
+struct GetTeachingPlanManagementListResp {
+    1: list<ModelMajorPracticeTeachingPlan> list(go.tag='json:"list"');
+    2: base.Paginate paginate(go.tag='json:"paginate"');
+}
+
+struct SaveTeachingPlanReq {
+    1: i32 id(go.tag='json:"id" binding:"required"');
+    2: string major(go.tag='json:"major"');
+    3: string class_name(go.tag='json:"class_name"');
+    4: i32 student_number(go.tag='json:"student_number"');
+    5: string course_name(go.tag='json:"course_name"');
+    6: i32 week(go.tag='json:"week"');
+    // [] 表示清空，省略不允许；业务入口只检查完整列表是否提供。
+    7: optional list<ScheduleTeachingReqItem> teachers(go.tag='json:"teachers"');
+    8: optional list<ScheduleClassroomReqItem> classrooms(go.tag='json:"classrooms"');
+}
+
+struct SaveTeachingPlanResp {}
 
 struct ImportMajorPracticeTeachingResp {
     1 :string task_key (go.tag='json:"task_key"');
@@ -1366,6 +1411,11 @@ struct ModelMajorPracticeTeachingPlan {
     // 年级
     16: string grade(go.tag='json:"grade" gorm:"column:grade"');
     17: i32 course_type(go.tag='json:"course_type" gorm:"column:course_type;default:1"'); // 1 实训课 2 生产性实践教学课
+    // 1 已填写/已安排，2 未填写/未安排。数据库列已经添加。
+    18: i32 budget_status = 2(go.tag='json:"budget_status" gorm:"column:budget_status;default:2"');
+    19: i32 teacher_status = 2(go.tag='json:"teacher_status" gorm:"column:teacher_status;default:2"');
+    20: i32 classroom_status = 2(go.tag='json:"classroom_status" gorm:"column:classroom_status;default:2"');
+
 }
 // 实践教学情况统计
 struct ModelPracticeTeachingStats {
