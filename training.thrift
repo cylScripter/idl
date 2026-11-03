@@ -756,6 +756,9 @@ struct FillMajorPracticeTeachingBudgetReq {
    3: string cost_budget(go.tag='json:"cost_budget"');
      // 预算说明
    4: string cost_budget_explain(go.tag='json:"cost_budget_explain"');
+   // 中文选项值；漏传兼容旧客户端，保留已保存值。
+   5: optional string project_type(go.tag='json:"project_type"');
+   6: optional string enterprise_type(go.tag='json:"enterprise_type"');
 }
 
 struct GetMajorPracticeTeachingPlanListResp {
@@ -1482,6 +1485,8 @@ struct ModelMajorPracticeTeachingPlan {
     18: i32 budget_status = 2(go.tag='json:"budget_status" gorm:"column:budget_status;default:2"');
     19: i32 teacher_status = 2(go.tag='json:"teacher_status" gorm:"column:teacher_status;default:2"');
     20: i32 classroom_status = 2(go.tag='json:"classroom_status" gorm:"column:classroom_status;default:2"');
+    21: string project_type(go.tag='json:"project_type" gorm:"column:project_type;size:64"'); // 项目类型，中文值
+    22: string enterprise_type(go.tag='json:"enterprise_type" gorm:"column:enterprise_type;size:64"'); // 企业类型，中文值
 
 }
 // 实践教学情况统计
