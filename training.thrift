@@ -95,6 +95,18 @@ service trainingservice {
        api.serializer = 'json'
    )
 
+   // 分页查看课程三类材料的上传历史
+   ListTrainingCourseFileHistoryResp ListTrainingCourseFileHistory(1:ListTrainingCourseFileHistoryReq req)(
+       api.post = '/training/ListTrainingCourseFileHistory'
+       api.serializer = 'json'
+   )
+
+   // 获取历史文件的最新访问链接
+   GetTrainingCourseFileHistoryFileResp GetTrainingCourseFileHistoryFile(1:GetTrainingCourseFileHistoryFileReq req)(
+       api.post = '/training/GetTrainingCourseFileHistoryFile'
+       api.serializer = 'json'
+   )
+
    // 导出 实践项目来源证明
    ExportTrainingCourseSourceResp ExportTrainingCourseSource(1:ExportTrainingCourseSourceReq req)(
        api.post = '/training/ExportTrainingCourseSource'
@@ -944,6 +956,60 @@ struct GetExportResultResp {
     2 :CourseFile file (go.tag='json:"file"');
 }
 
+// 上传历史的材料类型；与现有三类上传入口对应。
+enum TrainingCourseMaterialType {
+    TEACHING_FILE = 1;
+    COURSE_CASE = 2;
+    SOURCE_PROOF = 3;
+}
+
+struct ModelTrainingCourseFileHistory {
+    1: i32 id(go.tag='gorm:"column:id" json:"id"');
+    2: i32 created_at(go.tag='gorm:"column:created_at;index" json:"created_at"');
+    3: i32 updated_at(go.tag='gorm:"column:updated_at" json:"updated_at"');
+    4: i32 deleted_at(go.tag='gorm:"column:deleted_at" json:"deleted_at"');
+    5: i32 material_type(go.tag='gorm:"column:material_type" json:"material_type"');
+    6: string upload_id(go.tag='gorm:"column:upload_id" json:"upload_id"');
+    7: string file_name(go.tag='gorm:"column:file_name" json:"file_name"');
+    8: string uploader(go.tag='gorm:"column:uploader" json:"uploader"');
+    9: string uploader_name(go.tag='gorm:"column:uploader_name" json:"uploader_name"');
+    10: i64 uploaded_at(go.tag='gorm:"column:uploaded_at" json:"uploaded_at"'); // Unix秒；旧数据基线为0
+    11: bool is_baseline(go.tag='gorm:"column:is_baseline" json:"is_baseline"');
+    12: bool is_current(go.tag='gorm:"-" json:"is_current"'); // 查询时计算
+    13: i32 app_id(go.tag='gorm:"column:app_id;index:idx_course_material,priority:1" json:"app_id"');
+    14: i32 training_course_id(go.tag='gorm:"column:training_course_id;index:idx_course_material,priority:2" json:"training_course_id"');
+    15: string academic_year(go.tag='gorm:"column:academic_year" json:"academic_year"');
+    16: string semester(go.tag='gorm:"column:semester" json:"semester"');
+    17: i32 previous_id(go.tag='gorm:"column:previous_id" json:"-"');
+    18: i32 state(go.tag='gorm:"column:state" json:"-"'); // 0待确认，1已生效，2未生效
+    19: string operation_key(go.tag='gorm:"column:operation_key;size:64;uniqueIndex" json:"-"');
+}
+
+enum ListTrainingCourseFileHistoryReqOption {
+    training_course_id = 1; // 必填
+    material_type = 2; // 0全部，1教学文件，2案例，3来源证明
+    academic_year = 3;
+    semester = 4;
+}
+
+struct ListTrainingCourseFileHistoryReq {
+    3: base.ListOption list_option(go.tag='json:"list_option" binding:"required"');
+}
+
+struct ListTrainingCourseFileHistoryResp {
+    1: list<ModelTrainingCourseFileHistory> list(go.tag='json:"list"');
+    2: base.Paginate paginate(go.tag='json:"paginate"');
+}
+
+struct GetTrainingCourseFileHistoryFileReq {
+    1: i32 training_course_id(go.tag='json:"training_course_id" binding:"required,gt=0"');
+    2: i32 history_id(go.tag='json:"history_id" binding:"required,gt=0"');
+}
+
+struct GetTrainingCourseFileHistoryFileResp {
+    1: CourseFile file(go.tag='json:"file"');
+}
+
 struct ExportTrainingCourseSourceReq {
   // 学年
   1: string academic_year(go.tag='json:"academic_year" binding:"required"');
@@ -1232,7 +1298,8 @@ struct ModelTrainingCourse {
   //  实践项目来源证明上报人
   29: string project_source_proof_person(go.tag='json:"project_source_proof_person" gorm:"column:project_source_proof_person"');
   30: string class_time(go.tag='json:"class_time" gorm:"column:class_time"'); // 上课时间
-  31: string source_product_name(go.tag='json:"source_product_name" gorm:"column:source_product_name"'); // 来源于合作企业产品名称
+  31: string source_product_name(go.tag='json:"source_product_name" gorm:"column:source_product_name"');
+ // 来源于合作企业产品名称
 }
 
 enum CourseType {
