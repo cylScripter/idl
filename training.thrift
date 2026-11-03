@@ -172,6 +172,11 @@ service trainingservice {
      api.post = '/training/EditClassroom'
      api.serializer = 'json'
    )
+   // 修改教室启用状态
+   UpdateClassroomStatusResp UpdateClassroomStatus(1:UpdateClassroomStatusReq req)(
+     api.post = '/training/UpdateClassroomStatus'
+     api.serializer = 'json'
+   )
    // ExportMajorPracticeTeaching
    ExportMajorPracticeTeachingResp ExportMajorPracticeTeaching(1:ExportMajorPracticeTeachingReq req)(
    api.post = '/training/ExportMajorPracticeTeaching'
@@ -851,6 +856,12 @@ struct ExportPracticeSummaryReq {
   2: string semester(go.tag='json:"semester" binding:"required"');
 }
 
+struct UpdateClassroomStatusReq {
+  1: i32 id(go.tag='json:"id" binding:"required,gt=0"');
+  2: i32 status(go.tag='json:"status" binding:"required,oneof=1 2"'); // 1 启用 2 停用
+}
+struct UpdateClassroomStatusResp {}
+
 struct EditClassroomResp {
 }
 struct EditClassroomReq {
@@ -1428,6 +1439,7 @@ struct ModelClassroom {
   19: string operating_system(go.tag='json:"operating_system" gorm:"column:operating_system"'); // 操作系统
   20: string purchase_date(go.tag='json:"purchase_date" gorm:"column:purchase_date"'); // 购买日期
   21: string statistics_date(go.tag='json:"statistics_date" gorm:"column:statistics_date"'); // 数据统计时间
+  22: i32 status = 1(go.tag='json:"status" gorm:"column:status;not null;default:1"'); // 1 启用 2 停用
 }
 
 // 教师( 教室 )排课任务表teacher_schedules
