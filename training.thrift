@@ -3,6 +3,12 @@ include "common/base.thrift"
 
 // 实训课服务
 service trainingservice {
+    // 更新学期实训日程配置
+    UpdateTrainingScheduleResp UpdateTrainingSchedule(1:UpdateTrainingScheduleReq req)(
+        api.post = '/training/UpdateTrainingSchedule'
+        api.serializer = 'json'
+    )
+
     // 导入实训课
     ImportTrainingCourseResp ImportTrainingCourse(1:ImportTrainingCourseReq req)(
         api.post = '/training/ImportTrainingCourse'
@@ -1100,6 +1106,16 @@ struct UpdateTrainingCourseTeacherReq {
 }
 
 struct UpdateTrainingCourseTeacherResp  {}
+
+struct UpdateTrainingScheduleReq {
+    1: string academic_year(go.tag='json:"academic_year" binding:"required"'); // 学年
+    2: string semester(go.tag='json:"semester" binding:"required"'); // 学期
+    3: string schedule(go.tag='json:"schedule" binding:"required"'); // 实训日程原文
+}
+
+struct UpdateTrainingScheduleResp {
+    1: string schedule(go.tag='json:"schedule"'); // 校验并保存后的日程文本
+}
 
 struct UpdateTrainingCourseReq {
     1: i32 training_course_id(go.tag='json:"training_course_id" binding:"required"');
