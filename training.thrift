@@ -1130,6 +1130,8 @@ struct UpdateTrainingCourseReq {
     17: string grade(go.tag='json:"grade" gorm:"column:grade"');  // 年级
     18: string main_teacher(go.tag='json:"main_teacher" gorm:"column:main_teacher"');  // 主带教师
     14: i32 course_type(go.tag='json:"course_type"'); // 课程类型
+    19: optional string project_type(go.tag='json:"project_type"'); // 项目类型，未传保留原值
+    20: optional string enterprise_type(go.tag='json:"enterprise_type"'); // 企业类型，未传保留原值
 }
 
 struct UpdateTrainingCourseResp {
@@ -1330,6 +1332,8 @@ struct ModelTrainingCourse {
   30: string class_time(go.tag='json:"class_time" gorm:"column:class_time"'); // 上课时间
   31: string source_product_name(go.tag='json:"source_product_name" gorm:"column:source_product_name"');
  // 来源于合作企业产品名称
+  32: string project_type(go.tag='json:"project_type" gorm:"column:project_type;size:64"'); // 项目类型
+  33: string enterprise_type(go.tag='json:"enterprise_type" gorm:"column:enterprise_type;size:64"'); // 企业类型
 }
 
 enum CourseType {
