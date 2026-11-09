@@ -95,6 +95,18 @@ service trainingservice {
         api.serializer = 'json'
    )
 
+   // 教研室主任上传本专业生产性实践教学典型案例
+   UploadTypicalCaseResp UploadTypicalCase(1:UploadTypicalCaseReq req)(
+       api.post = '/training/UploadTypicalCase'
+       api.serializer = 'json'
+   )
+
+   // 教务办按课表目录异步导出典型案例
+   ExportTypicalCaseResp ExportTypicalCase(1:ExportTypicalCaseReq req)(
+       api.post = '/training/ExportTypicalCase'
+       api.serializer = 'json'
+   )
+
    // 上传实践项目来源证明
    UploadTrainingCourseSourceResp UploadTrainingCourseSource(1:UploadTrainingCourseSourceReq req)(
        api.post = '/training/UploadTrainingCourseSource'
@@ -1071,6 +1083,24 @@ struct ExportTrainingCourseFileResp {
     1 :string task_key (go.tag='json:"task_key"');
 }
 
+struct UploadTypicalCaseReq {
+  1: string upload_id(go.tag='json:"upload_id" binding:"required"');
+  2: i32 training_course_id(go.tag='json:"training_course_id" binding:"required,gt=0"');
+}
+
+struct UploadTypicalCaseResp {
+  1: CourseFile file(go.tag='json:"file"');
+}
+
+struct ExportTypicalCaseReq {
+  1: string academic_year(go.tag='json:"academic_year" binding:"required"');
+  2: string semester(go.tag='json:"semester" binding:"required"');
+}
+
+struct ExportTypicalCaseResp {
+  1: string task_key(go.tag='json:"task_key"');
+}
+
 struct UploadTrainingCourseCaseReq {
   1: string upload_id(go.tag='json:"upload_id" binding:"required"');
   2: i32 training_course_id(go.tag='json:"training_course_id" binding:"required"');
@@ -1335,6 +1365,11 @@ struct ModelTrainingCourse {
  // 来源于合作企业产品名称
   32: string project_type(go.tag='json:"project_type" gorm:"column:project_type;size:64"'); // 项目类型
   33: string enterprise_type(go.tag='json:"enterprise_type" gorm:"column:enterprise_type;size:64"'); // 企业类型
+  34: string typical_case_file(go.tag='json:"typical_case_file" gorm:"column:typical_case_file;type:text"'); // 典型案例文件，CourseFile JSON
+  35: string typical_case_uploader(go.tag='json:"typical_case_uploader" gorm:"column:typical_case_uploader"');
+  36: string typical_case_uploader_name(go.tag='json:"typical_case_uploader_name" gorm:"column:typical_case_uploader_name"');
+  37: i64 typical_case_uploaded_at(go.tag='json:"typical_case_uploaded_at" gorm:"column:typical_case_uploaded_at"');
+
 }
 
 enum CourseType {
