@@ -1221,6 +1221,7 @@ struct GetTrainingCourseListResp {
 
 struct GetSelfTrainingCourseListReq {
   1: base.ListOption list_option(go.tag='json:"list_option" binding:"required"');
+  2: i32 role_type(go.tag='json:"role_type" binding:"omitempty,oneof=1 2"'); // 1 普通教师（默认），2 教研室主任
 }
 
 enum TrainingCourseListReqOption {
