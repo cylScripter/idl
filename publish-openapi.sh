@@ -40,7 +40,7 @@ for tool in git go kitex; do
   command -v "$tool" >/dev/null || fail "未安装 $tool"
 done
 [[ -f $idl_dir/$idl_name.thrift ]] || fail "IDL不存在：$idl_dir/$idl_name.thrift"
-namespace=$(awk '$1 == "namespace" && $2 == "go" { gsub(/\./, "/", $3); print $3; exit }' "$idl_dir/$idl_name.thrift")
+namespace=$(awk '$1 == "namespace" && $2 == "go" { gsub(/\r/, "", $3); gsub(/\./, "/", $3); print $3; exit }' "$idl_dir/$idl_name.thrift")
 [[ $namespace =~ ^[a-zA-Z0-9_]+(/[a-zA-Z0-9_]+)*$ ]] || fail 'IDL缺少有效的namespace go'
 [[ -d $template_dir ]] || fail "模板目录不存在：$template_dir"
 template_dir=$(cd "$template_dir" && pwd)

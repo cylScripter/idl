@@ -3,6 +3,20 @@ include "common/base.thrift"
 
 // 实训课服务
 service trainingservice {
+    // 外聘教师“说实践”资料提交及审核
+    SubmitPracticeTalkResp SubmitPracticeTalk(1:SubmitPracticeTalkReq req)(
+        api.post = '/training/SubmitPracticeTalk'
+        api.serializer = 'json'
+    )
+    GetPracticeTalkResp GetPracticeTalk(1:GetPracticeTalkReq req)(
+        api.post = '/training/GetPracticeTalk'
+        api.serializer = 'json'
+    )
+    ReviewPracticeTalkResp ReviewPracticeTalk(1:ReviewPracticeTalkReq req)(
+        api.post = '/training/ReviewPracticeTalk'
+        api.serializer = 'json'
+    )
+
     // 更新学期实训日程配置
     UpdateTrainingScheduleResp UpdateTrainingSchedule(1:UpdateTrainingScheduleReq req)(
         api.post = '/training/UpdateTrainingSchedule'
@@ -1369,6 +1383,7 @@ struct ModelTrainingCourse {
   35: string typical_case_uploader(go.tag='json:"typical_case_uploader" gorm:"column:typical_case_uploader"');
   36: string typical_case_uploader_name(go.tag='json:"typical_case_uploader_name" gorm:"column:typical_case_uploader_name"');
   37: i64 typical_case_uploaded_at(go.tag='json:"typical_case_uploaded_at" gorm:"column:typical_case_uploaded_at"');
+  38: list<ModelPracticeTalk> practice_talks(go.tag='json:"practice_talks" gorm:"-"'); // GetSelfTrainingCourseList返回的说实践资料
 
 }
 
@@ -1692,4 +1707,52 @@ struct ModelMajorCourseConfig {
     4: i32 deleted_at(go.tag='gorm:"column:deleted_at" json:"deleted_at"');
     5: string project_name(go.tag='json:"project_name" gorm:"column:project_name"');
     6: string project_number(go.tag='json:"project_number" gorm:"column:project_number"');
+}
+
+// 同一学校、课程、上传人保留一条当前“说实践”记录，重提递增版本。
+struct ModelPracticeTalk {
+  1: i32 id(go.tag='json:"id" gorm:"column:id"');
+  2: i32 created_at(go.tag='json:"created_at" gorm:"column:created_at;not null"');
+  3: i32 updated_at(go.tag='json:"updated_at" gorm:"column:updated_at;not null"');
+  4: i32 deleted_at(go.tag='json:"deleted_at" gorm:"column:deleted_at;not null;default:0"');
+  5: i32 app_id(go.tag='json:"app_id" gorm:"column:app_id;not null;uniqueIndex:uk_talk_owner,priority:1"');
+  6: i32 training_course_id(go.tag='json:"training_course_id" gorm:"column:training_course_id;not null;uniqueIndex:uk_talk_owner,priority:2"');
+  // 7至13原为课程信息快照，已移除，字段编号保留。
+  14: string title(go.tag='json:"title" gorm:"column:title;size:255"');
+  15: string files(go.tag='json:"files" gorm:"column:files;type:longtext"'); // CourseFile数组JSON
+  16: string uploader(go.tag='json:"uploader" gorm:"column:uploader;size:128;not null;uniqueIndex:uk_talk_owner,priority:3"');
+  17: string uploader_name(go.tag='json:"uploader_name" gorm:"column:uploader_name"');
+  18: i64 uploaded_at(go.tag='json:"uploaded_at" gorm:"column:uploaded_at"');
+  19: i32 status(go.tag='json:"status" gorm:"column:status;default:0"'); // 0待审核，1通过，2不通过
+  20: i64 version(go.tag='json:"version" gorm:"column:version;default:1"');
+  21: string conclusion(go.tag='json:"conclusion" gorm:"column:conclusion;type:text"');
+  22: string reviewer(go.tag='json:"reviewer" gorm:"column:reviewer"');
+  23: string reviewer_name(go.tag='json:"reviewer_name" gorm:"column:reviewer_name"');
+  24: i64 reviewed_at(go.tag='json:"reviewed_at" gorm:"column:reviewed_at"');
+}
+
+struct SubmitPracticeTalkReq {
+  1: i32 training_course_id(go.tag='json:"training_course_id" binding:"required,gt=0"');
+  // 2至4原为主题、多文件和客户端版本号，字段编号保留。
+  5: string upload_id(go.tag='json:"upload_id" binding:"required"'); // 单个试讲资料文件
+}
+struct SubmitPracticeTalkResp {
+  1: ModelPracticeTalk talk(go.tag='json:"talk"');
+}
+
+struct GetPracticeTalkReq {
+  1: i32 id(go.tag='json:"id" binding:"required,gt=0"');
+}
+struct GetPracticeTalkResp {
+  1: ModelPracticeTalk talk(go.tag='json:"talk"');
+  2: list<CourseFile> files(go.tag='json:"files"');
+}
+struct ReviewPracticeTalkReq {
+  1: i32 id(go.tag='json:"id" binding:"required,gt=0"');
+  // 2原为客户端版本号，字段编号保留。
+  3: i32 result(go.tag='json:"result" binding:"required,oneof=1 2"'); // 1通过，2不通过
+  4: string conclusion(go.tag='json:"conclusion"'); // 可补充审核意见
+}
+struct ReviewPracticeTalkResp {
+  1: ModelPracticeTalk talk(go.tag='json:"talk"');
 }

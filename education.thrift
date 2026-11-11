@@ -999,7 +999,7 @@ struct UpdateWorkloadStatisticsReq{
     14: string not_class_time (go.tag='json:"not_class_time"'); // 非上班时间上课节次
     15: i32 student_number (go.tag='json:"student_number" '); // 学生总人数
     16: double number_factor (go.tag='json:"number_factor" '); // 人数系数
-    17: i32 week_hour (go.tag='json:"week_hour" '); // 每周学时
+    17: double week_hour (go.tag='json:"week_hour" '); // 每周学时
 
     //当月教学周数
     18: i32 theory_wn (go.tag='json:"theory_wn" '); // 理论课
@@ -1047,7 +1047,7 @@ struct CreateWorkloadStatisticsReq {
     14: string not_class_time (go.tag='json:"not_class_time"'); // 非上班时间上课节次
     15: i32 student_number (go.tag='json:"student_number" '); // 学生总人数
     16: double number_factor (go.tag='json:"number_factor" '); // 人数系数
-    17: i32 week_hour (go.tag='json:"week_hour" '); // 每周学时
+    17: double week_hour (go.tag='json:"week_hour" '); // 每周学时
 
     //当月教学周数
     18: i32 theory_wn (go.tag='json:"theory_wn" '); // 理论课
@@ -1103,7 +1103,7 @@ struct UpdateBeginExamWorkloadReq{
     6: string not_class_time (go.tag='json:"not_class_time" '); // 非上班时间上课节次
     7: i32 student_number (go.tag='json:"student_number"'); // 学生总人数
     8: double number_factor (go.tag='json:"number_factor"'); // 人数系数
-    9: i32 week_hour (go.tag='json:"week_hour" '); // 每周学时
+    9: double week_hour (go.tag='json:"week_hour" '); // 每周学时
 
 
     12: i32 review_week (go.tag='json:"review_week" '); // 复习周
@@ -1131,7 +1131,7 @@ struct UpdateInternshipWorkloadReq {
     4: string assessment_method (go.tag='json:"assessment_method"'); // 考核方式
     5: string sae_week (go.tag='json:"sae_week" '); // 教学起始周
     6: i32 student_number (go.tag='json:"student_number"'); // 学生总人数
-    7: i32 week_hour (go.tag='json:"week_hour" '); // 每周学时
+    7: double week_hour (go.tag='json:"week_hour" '); // 每周学时
 
     8: i32 training_wn (go.tag='json:"training_wn"'); // 实训课
     9: i32 internship_hours (go.tag='json:"internship_hours" '); // 实习课时
@@ -1160,7 +1160,7 @@ struct UpdateTrainingCourseWorkloadReq{
     4: string assessment_method (go.tag='json:"assessment_method"'); // 考核方式
     5: string sae_week (go.tag='json:"sae_week" '); // 教学起始周
     6: i32 student_number (go.tag='json:"student_number"'); // 学生总人数
-    7: i32 week_hour (go.tag='json:"week_hour" '); // 每周学时
+    7: double week_hour (go.tag='json:"week_hour" '); // 每周学时
 
     8: i32 training_wn (go.tag='json:"training_wn"'); // 实训课周数
     9: i32 training_course_hours(go.tag='json:"training_course_hours"'); // 实训课
@@ -1191,7 +1191,7 @@ struct UpdateTheoreticalCourseWorkloadReq {
     6: string not_class_time (go.tag='json:"not_class_time" '); // 非上班时间上课节次
     7: i32 student_number (go.tag='json:"student_number"'); // 学生总人数
     8: double number_factor (go.tag='json:"number_factor"'); // 人数系数
-    9: i32 week_hour (go.tag='json:"week_hour" '); // 每周学时
+    9: double week_hour (go.tag='json:"week_hour" '); // 每周学时
 
     10: i32 theory_wn (go.tag='json:"theory_wn"'); // 理论课
     11: double theory_course_hours (go.tag='json:"theory_course_hours"'); // 理论课学时
