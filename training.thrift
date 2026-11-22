@@ -121,6 +121,12 @@ service trainingservice {
        api.serializer = 'json'
    )
 
+   // 按学年学期异步导出全部实践试讲资料
+   ExportPracticeTalkResp ExportPracticeTalk(1:ExportPracticeTalkReq req)(
+       api.post = '/training/ExportPracticeTalk'
+       api.serializer = 'json'
+   )
+
    // 上传实践项目来源证明
    UploadTrainingCourseSourceResp UploadTrainingCourseSource(1:UploadTrainingCourseSourceReq req)(
        api.post = '/training/UploadTrainingCourseSource'
@@ -1112,6 +1118,15 @@ struct ExportTypicalCaseReq {
 }
 
 struct ExportTypicalCaseResp {
+  1: string task_key(go.tag='json:"task_key"');
+}
+
+struct ExportPracticeTalkReq {
+  1: string academic_year(go.tag='json:"academic_year" binding:"required"');
+  2: string semester(go.tag='json:"semester" binding:"required"');
+}
+
+struct ExportPracticeTalkResp {
   1: string task_key(go.tag='json:"task_key"');
 }
 
